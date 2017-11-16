@@ -24,10 +24,6 @@ public class TrainCompany implements java.io.Serializable {
 
   //FIXME define fields
 
-  void importFile(String filename) {
-    //FIXME implement function
-  }
-
   /*FIXME
    * add methods for
    *   registerPassenger, changePassengerName
