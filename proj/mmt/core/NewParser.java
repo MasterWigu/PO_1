@@ -13,8 +13,8 @@ public class NewParser {
 
   private TrainCompany _trainCompany;
 
-  public void parseFile(String fileName) throws ImportFileException {
-    // _trainCompany = criar TrainCompany
+  public TrainCompany parseFile(String fileName) throws ImportFileException {
+    _trainCompany = new TrainCompany();
 
     try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
       String line;
