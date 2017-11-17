@@ -27,7 +27,7 @@ import mmt.core.exceptions.NonUniquePassengerNameException;
 public class TicketOffice {
 
   /** The object doing most of the actual work. */
-  private TrainCompany _trainCompany = new TrainCompany();
+  private TrainCompany _trainCompany;
   //FIXME define other fields
 
   public void reset() {
