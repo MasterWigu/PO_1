@@ -16,14 +16,14 @@ import pt.tecnico.po.ui.Display;
  */
 public class DoShowServiceByNumber extends Command<TicketOffice> {
 
-  //FIXME define input fields
+  //private Input<Integer> _id;
 
   /**
    * @param receiver
    */
   public DoShowServiceByNumber(TicketOffice receiver) {
     super(Label.SHOW_SERVICE_BY_NUMBER, receiver);
-    //FIXME initialize input fields
+    //_id = .addIntegerInput("Qual é o id? ");
   }
 
   /** @see pt.tecnico.po.ui.Command#execute() */

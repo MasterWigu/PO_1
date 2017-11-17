@@ -4,7 +4,6 @@ import mmt.core.TicketOffice;
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.Display;
 
-//FIXME import other classes if necessary
 
 /**
  * 3.2.1 Show all services.
@@ -21,7 +20,8 @@ public class DoShowAllServices extends Command<TicketOffice> {
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() {
-    //FIXME implement command
+    _display.addLine(""+_receiver._service.size())  //_service sera um array que vai ser criado no TC
+    _display.display();
   }
 
 }
