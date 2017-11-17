@@ -37,10 +37,16 @@ public class TicketOffice {
 
   public void save(String filename) /*FIXME add thrown exceptions*/ {
     //FIXME implement this function
+    ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename));
+    out.writeObject(TrainCompany);
+    out.close();
   }
 
   public void load(String filename) throws FileNotFoundException, IOException, ClassNotFoundException {
     //FIXME implement this function
+    TrainCompany obj;
+    ObjectInputStream inob = new ObjectInputStream(new FileInputStream(filename));
+    obj = (TrainCompany)inob.readObject();
   }
 
   public void importFile(String datafile) throws ImportFileException {
