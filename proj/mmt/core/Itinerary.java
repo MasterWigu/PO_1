@@ -1,10 +1,9 @@
 package mmt.core;
 
+import mmt.*;
+import java.time.LocalDate;
 
-import mmt.core.Estacao;
-import java.*;
-
-public class Itinerario {
+public class Itinerary {
 	private double _custoTotal;
 	private int _numeroOrdem;
 	private LocalDate _date;
@@ -23,7 +22,7 @@ public class Itinerario {
 		return _date;
 	}
 
-	public Itinerario(LocalDate date, Estacao estacaoO, Estacao estacaoD) {
+	public Itinerary(LocalDate date, Estacao estacaoO, Estacao estacaoD) {
 		_date = date;
 		_estacaoO = estacaoO;
 		_estacaoD= estacaoD;

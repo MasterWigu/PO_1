@@ -1,6 +1,8 @@
 package mmt.core;
 
-import java.*;
+import mmt.*;
+import java.time.LocalTime;
+import java.time.LocalDate;
 
 public class Horario {
 	private LocalDate _date;

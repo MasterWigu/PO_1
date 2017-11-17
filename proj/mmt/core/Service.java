@@ -1,6 +1,6 @@
 package mmt.core;
 
-//imports
+import mmt.*;
 
 
 public class Service {

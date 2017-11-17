@@ -1,6 +1,6 @@
 package mmt.core;
 
-//imports
+import mmt.*;
 
 
 public class Passenger {
@@ -16,10 +16,11 @@ public class Passenger {
 	}
 
 	public int getGastos() {
-		soma=0;
+		int soma=0;
 		for(int i=0; i<10;i++){
 			soma +=_gastos[i];
 		}
+		return soma;
 	}
 
 	public String getNome() {
@@ -42,5 +43,6 @@ public class Passenger {
 		_nome = nome;
 		_id = id;
 		_gastos = new int[10];
+		_tipo = "Normal";
 	}
 }

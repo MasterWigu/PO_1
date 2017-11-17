@@ -1,6 +1,6 @@
 package mmt.core;
 
-import mmt.core.Estacao;
+import mmt.*;
 
 public class Segmento {
 	private Service _service;

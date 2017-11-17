@@ -27,8 +27,7 @@ import mmt.core.exceptions.NonUniquePassengerNameException;
 public class TicketOffice {
 
   /** The object doing most of the actual work. */
-  private TrainCompany _trainCompany;
-
+  private TrainCompany _trainCompany = new TrainCompany();
   //FIXME define other fields
 
   public void reset() {
@@ -38,7 +37,7 @@ public class TicketOffice {
   public void save(String filename) /*FIXME add thrown exceptions*/ {
     //FIXME implement this function
     ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename));
-    out.writeObject(TrainCompany);
+    out.writeObject(_trainCompany);
     out.close();
   }
 
@@ -54,13 +53,12 @@ public class TicketOffice {
   }
 
   //FIXME complete and implement the itinerary search (and pre-commit store) method
-  public /*FIXME choose return type */Itinerario searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
-                                              String departureTime) /*FIXME define thrown exceptions */ {
+  public Itinerary searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate, String departureTime) { //FIXME define thrown exceptions 
     //FIXME implement method
   }
 
   //FIXME complete and implement the itinerary commit method
-  public /*FIXME choose return type */Itinerario commitItinerary(int passengerId, int itineraryNumber) /*FIXME define thrown exceptions */ {
+  public Itinerary commitItinerary(int passengerId, int itineraryNumber) { //FIXME define thrown exceptions 
     //FIXME implement method
   }
 

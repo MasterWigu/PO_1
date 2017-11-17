@@ -1,16 +1,18 @@
 package mmt.core;
 
-import mmt.core.Horario;
+import mmt.*;
+
+import java.time.LocalTime;
 
 public class Estacao {
 	private String _nome;
-	private Horario[] horario;
+	private LocalTime _time;
 
 	public String getEstacao() {
 		return _nome;
 	}
 
-	public Horario getHorario() {
-		return horario;
+	public LocalTime getTime() {
+		return _time;
 	}
 }

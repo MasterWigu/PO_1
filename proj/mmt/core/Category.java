@@ -1,6 +1,6 @@
 package mmt.core;
 
-//imports
+import mmt.*;
 
 
 public abstract class Category {
