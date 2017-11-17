@@ -23,7 +23,7 @@ public class DoShowServiceByNumber extends Command<TicketOffice> {
    */
   public DoShowServiceByNumber(TicketOffice receiver) {
     super(Label.SHOW_SERVICE_BY_NUMBER, receiver);
-    //_id = .addIntegerInput("Qual é o id? ");
+    //_id = .addIntegerInput("Qual é o id do Serviço? ");
   }
 
   /** @see pt.tecnico.po.ui.Command#execute() */
