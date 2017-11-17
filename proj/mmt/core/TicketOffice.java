@@ -35,14 +35,14 @@ public class TicketOffice {
   }
 
   public void save(String filename) /*FIXME add thrown exceptions*/ {
-    //FIXME implement this function
+ 
     ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename));
     out.writeObject(_trainCompany);
     out.close();
   }
 
   public void load(String filename) throws FileNotFoundException, IOException, ClassNotFoundException {
-    //FIXME implement this function
+   
     TrainCompany obj;
     ObjectInputStream inob = new ObjectInputStream(new FileInputStream(filename));
     obj = (TrainCompany)inob.readObject();
@@ -52,18 +52,41 @@ public class TicketOffice {
     _trainCompany.importFile(datafile);
   }
 
-  //FIXME complete and implement the itinerary search (and pre-commit store) method
+  
   public Itinerary searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate, String departureTime) { //FIXME define thrown exceptions 
     //FIXME implement method
   }
 
-  //FIXME complete and implement the itinerary commit method
+
   public Itinerary commitItinerary(int passengerId, int itineraryNumber) { //FIXME define thrown exceptions 
     //FIXME implement method
   }
 
   //FIXME add methods for passenger registration and passenger name update
+  public Passenger registerPassenger(){
+    _trainCompany.registerPassenger();
+  }
 
+  public Passenger updatePassenger(){
+
+  }
+
+  public String getServices() {
+    return
+  }
+
+  public String getServicesArriving(Station station) {
+    return
+  }
+
+
+  public String getServicesDeparting(Station station) {
+    return
+  }
+
+  public String getServices(int num) {
+    return
+  }
   //FIXME add other functions if necessary
 
 }
