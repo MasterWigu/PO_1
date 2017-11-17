@@ -74,7 +74,7 @@ public class NewParser {
     }
   }
 
-  private void parseItinerary(String[] components) {
+  private void parseItinerary(String[] components) throws ImportFileException {
     if (components.length < 4)
       throw new ImportFileException("Invalid number of elements in itinerary line: " + components.length);
 
