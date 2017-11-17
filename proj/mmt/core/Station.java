@@ -4,12 +4,12 @@ import mmt.*;
 
 import java.time.LocalTime;
 
-public class Estacao {
-	private String _nome;
+public class Station {
+	private String _name;
 	private LocalTime _time;
 
-	public String getEstacao() {
-		return _nome;
+	public String getStation() {
+		return _name;
 	}
 
 	public LocalTime getTime() {

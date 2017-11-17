@@ -7,6 +7,7 @@ public class Service {
 
 	private int _id;
 	private double _cost;
+	//private Station _station;
 
 
 	public int getId(){

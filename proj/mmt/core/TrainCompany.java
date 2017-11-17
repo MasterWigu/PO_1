@@ -78,6 +78,34 @@ public class TrainCompany implements java.io.Serializable {
     _itinMap.put(id, i);
     _itin.add(i);
   }
+
+  public Passenger getPassenger(int id) {
+    Passenger p = _passMap.get(id);
+  }
+
+  public Service getService(int id) {
+  	Service s = _servMap.get(id);
+  }
+
+  public Itinerary getItinerary(int id) {
+  	Itinerary i = _itinMap.get(id);
+  }
+
+  public int lengthPassengers() {
+    return _pass.size();
+  }
+
+  public int lengthServices() {
+    return _serv.size();
+  }
+
+  public int lengthItineraries() {
+    return _itin.size();
+  }
+
+  public void changePassengerName(int id, String newName) {
+
+  }
   /*FIXME
    * add methods for
    *   registerPassenger, changePassengerName

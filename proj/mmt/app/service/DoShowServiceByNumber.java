@@ -32,10 +32,10 @@ public class DoShowServiceByNumber extends Command<TicketOffice> {
     _display.parse();
 
     _display.add("-------- SERVICES --------");
-    ArrayList<Service> coll = new ArrayList<>(_receiver.getServices());
+    ArrayList<Service> coll = new ArrayList<>(_receiver.getServices(_id));
 
     for(Service s : coll) {
-      _display.addLine(s.show());
+      _display.addLine(s.);
     }
     _display.display();
   }

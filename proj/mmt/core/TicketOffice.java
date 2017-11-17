@@ -43,9 +43,9 @@ public class TicketOffice {
 
   public void load(String filename) throws FileNotFoundException, IOException, ClassNotFoundException {
    
-    TrainCompany obj;
+   // TrainCompany obj;
     ObjectInputStream inob = new ObjectInputStream(new FileInputStream(filename));
-    obj = (TrainCompany)inob.readObject();
+    _trainCompany = (TrainCompany)inob.readObject();
   }
 
   public void importFile(String datafile) throws ImportFileException {
@@ -62,30 +62,26 @@ public class TicketOffice {
     //FIXME implement method
   }
 
+
   //FIXME add methods for passenger registration and passenger name update
-  public Passenger registerPassenger(){
-    _trainCompany.registerPassenger();
+  public void registerPassenger(String name){
+    _trainCompany.registerPassenger(name);
   }
 
-  public Passenger updatePassenger(){
-
-  }
-
-  public String getServices() {
-    return
+  public void changePassengerName(int id, String newName){
+    _trainCompany.changePassengerName(id, newName);
   }
 
   public String getServicesArriving(Station station) {
-    return
+    return  _trainCompany.getServicesArriving(station);
   }
-
 
   public String getServicesDeparting(Station station) {
-    return
+    return  _trainCompany.getServicesDeparting(station);
   }
 
-  public String getServices(int num) {
-    return
+  public String getServices(int id) {
+    return _trainCompany.getServices(id);
   }
   //FIXME add other functions if necessary
 
