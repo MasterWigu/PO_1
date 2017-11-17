@@ -1,5 +1,5 @@
 package mmt.core;
 
-protected class Normal extends Category {
+public class Normal extends Category {
 	
 }

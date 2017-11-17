@@ -20,7 +20,7 @@ public class DoShowAllServices extends Command<TicketOffice> {
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() {
-    _display.addLine(""+_receiver._service.size())  //_service sera um array que vai ser criado no TC
+    _display.addLine(""+_receiver._service.size());  //_service sera um array que vai ser criado no TC
     _display.display();
   }
 

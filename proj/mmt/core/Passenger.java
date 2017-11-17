@@ -6,7 +6,7 @@ package mmt.core;
 public class Passenger {
 
 	private double _custoIndividual;
-	private int[10] _gastos;
+	private int[] _gastos;
 	private String _nome;
 	private int _id;
 	private String _tipo;
@@ -41,5 +41,6 @@ public class Passenger {
 	public Passenger(String nome, int id) {
 		_nome = nome;
 		_id = id;
+		_gastos = new int[10];
 	}
 }

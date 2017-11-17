@@ -1,5 +1,5 @@
 package mmt.core;
 
-protected class Frequente extends Category {
+public class Frequente extends Category {
 	
 }
