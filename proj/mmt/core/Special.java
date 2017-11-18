@@ -1,5 +1,3 @@
-/*package mmt.core;
+package mmt.core;
 
-public class Special extends Category {
-	
-}*/
+public class Special extends Category{}

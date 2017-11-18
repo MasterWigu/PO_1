@@ -1,4 +1,4 @@
-package mmt.core;
+/*package mmt.core;
 
 import mmt.*;
 
@@ -7,7 +7,7 @@ public class Service {
 
 	private int _id;
 	private double _cost;
-	//private Station _station;
+	//private Station[] _station;
 
 
 	public int getId(){
@@ -22,4 +22,4 @@ public class Service {
 		_id = id;
 		_cost = cost;
 	}
-}
+}*/

@@ -39,9 +39,8 @@ public class Passenger {
 		_nome = nome;
 	}
 
-	public Passenger(String nome, int id) {
+	public Passenger(String nome) {
 		_nome = nome;
-		_id = id;
 		_gastos = new int[10];
 		_tipo = "Normal";
 	}

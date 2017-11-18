@@ -31,7 +31,7 @@ public class TicketOffice {
   //FIXME define other fields
 
   public void reset() {
-    //FIXME implement this function
+    _trainCompany.reset();
   }
 
   public void save(String filename) /*FIXME add thrown exceptions*/ {

@@ -9,27 +9,30 @@ import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 
-//FIXME import other classes if necessary
+import mmt.*;
 
 /**
  * §3.3.3. Register passenger.
  */
 public class DoRegisterPassenger extends Command<TicketOffice> {
 
-  //FIXME define input fields
+  private Message _message;
+  private String _name;
 
   /**
    * @param receiver
    */
   public DoRegisterPassenger(TicketOffice receiver) {
     super(Label.REGISTER_PASSENGER, receiver);
-    //FIXME initialize input fields
+    _name =  _form.addStringInput(_message.requestPassengerName());
   }
 
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() throws DialogException {
-    //FIXME implement command
+    _form.parse();
+
+    _receiver.registerPassenger(_name.value());
   }
 
 }

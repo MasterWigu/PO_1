@@ -15,20 +15,30 @@ import pt.tecnico.po.ui.Display;
  */
 public class DoShowPassengerById extends Command<TicketOffice> {
 
-  //private Input<Integer> _id;
+  private Input<Integer> _id;
+  private Message _message;
 
   /**
    * @param receiver
    */
   public DoShowPassengerById(TicketOffice receiver) {
     super(Label.SHOW_PASSENGER_BY_ID, receiver);
-    //_id = .addIntegerInput("Qual é o id do Passageiro? ");
+    _id = _form.addIntegerInput(_message.requestPassengerId());
   }
 
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() throws DialogException {
-    //FIXME implement command
+    _form.parse();
+
+    _display.add("-------- PASSENGERS by ID --------");
+    
+    for(Passenger p : _receiver.getPassengerById(_id.value())) {
+      _display.addLine("" + _receiver.showPassenger());
+    
+    }
+
+   _display.display();
   }
 
 }

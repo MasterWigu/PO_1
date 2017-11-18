@@ -11,6 +11,9 @@ import mmt.core.exceptions.NoSuchStationNameException;
 import mmt.core.exceptions.NoSuchItineraryChoiceException;
 import mmt.core.exceptions.NonUniquePassengerNameException;
 
+import mmt.*;
+import java.util.*;
+
 //FIXME import other classes if necessary
 
 /**
@@ -25,7 +28,6 @@ public class TrainCompany implements java.io.Serializable {
   private int _nextPassId;
   private int _nextServId;
   private int _nextItinId;
-  //FIXME define fields
 
   /**
    * The passengers held by the trainCompany indexed by unique identifier.
@@ -40,12 +42,14 @@ public class TrainCompany implements java.io.Serializable {
   /**
    * The services held by the trainCompany indexed by unique identifier.
    */
-  private Map<Integer, Service> _servMap = new TreeMap<Integer, Service>();
+
+  //private Map<Integer, Service> _servMap = new TreeMap<Integer, Service>();
   
   /**
    * The services held by the trainCompany ordered by insertion time.
    */
-  private List<Service> _serv = new ArrayList<Service>();
+
+  //private List<Service> _serv = new ArrayList<Service>();
 
   /**
    * The itineraries held by the trainCompany indexed by unique identifier.
@@ -56,7 +60,22 @@ public class TrainCompany implements java.io.Serializable {
    * The itineraries held by the trainCompany ordered by insertion time.
    */
   private List<Itinerary> _itin = new ArrayList<Itinerary>();
-  
+
+
+  private List<Station> _stat = new ArrayList<Station>();
+
+
+  public void reset() {
+    _passMap = new TreeMap<Integer, Passenger>();
+    _pass = new ArrayList<Passenger>();
+    _itinMap = new TreeMap<Integer, Itinerary>();
+    _itin = new ArrayList<Itinerary>();
+  }
+
+  public void changePassengerName(int id, String newName) {
+    Passenger p = _passMap.get(id);
+    p.setName(newName);
+  }
 
   public void registerPassenger(String name) {
   	int id = ++_nextPassId;
@@ -65,7 +84,7 @@ public class TrainCompany implements java.io.Serializable {
     _pass.add(p);
   }
 
-  public void registerService(String name) {
+  /*public void registerService(String name) {
   	int id = ++_nextServId;
   	Service s = new Service(name);
     _servMap.put(id, s);
@@ -78,6 +97,7 @@ public class TrainCompany implements java.io.Serializable {
     _itinMap.put(id, i);
     _itin.add(i);
   }
+*/
 
   public Passenger getPassengerById(int id) {
     Passenger p = _passMap.get(id);
@@ -87,13 +107,13 @@ public class TrainCompany implements java.io.Serializable {
     Passenger p = _passMap.get();
   }
 
-  public Service getServiceById(int id) {
+  /*public Service getServiceById(int id) {
   	Service s = _servMap.get(id);
   }
 
   public Service getService() {
     Service s = _servMap.get();
-  }
+  }*/
 
   public Itinerary getItineraryById(int id) {
   	Itinerary i = _itinMap.get(id);
@@ -103,28 +123,25 @@ public class TrainCompany implements java.io.Serializable {
     Itinerary i = _itinMap.get();
   }
 
+
+  /*public String showService() {
+    return "" + _id + "|" + 
+  } 
+*/
+
+  public String showPassenger() {
+    return "" + _id + "|" + _name + "|" + _tipo;
+  }
+
 /*
-  public int lengthPassengers() {
-    return _pass.size();
+  public Itinerary searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate, String departureTime) { //FIXME define thrown exceptions 
+
   }
 
-  public int lengthServices() {
-    return _serv.size();
-  }
+  public Itinerary commitItinerary(int passengerId, int itineraryNumber) { //FIXME define thrown exceptions 
 
-  public int lengthItineraries() {
-    return _itin.size();
   }
 */
-  public void changePassengerName(int id, String newName) {
-
-  }
-  /*FIXME
-   * add methods for
-   *   registerPassenger, changePassengerName
-   *   searchItineraries, commitItinerary
-   */
-
   //FIXME implement other functions if necessary
 
 }

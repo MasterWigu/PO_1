@@ -17,26 +17,28 @@ import pt.tecnico.po.ui.Display;
 public class DoShowServiceByNumber extends Command<TicketOffice> {
 
   private Input<Integer> _id;
+  private Message _message;
 
   /**
    * @param receiver
    */
   public DoShowServiceByNumber(TicketOffice receiver) {
     super(Label.SHOW_SERVICE_BY_NUMBER, receiver);
-    _id = _form.addIntegerInput("Qual é o id do Serviço? ");
+    _id = _form.addIntegerInput(_message.requestServiceId());
   }
 
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() throws DialogException {
-    _display.parse();
+    /*
+    _form.parse();
 
-    _display.add("-------- SERVICES --------");
-    ArrayList<Service> coll = new ArrayList<>(_receiver.getServices(_id));
-
-    for(Service s : coll) {
-      _display.addLine(s.);
+    _display.add("-------- SERVICES by ID --------");
+    
+    for(Service s : _receiver.getServiceById(_id.value())) {
+      _display.addLine("" + _receiver.showService());
     }
     _display.display();
+    */
   }
 }
