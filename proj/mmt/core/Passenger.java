@@ -7,7 +7,7 @@ public class Passenger {
 
 	private double _custoIndividual;
 	private int[] _gastos;
-	private String _nome;
+	private String _name;
 	private int _id;
 	private String _tipo;
 
@@ -23,8 +23,8 @@ public class Passenger {
 		return soma;
 	}
 
-	public String getNome() {
-		return _nome;
+	public String getName() {
+		return _name;
 	}
 
 	public int getId() {
@@ -35,13 +35,18 @@ public class Passenger {
 		return _tipo;
 	}
 
-	public void setNome(String nome) {
-		_nome = nome;
+	public void setName(String name) {
+		_name = name;
 	}
 
-	public Passenger(String nome) {
-		_nome = nome;
+	public Passenger(String name) {
+		_name = name;
 		_gastos = new int[10];
 		_tipo = "Normal";
 	}
+
+
+  public String showPassenger() {
+    return "" + _id + "|" + _name + "|" + _tipo;
+  }
 }

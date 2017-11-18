@@ -1,3 +1,3 @@
-package mmt.core;
+/*package mmt.core;
 
-public class Frequent extends Category{}
+public class Frequent extends Category{}*/

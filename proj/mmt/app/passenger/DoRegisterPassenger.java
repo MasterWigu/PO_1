@@ -17,7 +17,7 @@ import mmt.*;
 public class DoRegisterPassenger extends Command<TicketOffice> {
 
   private Message _message;
-  private String _name;
+  private Input<String> _name;
 
   /**
    * @param receiver

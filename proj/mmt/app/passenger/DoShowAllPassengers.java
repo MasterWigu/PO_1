@@ -5,6 +5,20 @@ import mmt.core.TicketOffice;
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.Display;
 
+import mmt.core.TrainCompany;
+import mmt.core.Passenger;
+
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+//import mmt.core.TrainCompany;
+
+
+
 
 //FIXME import other classes if necessary
 
@@ -23,12 +37,11 @@ public class DoShowAllPassengers extends Command<TicketOffice> {
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() {
-    _form.parser();
-
-    _display.add("-------- PASENGERS --------");
+    _form.parse();
     
-    for(Passenger p : _receiver.getPassenger())
-      _display.addLine(""+_receiver.showPassenger());
+    for(Passenger p : _receiver.getPassenger()){
+      _display.addLine(p.showPassenger());
+    }
 
 
     _display.display();

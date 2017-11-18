@@ -11,7 +11,7 @@ import mmt.core.exceptions.NoSuchStationNameException;
 import mmt.core.exceptions.NoSuchItineraryChoiceException;
 import mmt.core.exceptions.NonUniquePassengerNameException;
 
-import mmt.*;
+import mmt.core.Passenger;
 import java.util.*;
 
 //FIXME import other classes if necessary
@@ -29,6 +29,7 @@ public class TrainCompany implements java.io.Serializable {
   private int _nextServId;
   private int _nextItinId;
 
+
   /**
    * The passengers held by the trainCompany indexed by unique identifier.
    */
@@ -38,7 +39,7 @@ public class TrainCompany implements java.io.Serializable {
    * The passengers held by the trainCompany ordered by insertion time.
    */
   private List<Passenger> _pass = new ArrayList<Passenger>();
- 
+
   /**
    * The services held by the trainCompany indexed by unique identifier.
    */
@@ -101,10 +102,19 @@ public class TrainCompany implements java.io.Serializable {
 
   public Passenger getPassengerById(int id) {
     Passenger p = _passMap.get(id);
+    return p;
   }
 
-  public Passenger getPassenger() {
-    Passenger p = _passMap.get();
+  public Collection<Passenger> getPassenger() {
+    Iterator<Map.Entry<Integer, Passenger>> it = _passMap.entrySet().iterator();
+    while (it.hasNext()) {
+      Map.Entry<Integer, Passenger> entry = it.next();
+
+      Passenger p = entry.getValue();
+
+      _pass.add(p);
+    }
+    return Collections.unmodifiableCollection(_pass);
   }
 
   /*public Service getServiceById(int id) {
@@ -115,6 +125,7 @@ public class TrainCompany implements java.io.Serializable {
     Service s = _servMap.get();
   }*/
 
+/*
   public Itinerary getItineraryById(int id) {
   	Itinerary i = _itinMap.get(id);
   }
@@ -122,16 +133,7 @@ public class TrainCompany implements java.io.Serializable {
   public Itinerary getItinerary() {
     Itinerary i = _itinMap.get();
   }
-
-
-  /*public String showService() {
-    return "" + _id + "|" + 
-  } 
 */
-
-  public String showPassenger() {
-    return "" + _id + "|" + _name + "|" + _tipo;
-  }
 
 /*
   public Itinerary searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate, String departureTime) { //FIXME define thrown exceptions 

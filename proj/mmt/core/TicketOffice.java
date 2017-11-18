@@ -19,6 +19,9 @@ import mmt.core.exceptions.NoSuchStationNameException;
 import mmt.core.exceptions.NoSuchItineraryChoiceException;
 import mmt.core.exceptions.NonUniquePassengerNameException;
 
+import java.util.*;
+import mmt.core.Passenger;
+
 //FIXME import other classes if necessary
 
 /**
@@ -48,7 +51,7 @@ public class TicketOffice {
     _trainCompany = (TrainCompany)inob.readObject();
   }
 
-  public void importFile(String datafile) throws ImportFileException {
+  public void importFile(String datafile) /*throws ImportFileException*/ {
     _trainCompany.importFile(datafile);
   }
 
@@ -72,6 +75,7 @@ public class TicketOffice {
     _trainCompany.changePassengerName(id, newName);
   }
 
+/*
   public String getServicesArriving(Station station) {
     return  _trainCompany.getServicesArriving(station);
   }
@@ -83,6 +87,7 @@ public class TicketOffice {
   public String getServices(int id) {
     return _trainCompany.getServices(id);
   }
+  */
   //FIXME add other functions if necessary
 
 }

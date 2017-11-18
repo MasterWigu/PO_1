@@ -22,4 +22,11 @@ public class Service {
 		_id = id;
 		_cost = cost;
 	}
+
+
+ public String showService() {
+    return "" + _id + "|" + 
+  } 
+
+
 }*/

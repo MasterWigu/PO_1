@@ -8,6 +8,11 @@ import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 import pt.tecnico.po.ui.Display;
 
+import mmt.*;
+
+import mmt.core.Passenger;
+import java.util.*;
+import mmt.core.TrainCompany;
 //FIXME import other classes if necessary
 
 /**
@@ -30,11 +35,9 @@ public class DoShowPassengerById extends Command<TicketOffice> {
   @Override
   public final void execute() throws DialogException {
     _form.parse();
-
-    _display.add("-------- PASSENGERS by ID --------");
     
     for(Passenger p : _receiver.getPassengerById(_id.value())) {
-      _display.addLine("" + _receiver.showPassenger());
+      _display.addLine(p.showPassenger());
     
     }
 

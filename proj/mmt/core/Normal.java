@@ -1,3 +1,3 @@
-package mmt.core;
+/*package mmt.core;
 
-public class Normal extends Category{}
+public class Normal extends Category{}*/
