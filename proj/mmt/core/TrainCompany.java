@@ -79,18 +79,31 @@ public class TrainCompany implements java.io.Serializable {
     _itin.add(i);
   }
 
-  public Passenger getPassenger(int id) {
+  public Passenger getPassengerById(int id) {
     Passenger p = _passMap.get(id);
   }
 
-  public Service getService(int id) {
+  public Passenger getPassenger() {
+    Passenger p = _passMap.get();
+  }
+
+  public Service getServiceById(int id) {
   	Service s = _servMap.get(id);
   }
 
-  public Itinerary getItinerary(int id) {
+  public Service getService() {
+    Service s = _servMap.get();
+  }
+
+  public Itinerary getItineraryById(int id) {
   	Itinerary i = _itinMap.get(id);
   }
 
+  public Itinerary getItinerary() {
+    Itinerary i = _itinMap.get();
+  }
+
+/*
   public int lengthPassengers() {
     return _pass.size();
   }
@@ -102,7 +115,7 @@ public class TrainCompany implements java.io.Serializable {
   public int lengthItineraries() {
     return _itin.size();
   }
-
+*/
   public void changePassengerName(int id, String newName) {
 
   }
