@@ -35,6 +35,7 @@ public class DoSave extends Command<TicketOffice> {
       _display.popup(Message.newSaveAs());
       _form.parse(); 
       name = _filename.value();
+      _receiver.setSaveFile(name);
     }
 
     try {
