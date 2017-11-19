@@ -25,6 +25,8 @@ public class DoReset extends Command<TicketOffice> {
   @Override
   public final void execute() {
     _receiver.reset();
+
+    _display.display();
   }
 
 }
