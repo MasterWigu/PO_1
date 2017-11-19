@@ -22,6 +22,6 @@ public class TrainStop implements java.io.Serializable{
 
 
 	public String showStop() {
-		return String.format("%2.0d", _time.getHour()) + ":" +String.format("%2.0d", _time.getMinute())+ " " + _station.getName();
+		return String.format("%H", _time.getHour()) + ":" +String.format("%M", _time.getMinute())+ " " + _station.getName();
 	}
 }
