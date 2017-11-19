@@ -30,7 +30,7 @@ import mmt.core.Passenger;
 public class TicketOffice {
 
   /** The object doing most of the actual work. */
-  private TrainCompany _trainCompany;
+  private TrainCompany _trainCompany=new TrainCompany();
   //FIXME define other fields
 
   public void reset() {
@@ -45,8 +45,6 @@ public class TicketOffice {
   }
 
   public void load(String filename) throws FileNotFoundException, IOException, ClassNotFoundException {
-   
-   // TrainCompany obj;
     ObjectInputStream inob = new ObjectInputStream(new FileInputStream(filename));
     _trainCompany = (TrainCompany)inob.readObject();
   }
