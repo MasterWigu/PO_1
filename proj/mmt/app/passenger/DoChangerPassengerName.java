@@ -10,7 +10,6 @@ import mmt.core.exceptions.NonUniquePassengerNameException;
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
-//FIXME import other classes if necessary
 
 /**
  * §3.3.4. Change passenger name.

@@ -9,7 +9,6 @@ import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 import pt.tecnico.po.ui.Display;
 
-//import java.util.List;
 
 /**
  * 3.2.3 Show services departing from station.

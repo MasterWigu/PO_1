@@ -11,10 +11,11 @@ import mmt.core.exceptions.NoSuchStationNameException;
 import mmt.core.exceptions.NoSuchItineraryChoiceException;
 import mmt.core.exceptions.NonUniquePassengerNameException;
 
-import mmt.core.Passenger;
-import java.util.*;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.List;
+import java.util.ArrayList;
 
-//FIXME import other classes if necessary
 
 /**
  * A train company has schedules (services) for its trains and passengers that

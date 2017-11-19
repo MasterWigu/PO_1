@@ -1,15 +1,10 @@
 package mmt.core;
 
-import mmt.*;
+import mmt.core.TrainStop;
 
 public class Segment implements java.io.Serializable{
-	//private Service _service;
 	private TrainStop _TrainStop1;
 	private TrainStop _TrainStop2;
-
-	/*public Service getService() {
-		return _service;
-	}*/
 
 	public TrainStop getTrainStop1() {
 		return _TrainStop1;

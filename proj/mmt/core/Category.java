@@ -1,8 +1,5 @@
 package mmt.core;
 
-import mmt.*;
-
-
 public abstract class Category implements java.io.Serializable{
 
 	private double _discount;

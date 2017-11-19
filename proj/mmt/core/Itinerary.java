@@ -1,30 +1,30 @@
 package mmt.core;
 
-import mmt.*;
+import mmt.core.Station;
 import java.time.LocalDate;
 
 public class Itinerary implements java.io.Serializable{
-	private double _custoTotal;
-	private int _numeroOrdem;
+	private double _totalCost;
+	private int _orderNumber;
 	private LocalDate _date;
-	private Estacao _estacaoO;
-	private Estacao _estacaoD;
+	private Station _stationO;
+	private Station _stationD;
 
-	public double getCustoTotal() {
-		return _custoTotal;
+	public double getTotalCost() {
+		return _totalCost;
 	}
 
-	public int getNumeroOrdem() {
-		return _numeroOrdem;
+	public int getOrderNumber() {
+		return _orderNumber;
 	}
 
 	public LocalDate getDate() {
 		return _date;
 	}
 
-	public Itinerary(LocalDate date, Estacao estacaoO, Estacao estacaoD) {
+	public Itinerary(LocalDate date, Station stationO, Station stationD) {
 		_date = date;
-		_estacaoO = estacaoO;
-		_estacaoD= estacaoD;
+		_stationO = stationO;
+		_stationD= stationD;
 	}
 }

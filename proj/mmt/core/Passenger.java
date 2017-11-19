@@ -1,6 +1,6 @@
 package mmt.core;
 
-import mmt.*;
+//import mmt.core.Itinerary;
 import java.util.List;
 import java.util.ArrayList;
 import java.time.LocalTime;

@@ -7,7 +7,6 @@ import pt.tecnico.po.ui.Input;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-//FIXME import other classes if necessary
 
 /**
  * §3.1.1. Open existing document.

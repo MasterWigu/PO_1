@@ -1,7 +1,9 @@
 package mmt.core;
 
-import mmt.*;
-import java.util.*;
+import mmt.core.Station;
+import mmt.core.TrainStop;
+import java.util.List;
+import java.util.ArrayList;
 import java.time.LocalTime;
 
 public class Service implements java.io.Serializable{

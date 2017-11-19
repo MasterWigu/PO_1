@@ -7,8 +7,6 @@ import mmt.core.TicketOffice;
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.Input;
 
-//FIXME import other classes if necessary
-
 /**
  * §3.1.1. Save to file under current name (if unnamed, query for name).
  */

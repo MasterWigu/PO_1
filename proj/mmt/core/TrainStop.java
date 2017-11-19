@@ -1,6 +1,6 @@
 package mmt.core;
 
-import mmt.*;
+import mmt.core.Station;
 import java.time.LocalTime;
 
 public class TrainStop implements java.io.Serializable{

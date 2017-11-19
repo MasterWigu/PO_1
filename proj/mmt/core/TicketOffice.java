@@ -19,10 +19,6 @@ import mmt.core.exceptions.NoSuchStationNameException;
 import mmt.core.exceptions.NoSuchItineraryChoiceException;
 import mmt.core.exceptions.NonUniquePassengerNameException;
 
-import java.util.*;
-import mmt.core.Passenger;
-
-//FIXME import other classes if necessary
 
 /**
  * Façade for handling persistence and other functions.
