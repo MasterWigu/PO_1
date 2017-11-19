@@ -15,14 +15,13 @@ import pt.tecnico.po.ui.Input;
 public class DoSave extends Command<TicketOffice> {
   
   private Input<String> _filename;
-  private Message _message;
 
   /**
    * @param receiver
    */
   public DoSave(TicketOffice receiver) {
     super(Label.SAVE, receiver);
-    _filename = _form.addStringInput(_message.newSaveAs());
+    _filename = _form.addStringInput(Message.newSaveAs());
   }
 
   /** @see pt.tecnico.po.ui.Command#execute() */

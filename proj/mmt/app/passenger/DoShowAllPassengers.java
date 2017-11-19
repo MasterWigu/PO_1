@@ -15,12 +15,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-//import mmt.core.TrainCompany;
 
-
-
-
-//FIXME import other classes if necessary
 
 /**
  * §3.3.1. Show all passengers.

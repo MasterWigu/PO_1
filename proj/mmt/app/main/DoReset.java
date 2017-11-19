@@ -10,15 +10,12 @@ import pt.tecnico.po.ui.Input;
  * §3.1.1. Reset the ticket office.
  */
 public class DoReset extends Command<TicketOffice> {
-  
-  //FIXME define input fields
 
   /**
    * @param receiver
    */
   public DoReset(TicketOffice receiver) {
     super(Label.RESET, receiver);
-    //FIXME initialize input fields
   }
 
   /** @see pt.tecnico.po.ui.Command#execute() */

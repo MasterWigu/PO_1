@@ -16,7 +16,6 @@ import mmt.*;
  */
 public class DoRegisterPassenger extends Command<TicketOffice> {
 
-  private Message _message;
   private Input<String> _name;
 
   /**
@@ -24,7 +23,7 @@ public class DoRegisterPassenger extends Command<TicketOffice> {
    */
   public DoRegisterPassenger(TicketOffice receiver) {
     super(Label.REGISTER_PASSENGER, receiver);
-    _name =  _form.addStringInput(_message.requestPassengerName());
+    _name =  _form.addStringInput(Message.requestPassengerName());
   }
 
   /** @see pt.tecnico.po.ui.Command#execute() */

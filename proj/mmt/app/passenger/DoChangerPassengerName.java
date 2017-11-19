@@ -19,15 +19,14 @@ public class DoChangerPassengerName extends Command<TicketOffice> {
 
   private Input<Integer> _id;
   private Input<String> _newName;
-  private Message _message;
 
   /**
    * @param receiver
    */
   public DoChangerPassengerName(TicketOffice receiver) {
     super(Label.CHANGE_PASSENGER_NAME, receiver);
-    _id = _form.addIntegerInput(_message.requestPassengerId());
-    _newName = _form.addStringInput(_message.requestPassengerName());
+    _id = _form.addIntegerInput(Message.requestPassengerId());
+    _newName = _form.addStringInput(Message.requestPassengerName());
   }
 
   /** @see pt.tecnico.po.ui.Command#execute() */

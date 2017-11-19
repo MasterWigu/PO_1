@@ -15,14 +15,13 @@ import java.io.IOException;
 public class DoOpen extends Command<TicketOffice> {
 
   private Input<String> _filename;
-  private Message _message;
 
   /**
    * @param receiver
    */
   public DoOpen(TicketOffice receiver) {
     super(Label.OPEN, receiver);
-    _filename = _form.addStringInput(_message.openFile());
+    _filename = _form.addStringInput(Message.openFile());
   }
 
   /** @see pt.tecnico.po.ui.Command#execute() */

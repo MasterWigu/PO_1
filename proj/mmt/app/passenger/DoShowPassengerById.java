@@ -10,10 +10,7 @@ import pt.tecnico.po.ui.Display;
 
 import mmt.*;
 
-//import mmt.core.Passenger;
 import java.util.*;
-//import mmt.core.TrainCompany;
-//FIXME import other classes if necessary
 
 /**
  * §3.3.2. Show specific passenger.
@@ -21,14 +18,13 @@ import java.util.*;
 public class DoShowPassengerById extends Command<TicketOffice> {
 
   private Input<Integer> _id;
-  private Message _message;
 
   /**
    * @param receiver
    */
   public DoShowPassengerById(TicketOffice receiver) {
     super(Label.SHOW_PASSENGER_BY_ID, receiver);
-    _id = _form.addIntegerInput(_message.requestPassengerId());
+    _id = _form.addIntegerInput(Message.requestPassengerId());
   }
 
   /** @see pt.tecnico.po.ui.Command#execute() */
