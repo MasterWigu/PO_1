@@ -30,7 +30,7 @@ public class DoSave extends Command<TicketOffice> {
   public final void execute() {
     _form.parse();
     while (_filename.value() == "") {
-      _display.popup(Message.newSaveAs())
+      _display.popup(Message.newSaveAs());
       _form.parse();
     }
 
