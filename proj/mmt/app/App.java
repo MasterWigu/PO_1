@@ -8,6 +8,7 @@ import mmt.core.exceptions.ImportFileException;
 import mmt.app.main.MainMenu;
 import pt.tecnico.po.ui.Menu;
 
+import java.util.Locale;
 /**
  * Main driver for the travel management application.
  */
