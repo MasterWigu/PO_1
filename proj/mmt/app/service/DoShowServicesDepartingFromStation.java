@@ -32,10 +32,9 @@ public class DoShowServicesDepartingFromStation extends Command<TicketOffice> {
   @Override
   public final void execute() throws DialogException {
     _form.parse();
-    
+
     try {
-      Collecion<Service> servList =  _receiver.getServicesDeparting(_stationName.value());
-      for (Service s : servList) {
+      for (Service s :  _receiver.getServicesDeparting(_stationName.value())) {
         _display.addLine(""+s.showService());
       }
     } catch (NoSuchStationNameException nssn) {

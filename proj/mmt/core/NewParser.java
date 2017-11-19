@@ -55,7 +55,7 @@ public class NewParser {
     }
   }
 
-  private void parsePassenger(String[] components) throws ImportFileException, NoSuchServiceIdException {
+  private void parsePassenger(String[] components) throws ImportFileException {
     if (components.length != 2)
       throw new ImportFileException("invalid number of arguments in passenger line: " + components.length);
 
@@ -64,7 +64,7 @@ public class NewParser {
     _trainCompany.registerPassenger(passengerName);
   }
 
-  private void parseService(String[] components) {
+  private void parseService(String[] components) throws NoSuchServiceIdException {
     double cost = Double.parseDouble(components[2]);
     int serviceId = Integer.parseInt(components[1]);
 
