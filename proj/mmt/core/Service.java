@@ -31,12 +31,12 @@ public class Service {
 	}
 
 	public Station getDeparture() {
-		return _stops.get(0);
+		return _stops.get(0).getStation();
 	}
 
 	public Station getArrival() {
-		int last = _stop.length() - 1; //test dis
-		return _stops.get(last);
+		int last = _stops.length() - 1; //test dis
+		return _stops.get(last).getStation;
 	}
 
 

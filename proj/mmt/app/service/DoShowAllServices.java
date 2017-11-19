@@ -1,6 +1,7 @@
 package mmt.app.service;
 
 import mmt.core.TicketOffice;
+import mmt.core.Service;
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.Display;
 
