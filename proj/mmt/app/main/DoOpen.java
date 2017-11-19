@@ -32,10 +32,9 @@ public class DoOpen extends Command<TicketOffice> {
     String name = _receiver.getSaveFile();
 
 
-    while (name.length() == 0) {
+    if (name.length() == 0) {
       _form.parse(); 
       name = _filename.value();
-      _receiver.setSaveFile(name);
     }
 
     try {
