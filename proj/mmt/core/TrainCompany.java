@@ -26,7 +26,6 @@ public class TrainCompany implements java.io.Serializable {
   private static final long serialVersionUID = 201708301010L;
 
   private int _nextPassId;
-  private int _nextServId;
   private int _nextItinId;
 
 
@@ -66,7 +65,7 @@ public class TrainCompany implements java.io.Serializable {
   /**
    * The station held by the trainCompany indexed by unique identifier.
    */
-  private Map<String, Itinerary> _statMap = new TreeMap<String, Itinerary>();
+  private Map<String, Station> _statMap = new TreeMap<String, Station>();
 
 
   public void reset() {
@@ -89,7 +88,6 @@ public class TrainCompany implements java.io.Serializable {
   }
 
   public void registerService(int id, double cost) {
-  	int id = ++_nextServId;
   	Service s = new Service(id, cost);
     _servMap.put(id, s);
     _serv.add(s);
@@ -127,7 +125,7 @@ public class TrainCompany implements java.io.Serializable {
   }
 
   public Service getService() {
-    Service s = _servMap.get(); //FIXME
+    //Service s = _servMap.get(); //FIXME
   }
 
 
