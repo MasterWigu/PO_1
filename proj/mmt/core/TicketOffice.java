@@ -52,7 +52,9 @@ public class TicketOffice {
   }
 
   public void importFile(String datafile) /*throws ImportFileException*/ {
-    _trainCompany.importFile(datafile);
+    
+
+    
   }
 
   

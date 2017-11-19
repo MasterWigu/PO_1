@@ -44,13 +44,13 @@ public class TrainCompany implements java.io.Serializable {
    * The services held by the trainCompany indexed by unique identifier.
    */
 
-  //private Map<Integer, Service> _servMap = new TreeMap<Integer, Service>();
+  private Map<Integer, Service> _servMap = new TreeMap<Integer, Service>();
   
   /**
    * The services held by the trainCompany ordered by insertion time.
    */
 
-  //private List<Service> _serv = new ArrayList<Service>();
+  private List<Service> _serv = new ArrayList<Service>();
 
   /**
    * The itineraries held by the trainCompany indexed by unique identifier.
@@ -60,10 +60,13 @@ public class TrainCompany implements java.io.Serializable {
   /**
    * The itineraries held by the trainCompany ordered by insertion time.
    */
+
   private List<Itinerary> _itin = new ArrayList<Itinerary>();
 
-
-  private List<Station> _stat = new ArrayList<Station>();
+  /**
+   * The station held by the trainCompany indexed by unique identifier.
+   */
+  private Map<String, Itinerary> _statMap = new TreeMap<String, Itinerary>();
 
 
   public void reset() {
@@ -85,13 +88,23 @@ public class TrainCompany implements java.io.Serializable {
     _pass.add(p);
   }
 
-  /*public void registerService(String name) {
+  public void registerService(int id, double cost) {
   	int id = ++_nextServId;
-  	Service s = new Service(name);
+  	Service s = new Service(id, cost);
     _servMap.put(id, s);
     _serv.add(s);
   }
 
+  public Station addStation(String name) {
+    //checks if the station already exists, if true, returns the station, else, creates the station and returns it
+    if (_statMap.containsKey(name))
+      return _statMap.get(name);
+    Station st = new Station(name);
+    _statMap.put(name, st);
+    return st;
+  }
+
+/*
   public void registerItinerary(String name) {
   	int id = ++_nextItinId;
   	Itinerary i = new Itinerary(name);
@@ -109,13 +122,14 @@ public class TrainCompany implements java.io.Serializable {
     return Collections.unmodifiableCollection(_pass);
   }
 
-  /*public Service getServiceById(int id) {
-  	Service s = _servMap.get(id);
+  public Service getServiceById(int id) {
+  	return _servMap.get(id);
   }
 
   public Service getService() {
-    Service s = _servMap.get();
-  }*/
+    Service s = _servMap.get(); //FIXME
+  }
+
 
 /*
   public Itinerary getItineraryById(int id) {
