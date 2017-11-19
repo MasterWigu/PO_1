@@ -1,4 +1,4 @@
-/*package mmt.core;
+package mmt.core;
 
 import mmt.*;
 
@@ -7,7 +7,7 @@ public class Service {
 
 	private int _id;
 	private double _cost;
-	//private Station[] _station;
+	private List<TrainStop> _stops = new ArrayList<TrainStop>();
 
 
 	public int getId(){
@@ -23,10 +23,19 @@ public class Service {
 		_cost = cost;
 	}
 
+	public TrainStop addStop(LocalTime ltime, Station station) {
+		TrainStop st = new TrainStop(ltime, station);
+		_stops.add(st);
+		return st;
+	}
 
- public String showService() {
-    return "" + _id + "|" + 
-  } 
 
-
-}*/
+ 	public String showService() {
+ 		String out = new String();
+ 		out = out + "Serviço #"+_id+" @ "+_cost+"\n";
+ 		for (TrainStop st : _stops) {
+ 			out += (st.showStop() + "\n");
+ 		}
+ 		return out;
+ 	}
+}

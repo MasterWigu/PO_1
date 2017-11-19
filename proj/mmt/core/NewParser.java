@@ -56,20 +56,26 @@ public class NewParser {
 
     String passengerName = components[1];
 
-    // criar o passageiro registá-lo na TrainCompany
+    _trainCompany.registerPassenger(passengerName);
   }
 
   private void parseService(String[] components) {
     double cost = Double.parseDouble(components[2]);
     int serviceId = Integer.parseInt(components[1]);
 
-    // criar o serviço com o id e custo e associar ao TrainCompany
-    
+    _trainCompany.registerService(serviceId, cost);
+    Service serv = _trainCompany.getServiceById(serviceId);
+    Station stat;
+    TrainStop stop;
+
     for (int i = 3; i < components.length; i += 2) {
       String time = components[i];
       String stationName = components[i + 1];
       LocalTime ltime = LocalTime.parse(time);
 
+      stat = _trainCompany.addStation(stationName);
+      stop = serv.addStop(ltime, stat);
+      stat.addStop(stop);
       // adicionar TrainStop com ltime e Station com o nome stationName
     }
   }

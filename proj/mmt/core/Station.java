@@ -6,9 +6,17 @@ import java.time.LocalTime;
 
 public class Station {
 	private String _name;
-	private LocalTime _time;
+	private List<TrainStop> _stops = new ArrayList<TrainStop>(); 
 
-	public String getStation() {
+	public Station(String name) {
+		_name = name;
+	}
+
+	public addStop(TrainStop stop) {
+		_stops.add(stop);
+	}
+
+	public String getName() {
 		return _name;
 	}
 
