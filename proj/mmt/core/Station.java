@@ -19,8 +19,4 @@ public class Station {
 	public String getName() {
 		return _name;
 	}
-
-	public LocalTime getTime() {
-		return _time;
-	}
 }

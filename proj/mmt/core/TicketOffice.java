@@ -37,7 +37,7 @@ public class TicketOffice {
     _trainCompany.reset();
   }
 
-  public void save(String filename) /*FIXME add thrown exceptions*/ {
+  public void save(String filename) throws FileNotFoundException, IOException/*FIXME add thrown exceptions*/ {
  
     ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename));
     out.writeObject(_trainCompany);
@@ -54,10 +54,10 @@ public class TicketOffice {
   public void importFile(String datafile) /*throws ImportFileException*/ {
     
 
-    
+
   }
 
-  
+  /*
   public Itinerary searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate, String departureTime) { //FIXME define thrown exceptions 
     //FIXME implement method
   }
@@ -67,7 +67,7 @@ public class TicketOffice {
     //FIXME implement method
   }
 
-
+*/
   //FIXME add methods for passenger registration and passenger name update
   public void registerPassenger(String name){
     _trainCompany.registerPassenger(name);
