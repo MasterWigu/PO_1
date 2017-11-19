@@ -38,7 +38,7 @@ public class DoChangerPassengerName extends Command<TicketOffice> {
       _receiver.changePassengerName(_id.value(), _newName.value());
     } catch (NoSuchPassengerIdException nspi) {
       //_display.popup(Message.noSuchPassengerId(nspi.getId()));
-      throw NoSuchPassengerException(nspi.getId());
+      throw new NoSuchPassengerException(nspi.getId());
     }
   }
 }

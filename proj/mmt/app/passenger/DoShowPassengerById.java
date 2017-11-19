@@ -39,9 +39,9 @@ public class DoShowPassengerById extends Command<TicketOffice> {
     try {
       _display.addLine(_receiver.getPassengerById(_id.value()).showPassenger());
     } catch (NoSuchPassengerIdException nspi) {
-      throw NoSuchPassengerException(nspi.getId());
+      throw new NoSuchPassengerException(nspi.getId());
     }
-    
+
 
    _display.display();
   }
