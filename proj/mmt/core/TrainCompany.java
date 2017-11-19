@@ -105,7 +105,7 @@ public class TrainCompany implements java.io.Serializable {
     return p;
   }
 
-  public Collection<Passenger> getPassenger() {
+  public Collection<Passenger> getPassengers() {
     return Collections.unmodifiableCollection(_pass);
   }
 

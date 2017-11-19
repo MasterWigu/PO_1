@@ -92,6 +92,10 @@ public class TicketOffice {
     return _trainCompany.getPassengers();
   }
 
+  public String getPassengersById(int id) {
+    return _trainCompany.getPassengersById(id);
+  }
+
   //FIXME add other functions if necessary
 
 }

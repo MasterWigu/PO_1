@@ -39,7 +39,7 @@ public class DoShowAllPassengers extends Command<TicketOffice> {
   public final void execute() {
     _form.parse();
     
-    for(Passenger p : _receiver.getPassenger()){
+    for(Passenger p : _receiver.getPassengers()){
       _display.addLine(p.showPassenger());
     }
 
