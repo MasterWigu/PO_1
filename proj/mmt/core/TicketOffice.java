@@ -82,7 +82,7 @@ public class TicketOffice {
   }
 */
   public Collection<Service> getServicesDeparting(String stationName) {
-    Station s = _trainCompany.getStation(stationName)
+    Station s = _trainCompany.getStation(stationName);
     return _trainCompany.getServicesDeparting(s);
   }
 
