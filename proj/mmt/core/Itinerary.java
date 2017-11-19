@@ -3,7 +3,7 @@ package mmt.core;
 import mmt.*;
 import java.time.LocalDate;
 
-public class Itinerary {
+public class Itinerary implements java.io.Serializable{
 	private double _custoTotal;
 	private int _numeroOrdem;
 	private LocalDate _date;

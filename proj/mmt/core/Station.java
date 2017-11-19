@@ -4,7 +4,7 @@ import mmt.*;
 import java.util.*;
 import java.time.LocalTime;
 
-public class Station {
+public class Station implements java.io.Serializable{
 	private String _name;
 	private List<TrainStop> _stops = new ArrayList<TrainStop>(); 
 

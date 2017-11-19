@@ -4,7 +4,7 @@ import mmt.*;
 import java.util.*;
 import java.time.LocalTime;
 
-public class Service {
+public class Service implements java.io.Serializable{
 
 	private int _id;
 	private double _cost;

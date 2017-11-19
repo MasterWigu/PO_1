@@ -3,7 +3,7 @@ package mmt.core;
 import mmt.*;
 
 
-public abstract class Category {
+public abstract class Category implements java.io.Serializable{
 
 	private double _discount;
 	private String _tipo;

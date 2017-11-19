@@ -3,7 +3,7 @@ package mmt.core;
 import mmt.*;
 
 
-public class Passenger {
+public class Passenger implements java.io.Serializable{
 
 	private double _custoIndividual;
 	private int[] _gastos;

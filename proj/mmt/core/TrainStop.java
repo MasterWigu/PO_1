@@ -3,7 +3,7 @@ package mmt.core;
 import mmt.*;
 import java.time.LocalTime;
 
-public class TrainStop {
+public class TrainStop implements java.io.Serializable{
 	private Station _station;
 	private LocalTime _time;
 

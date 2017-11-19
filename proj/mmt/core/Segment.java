@@ -2,7 +2,7 @@ package mmt.core;
 
 import mmt.*;
 
-public class Segment {
+public class Segment implements java.io.Serializable{
 	//private Service _service;
 	private TrainStop _TrainStop1;
 	private TrainStop _TrainStop2;
