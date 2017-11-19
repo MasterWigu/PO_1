@@ -45,7 +45,7 @@ public class Passenger implements java.io.Serializable{
 		_id = id;
 
 		LocalTime max = LocalTime.parse("999999:59:59.999999999");
-		_lTime.MAX = max;
+		_lTime = new LocalTime().MAX = max;
 		_lTime = LocalTime.parse("00:00:00.0");
 	}
 
