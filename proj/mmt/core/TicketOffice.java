@@ -92,8 +92,8 @@ public class TicketOffice {
     return _trainCompany.getPassengers();
   }
 
-  public Passenger getPassengersById(int id) {
-    return _trainCompany.getPassengersById(id);
+  public Passenger getPassengerById(int id) {
+    return _trainCompany.getPassengerById(id);
   }
 
   //FIXME add other functions if necessary
