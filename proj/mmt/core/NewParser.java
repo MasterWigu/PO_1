@@ -8,6 +8,7 @@ import java.time.LocalTime;
 import java.time.LocalDate;
 
 import mmt.core.exceptions.ImportFileException;
+import mmt.core.exceptions.NoSuchServiceIdException;
 
 public class NewParser {
 
@@ -64,7 +65,9 @@ public class NewParser {
     int serviceId = Integer.parseInt(components[1]);
 
     _trainCompany.registerService(serviceId, cost);
-    Service serv = _trainCompany.getServiceById(serviceId);
+    try {
+      Service serv = _trainCompany.getServiceById(serviceId);
+    } catch (NoSuchServiceIdException nssi) //impossible to happen
     Station stat;
     TrainStop stop;
 

@@ -9,6 +9,7 @@ import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 import pt.tecnico.po.ui.Display;
 
+import java.util.List;
 //FIXME import other classes if necessary
 
 /**
@@ -18,7 +19,6 @@ public class DoShowServicesDepartingFromStation extends Command<TicketOffice> {
   private Input<String> _stationName;
   private Message _message;
 
-  //FIXME define input fields
 
   /**
    * @param receiver
@@ -26,7 +26,6 @@ public class DoShowServicesDepartingFromStation extends Command<TicketOffice> {
   public DoShowServicesDepartingFromStation(TicketOffice receiver) {
     super(Label.SHOW_SERVICES_DEPARTING_FROM_STATION, receiver);
     _stationName = _form.addStringInput(_message.requestStationName());
-    //FIXME initialize input fields
   }
 
   /** @see pt.tecnico.po.ui.Command#execute() */
