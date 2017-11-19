@@ -24,7 +24,7 @@ public class DoReset extends Command<TicketOffice> {
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() {
-    //FIXME implement command
+    _receiver.reset();
   }
 
 }
