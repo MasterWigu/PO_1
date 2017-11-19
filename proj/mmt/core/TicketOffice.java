@@ -88,11 +88,11 @@ public class TicketOffice {
     return _trainCompany.getServices(id);
   }
 */
-  public String getPassengers() {
+  public Collection<Passenger> getPassengers() {
     return _trainCompany.getPassengers();
   }
 
-  public String getPassengersById(int id) {
+  public Passenger getPassengersById(int id) {
     return _trainCompany.getPassengersById(id);
   }
 
