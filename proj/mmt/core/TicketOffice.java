@@ -80,15 +80,20 @@ public class TicketOffice {
   public String getServicesArriving(Station station) {
     return  _trainCompany.getServicesArriving(station);
   }
-
-  public String getServicesDeparting(Station station) {
-    return  _trainCompany.getServicesDeparting(station);
-  }
-
-  public String getServices(int id) {
-    return _trainCompany.getServices(id);
-  }
 */
+  public Collection<Service> getServicesDeparting(String stationName) {
+    Station s = _trainCompany.getStation(stationName)
+    return _trainCompany.getServicesDeparting(s);
+  }
+
+  public Service getServiceById(int id) {
+    return _trainCompany.getServiceById(id);
+  }
+
+  public Collection<Service> getServices() {
+    return _trainCompany.getServices();
+  }
+
   public Collection<Passenger> getPassengers() {
     return _trainCompany.getPassengers();
   }

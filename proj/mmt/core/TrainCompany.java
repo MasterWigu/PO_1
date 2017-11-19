@@ -112,8 +112,7 @@ public class TrainCompany implements java.io.Serializable {
 */
 
   public Passenger getPassengerById(int id) {
-    Passenger p = _passMap.get(id);
-    return p;
+    return _passMap.get(id);
   }
 
   public Collection<Passenger> getPassengers() {
@@ -123,13 +122,24 @@ public class TrainCompany implements java.io.Serializable {
   public Service getServiceById(int id) {
   	return _servMap.get(id);
   }
-/*
-  public Service getService() {
-    //Service s = _servMap.get(); //FIXME
-    return NULL; //HELP
-  }
-*/
 
+  public Collection<Service> getServices() {
+    return Collections.unmodifiableCollection(_serv);
+  }
+
+  public Collection<Service> getServicesDeparting(Station station) {
+    List<Service> out = new ArrayList<Service>();
+    for (Service s : _serv) {
+      if (s.getDeparture() == station) {
+        out.add(s);
+      }
+    }
+    return out;
+  }
+
+  public Station getStation(String name) {
+    return _statMap.get(name);
+  }
 /*
   public Itinerary getItineraryById(int id) {
   	Itinerary i = _itinMap.get(id);

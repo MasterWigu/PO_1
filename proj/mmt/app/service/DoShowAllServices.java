@@ -20,17 +20,14 @@ public class DoShowAllServices extends Command<TicketOffice> {
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() {
-    /*
-    _form.parse();
 
     _display.add("-------- SERVICES --------");
 
-    for(Service s : _receiver.getService())
-      _display.addLine(""+_receiver.showService());
+    for(Service s : _receiver.getServices())
+      _display.addLine(""+s.showService());
 
 
     _display.display();
-    */
   }
 
 }

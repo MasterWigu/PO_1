@@ -30,15 +30,11 @@ public class DoShowServiceByNumber extends Command<TicketOffice> {
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() throws DialogException {
-    /*
+
     _form.parse();
 
-    _display.add("-------- SERVICES by ID --------");
-    
-    for(Service s : _receiver.getServiceById(_id.value())) {
-      _display.addLine("" + _receiver.showService());
-    }
+    _display.addLine(""+getServiceById(_id).showService());
+
     _display.display();
-    */
   }
 }
