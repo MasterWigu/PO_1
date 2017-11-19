@@ -36,7 +36,7 @@ public class DoShowPassengerById extends Command<TicketOffice> {
   public final void execute() throws DialogException {
     _form.parse();
     
-    Passenger p = _receiver.getPassengerById(_id.value());
+    Passenger p : _receiver.getPassengerById(_id.value());
     _display.addLine(p.showPassenger());
 
    _display.display();

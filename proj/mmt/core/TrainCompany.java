@@ -126,6 +126,7 @@ public class TrainCompany implements java.io.Serializable {
 
   public Service getService() {
     //Service s = _servMap.get(); //FIXME
+    return NULL; //HELP
   }
 
 
