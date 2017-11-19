@@ -39,7 +39,6 @@ public class DoShowServicesDepartingFromStation extends Command<TicketOffice> {
     }
 
     _display.display();
-    //FIXME implement command
   }
 
 }

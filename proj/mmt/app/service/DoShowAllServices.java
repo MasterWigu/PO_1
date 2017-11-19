@@ -22,8 +22,6 @@ public class DoShowAllServices extends Command<TicketOffice> {
   @Override
   public final void execute() {
 
-    _display.add("-------- SERVICES --------");
-
     for(Service s : _receiver.getServices())
       _display.addLine(""+s.showService());
 
