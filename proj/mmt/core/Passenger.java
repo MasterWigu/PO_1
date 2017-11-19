@@ -50,6 +50,6 @@ public class Passenger implements java.io.Serializable{
 
 
   public String showPassenger() {
-    return "" + _id + "|" + _name + "|" + _type + "|" + _itin.size() + "|" + _totalCost + "|" + String.format("%H", _lTime.getHour()) + ":" + String.format("%M", _lTime.getMinute());
+    return "" + _id + "|" + _name + "|" + _type + "|" + _itin.size() + "|" + _totalCost + "|" + String.format("%H", _lTime) + ":" + String.format("%M", _lTime);
   }
 }
