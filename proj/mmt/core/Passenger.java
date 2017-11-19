@@ -46,11 +46,10 @@ public class Passenger implements java.io.Serializable{
 		_type = "NORMAL";
 		_id = id;
 		_lTime = LocalTime.parse("00:00:00.0");
-		_totalCost = 0;
 	}
 
 
   public String showPassenger() {
-    return "" + _id + "|" + _name + "|" + _type + "|" + _itin.size() + "|" + _totalCost + "|" + String.format("%02d", _lTime.getHour()) + ":" + String.format("%02d", _lTime.getMinute());
+    return "" + _id + "|" + _name + "|" + _type + "|" + _itin.size() + "|" + String.format("d", _totalCost) + "|" + String.format("%02d", _lTime.getHour()) + ":" + String.format("%02d", _lTime.getMinute());
   }
 }
