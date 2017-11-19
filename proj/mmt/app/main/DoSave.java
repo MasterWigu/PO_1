@@ -1,6 +1,7 @@
 package mmt.app.main;
 
 import java.io.IOException;
+import java.io.FileNotFoundException;
 
 import mmt.core.TicketOffice;
 import pt.tecnico.po.ui.Command;
