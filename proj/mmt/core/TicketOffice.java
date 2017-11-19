@@ -87,7 +87,11 @@ public class TicketOffice {
   public String getServices(int id) {
     return _trainCompany.getServices(id);
   }
-  */
+*/
+  public String getPassengers() {
+    return _trainCompany.getPassengers();
+  }
+
   //FIXME add other functions if necessary
 
 }

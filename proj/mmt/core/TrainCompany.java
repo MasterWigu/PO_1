@@ -106,14 +106,6 @@ public class TrainCompany implements java.io.Serializable {
   }
 
   public Collection<Passenger> getPassenger() {
-    Iterator<Map.Entry<Integer, Passenger>> it = _passMap.entrySet().iterator();
-    while (it.hasNext()) {
-      Map.Entry<Integer, Passenger> entry = it.next();
-
-      Passenger p = entry.getValue();
-
-      _pass.add(p);
-    }
     return Collections.unmodifiableCollection(_pass);
   }
 
