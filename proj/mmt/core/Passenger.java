@@ -46,6 +46,7 @@ public class Passenger implements java.io.Serializable{
 		_type = "NORMAL";
 		_id = id;
 		_lTime = LocalTime.parse("00:00:00.0");
+		_totalCost = 0;
 	}
 
 
