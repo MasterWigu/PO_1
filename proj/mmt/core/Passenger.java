@@ -8,6 +8,7 @@ import java.time.LocalTime;
 
 public class Passenger implements java.io.Serializable{
 
+	private int _totalCost;
 	private int[] _costs;
 	private String _name;
 	private int _id;
@@ -49,6 +50,6 @@ public class Passenger implements java.io.Serializable{
 
 
   public String showPassenger() {
-    return "" + _id + "|" + _name + "|" + _type + "|" + _itin.size() + "|" + _lTime;
+    return "" + _id + "|" + _name + "|" + _type + "|" + _itin.size() + "|" + _totalCost + "|" + _lTime;
   }
 }
