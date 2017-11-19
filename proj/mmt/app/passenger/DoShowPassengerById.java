@@ -10,9 +10,9 @@ import pt.tecnico.po.ui.Display;
 
 import mmt.*;
 
-import mmt.core.Passenger;
+//import mmt.core.Passenger;
 import java.util.*;
-import mmt.core.TrainCompany;
+//import mmt.core.TrainCompany;
 //FIXME import other classes if necessary
 
 /**

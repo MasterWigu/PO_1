@@ -1,26 +1,25 @@
 package mmt.core;
 
 import mmt.*;
+import java.util.List;
+import java.time.LocalTime;
 
 
 public class Passenger implements java.io.Serializable{
 
-	private double _custoIndividual;
-	private int[] _gastos;
+	private int[] _costs;
 	private String _name;
 	private int _id;
-	private String _tipo;
+	private String _type;
+	private LocalTime _lTime;
+ 	private List<Itinerary> _itin = new ArrayList<Itinerary>();
 
-	public double getCustoIndividual() {
-		return _custoIndividual;
-	}
-
-	public int getGastos() {
-		int soma=0;
+	public int getTotalCost() {
+		int sum=0;
 		for(int i=0; i<10;i++){
-			soma +=_gastos[i];
+			sum +=_costs[i];
 		}
-		return soma;
+		return sum;
 	}
 
 	public String getName() {
@@ -31,8 +30,8 @@ public class Passenger implements java.io.Serializable{
 		return _id;
 	}
 
-	public String getTipo() {
-		return _tipo;
+	public String getType() {
+		return _type;
 	}
 
 	public void setName(String name) {
@@ -41,13 +40,17 @@ public class Passenger implements java.io.Serializable{
 
 	public Passenger(String name, int id) {
 		_name = name;
-		_gastos = new int[10];
-		_tipo = "Normal";
+		_costs = new int[10];
+		_type = "NORMAL";
 		_id = id;
+
+		LocalTime max = LocalTime.parse("999999:59:59.999999999");
+		_lTime.MAX = max;
+		_lTime = LocalTime.parse("00:00:00.0");
 	}
 
 
   public String showPassenger() {
-    return "" + _id + "|" + _name + "|" + _tipo;
+    return "" + _id + "|" + _name + "|" + _type + "|" + _itin.size() + "|" + _lTime;
   }
 }
