@@ -52,7 +52,8 @@ public class TicketOffice {
   }
 
   public void importFile(String datafile) throws ImportFileException {
-    _trainCompany = NewParser.parseFile(datafile);
+    NewParser parse = new NewParser();
+    _trainCompany = parse.parseFile(datafile);
   }
 
   /*
