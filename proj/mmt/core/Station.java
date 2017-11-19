@@ -12,7 +12,7 @@ public class Station {
 		_name = name;
 	}
 
-	public addStop(TrainStop stop) {
+	public void addStop(TrainStop stop) {
 		_stops.add(stop);
 	}
 
