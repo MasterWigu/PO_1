@@ -54,6 +54,7 @@ public class TicketOffice {
     _trainCompany = parse.parseFile(datafile);
   }
 
+/*****************ITINERARIOS****************/
   /*
   public Itinerary searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate, String departureTime) { //FIXME define thrown exceptions 
     //FIXME implement method
@@ -63,33 +64,15 @@ public class TicketOffice {
   public Itinerary commitItinerary(int passengerId, int itineraryNumber) { //FIXME define thrown exceptions 
     //FIXME implement method
   }
-
 */
-  //FIXME add methods for passenger registration and passenger name update
+
+/*****************PASSAGEIROS****************/
   public void registerPassenger(String name){
     _trainCompany.registerPassenger(name);
   }
 
   public void changePassengerName(int id, String newName) throws NoSuchPassengerIdException {
     _trainCompany.changePassengerName(id, newName);
-  }
-
-/*
-  public String getServicesArriving(Station station) {
-    return  _trainCompany.getServicesArriving(station);
-  }
-*/
-  public Collection<Service> getServicesDeparting(String stationName) {
-    Station s = _trainCompany.getStation(stationName);
-    return _trainCompany.getServicesDeparting(s);
-  }
-
-  public Service getServiceById(int id) {
-    return _trainCompany.getServiceById(id);
-  }
-
-  public Collection<Service> getServices() {
-    return _trainCompany.getServices();
   }
 
   public Collection<Passenger> getPassengers() {
@@ -100,6 +83,23 @@ public class TicketOffice {
     return _trainCompany.getPassengerById(id);
   }
 
-  //FIXME add other functions if necessary
 
+/*****************SERVIÇOS****************/
+  public Collection<Service> getServices() {
+    return _trainCompany.getServices();
+  }
+
+  public Service getServiceById(int id) throws NoSuchServiceIdException {
+    return _trainCompany.getServiceById(id);
+  }
+
+  public Collection<Service> getServicesDeparting(String stationName) throws NoSuchStationNameException {
+    Station s = _trainCompany.getStation(stationName);
+    return _trainCompany.getServicesDeparting(s);
+  }
+/*
+  public String getServicesArriving(Station station) {
+    return  _trainCompany.getServicesArriving(station);
+  }
+*/
 }

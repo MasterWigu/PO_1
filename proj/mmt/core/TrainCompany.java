@@ -126,8 +126,12 @@ public class TrainCompany implements java.io.Serializable {
     return Collections.unmodifiableCollection(_pass);
   }
 
-  public Service getServiceById(int id) {
-  	return _servMap.get(id);
+  public Service getServiceById(int id) throws NoSuchServiceIdException {
+  	Service s = _servMap.get(id);
+    if (s == null) {
+      throw new NoSuchServiceIdException(id);
+    }
+    return s;
   }
 
   public Collection<Service> getServices() {
@@ -141,11 +145,15 @@ public class TrainCompany implements java.io.Serializable {
         out.add(s);
       }
     }
-    return out;
+    return Collections.unmodifiableCollection(out);
   }
 
-  public Station getStation(String name) {
-    return _statMap.get(name);
+  public Station getStation(String name) throws NoSuchStationNameException {
+    Station st = _statMap.get(name);
+    if (st == null) {
+      throw new NoSuchStationNameException(name);
+    }
+    return st;
   }
 /*
   public Itinerary getItineraryById(int id) {
