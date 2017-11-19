@@ -75,13 +75,8 @@ public class TrainCompany implements java.io.Serializable {
     _itin = new ArrayList<Itinerary>();
   }
 
-  public void changePassengerName(int id, String newName) throws NoSuchPassengerIdException {
-    Passenger p = _passMap.get(id);
-    if (p == null) {
-      throw new NoSuchPassengerIdException(id);
-    }
-    p.setName(newName);
-  }
+
+
 
   public void registerPassenger(String name) {
   	int id = _nextPassId++;
@@ -90,29 +85,13 @@ public class TrainCompany implements java.io.Serializable {
     _pass.add(p);
   }
 
-  public void registerService(int id, double cost) {
-  	Service s = new Service(id, cost);
-    _servMap.put(id, s);
-    _serv.add(s);
+  public void changePassengerName(int id, String newName) throws NoSuchPassengerIdException {
+    Passenger p = _passMap.get(id);
+    if (p == null) {
+      throw new NoSuchPassengerIdException(id);
+    }
+    p.setName(newName);
   }
-
-  public Station addStation(String name) {
-    //checks if the station already exists, if true, returns the station, else, creates the station and returns it
-    if (_statMap.containsKey(name))
-      return _statMap.get(name);
-    Station st = new Station(name);
-    _statMap.put(name, st);
-    return st;
-  }
-
-/*
-  public void registerItinerary(String name) {
-  	int id = ++_nextItinId;
-  	Itinerary i = new Itinerary(name);
-    _itinMap.put(id, i);
-    _itin.add(i);
-  }
-*/
 
   public Passenger getPassengerById(int id) throws NoSuchPassengerIdException {
     Passenger p = _passMap.get(id);
@@ -124,6 +103,15 @@ public class TrainCompany implements java.io.Serializable {
 
   public Collection<Passenger> getPassengers() {
     return Collections.unmodifiableCollection(_pass);
+  }
+
+
+
+
+  public void registerService(int id, double cost) {
+    Service s = new Service(id, cost);
+    _servMap.put(id, s);
+    _serv.add(s);
   }
 
   public Service getServiceById(int id) throws NoSuchServiceIdException {
@@ -148,6 +136,18 @@ public class TrainCompany implements java.io.Serializable {
     return Collections.unmodifiableCollection(out);
   }
 
+
+  
+
+  public Station addStation(String name) {
+    //checks if the station already exists, if true, returns the station, else, creates the station and returns it
+    if (_statMap.containsKey(name))
+      return _statMap.get(name);
+    Station st = new Station(name);
+    _statMap.put(name, st);
+    return st;
+  }
+
   public Station getStation(String name) throws NoSuchStationNameException {
     Station st = _statMap.get(name);
     if (st == null) {
@@ -155,7 +155,15 @@ public class TrainCompany implements java.io.Serializable {
     }
     return st;
   }
+
 /*
+  public void registerItinerary(String name) {
+    int id = ++_nextItinId;
+    Itinerary i = new Itinerary(name);
+    _itinMap.put(id, i);
+    _itin.add(i);
+  }
+
   public Itinerary getItineraryById(int id) {
   	Itinerary i = _itinMap.get(id);
   }
@@ -163,9 +171,7 @@ public class TrainCompany implements java.io.Serializable {
   public Itinerary getItinerary() {
     Itinerary i = _itinMap.get();
   }
-*/
 
-/*
   public Itinerary searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate, String departureTime) { //FIXME define thrown exceptions 
 
   }
@@ -174,6 +180,4 @@ public class TrainCompany implements java.io.Serializable {
 
   }
 */
-  //FIXME implement other functions if necessary
-
 }
