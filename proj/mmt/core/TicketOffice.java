@@ -31,6 +31,7 @@ public class TicketOffice {
 
   /** The object doing most of the actual work. */
   private TrainCompany _trainCompany=new TrainCompany();
+  private String _saveFile = "";
   //FIXME define other fields
 
   public void reset() {
@@ -52,6 +53,14 @@ public class TicketOffice {
   public void importFile(String datafile) throws ImportFileException {
     NewParser parse = new NewParser();
     _trainCompany = parse.parseFile(datafile);
+  }
+
+  public String getSaveFile() {
+    return _saveFile;
+  }
+
+  public void setSaveFile(String name) {
+    _saveFile = name;
   }
 
 /*****************ITINERARIOS****************/

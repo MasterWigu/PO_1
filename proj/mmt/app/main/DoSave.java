@@ -28,14 +28,17 @@ public class DoSave extends Command<TicketOffice> {
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() {
-    _form.parse();
-    while (_filename.value().length() == 1) {
+    String name = _receiver.getSaveFile();
+
+
+    while (name.length() == 0) {
       _display.popup(Message.newSaveAs());
-      _form.parse();
+      _form.parse(); 
+      name = _filename.value();
     }
 
     try {
-      _receiver.save(_filename.value());
+      _receiver.save(name);
     } catch (FileNotFoundException fnfe) {
       _display.popup(Message.fileNotFound());
     } catch (IOException e) {
