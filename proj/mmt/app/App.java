@@ -16,6 +16,7 @@ public class App {
    * @param args
    */
   public static void main(String[] args) {
+    Locale.setDefault(new Locale("en", "US"));
     TicketOffice office = new TicketOffice();
 
     String datafile = System.getProperty("import"); //$NON-NLS-1$
