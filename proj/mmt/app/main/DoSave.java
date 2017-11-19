@@ -22,7 +22,7 @@ public class DoSave extends Command<TicketOffice> {
    */
   public DoSave(TicketOffice receiver) {
     super(Label.SAVE, receiver);
-    _filename = _form.addStringInput(_message.newsaveAs());
+    _filename = _form.addStringInput(_message.newSaveAs());
   }
 
   /** @see pt.tecnico.po.ui.Command#execute() */
