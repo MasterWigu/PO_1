@@ -28,23 +28,16 @@ public class DoOpen extends Command<TicketOffice> {
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() {
-
-    String name = _receiver.getSaveFile();
-
-
-    if (name.length() == 0) {
-      _form.parse(); 
-      name = _filename.value();
-    }
-
+    _form.parse();
     try {
-    _receiver.load(name);
+    _receiver.load(_filename.value());
     } catch (FileNotFoundException fnfe) {
       _display.popup(Message.fileNotFound());
     } catch (ClassNotFoundException | IOException e) {
       // shouldn't happen in a controlled test setup
       e.printStackTrace();
     }
+    _receiver.setSaveFile(_filename.value());
   }
 
 }
