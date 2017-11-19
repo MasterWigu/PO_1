@@ -39,10 +39,11 @@ public class Passenger {
 		_name = name;
 	}
 
-	public Passenger(String name) {
+	public Passenger(String name, int id) {
 		_name = name;
 		_gastos = new int[10];
 		_tipo = "Normal";
+		_id = id;
 	}
 
 

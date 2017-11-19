@@ -82,7 +82,7 @@ public class TrainCompany implements java.io.Serializable {
 
   public void registerPassenger(String name) {
   	int id = ++_nextPassId;
-  	Passenger p = new Passenger(name);
+  	Passenger p = new Passenger(name, id);
     _passMap.put(id, p);
     _pass.add(p);
   }
