@@ -1,0 +1,19 @@
+*** tests/A-04-01.out	2017-11-07 10:42:16.000000000 +0000
+--- tests/A-04-01.outhyp	2017-11-19 18:46:22.098303815 +0000
+***************
+*** 6,12 ****
+  5 - Gestão de passageiros
+  6 - Gestão de itinerários
+  0 - Sair
+! Escolha uma opção: Ficheiro sem nome. Guardar ficheiro como: Menu principal
+  1 - Reiniciar
+  2 - Abrir
+  3 - Guardar
+--- 6,12 ----
+  5 - Gestão de passageiros
+  6 - Gestão de itinerários
+  0 - Sair
+! Escolha uma opção: Guardar ficheiro como: Menu principal
+  1 - Reiniciar
+  2 - Abrir
+  3 - Guardar
