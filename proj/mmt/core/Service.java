@@ -35,8 +35,8 @@ public class Service {
 	}
 
 	public Station getArrival() {
-		int last = _stops.length() - 1; //test dis
-		return _stops.get(last).getStation;
+		int last = _stops.size() - 1; //test dis
+		return _stops.get(last).getStation();
 	}
 
 
