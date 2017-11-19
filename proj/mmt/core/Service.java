@@ -42,7 +42,7 @@ public class Service implements java.io.Serializable{
 
  	public String showService() {
  		String out = new String();
- 		out = out + "Serviço #"+_id+" @ "+_cost+"\n";
+ 		out = out + "Serviço #"+_id+" @ " + String.format("%.2f", _cost) + "\n";
  		for (TrainStop st : _stops) {
  			out += (st.showStop() + "\n");
  		}
