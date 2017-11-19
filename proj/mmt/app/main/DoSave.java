@@ -29,6 +29,11 @@ public class DoSave extends Command<TicketOffice> {
   @Override
   public final void execute() {
     _form.parse();
+    while (_filename.value() == "") {
+      _display.popup(Message.newSaveAs())
+      _form.parse();
+    }
+
     try {
       _receiver.save(_filename.value());
     } catch (FileNotFoundException fnfe) {
