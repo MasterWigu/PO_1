@@ -51,10 +51,8 @@ public class TicketOffice {
     _trainCompany = (TrainCompany)inob.readObject();
   }
 
-  public void importFile(String datafile) /*throws ImportFileException*/ {
-    
-
-
+  public void importFile(String datafile) throws ImportFileException {
+    _trainCompany = NewParser.parseFile(datafile);
   }
 
   /*
