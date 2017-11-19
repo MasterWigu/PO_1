@@ -9,7 +9,6 @@ import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 
-import mmt.*;
 
 /**
  * §3.3.3. Register passenger.
