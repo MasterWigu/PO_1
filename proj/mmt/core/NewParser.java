@@ -39,7 +39,11 @@ public class NewParser {
         break;
 
       case "SERVICE":
-        parseService(components);
+        try {
+          parseService(components);
+        } catch (NoSuchServiceIdException nssi) {
+          //impossible to happen, ignored
+        }
         break;
 
       case "ITINERARY":
@@ -51,7 +55,7 @@ public class NewParser {
     }
   }
 
-  private void parsePassenger(String[] components) throws ImportFileException {
+  private void parsePassenger(String[] components) throws ImportFileException, NoSuchServiceIdException {
     if (components.length != 2)
       throw new ImportFileException("invalid number of arguments in passenger line: " + components.length);
 
@@ -65,10 +69,7 @@ public class NewParser {
     int serviceId = Integer.parseInt(components[1]);
 
     _trainCompany.registerService(serviceId, cost);
-    Service serv;
-    try {
-      serv = _trainCompany.getServiceById(serviceId);
-    } catch (NoSuchServiceIdException nssi) {} //impossible to happen
+    Service serv = _trainCompany.getServiceById(serviceId);
     Station stat;
     TrainStop stop;
 
