@@ -1,13 +1,13 @@
 package mmt.app.service;
 
 import mmt.core.TicketOffice;
+import mmt.core.Service;
 import mmt.core.exceptions.NoSuchStationNameException;
 import mmt.app.exceptions.NoSuchStationException;
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 import pt.tecnico.po.ui.Display;
-
 
 //FIXME import other classes if necessary
 
@@ -34,7 +34,7 @@ public class DoShowServicesDepartingFromStation extends Command<TicketOffice> {
   public final void execute() throws DialogException {
     _form.parse();
 
-    for (Service s : _receiver.getServicesDeparting()) {
+    for (Service s : _receiver.getServicesDeparting(_stationName.value())) {
       _display.addLine(""+s.showService());
     }
 

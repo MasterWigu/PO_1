@@ -1,6 +1,7 @@
 package mmt.app.service;
 
 import mmt.core.TicketOffice;
+import mmt.core.Service;
 import mmt.core.exceptions.NoSuchServiceIdException;
 import mmt.app.exceptions.NoSuchServiceException;
 import pt.tecnico.po.ui.Command;
@@ -33,7 +34,7 @@ public class DoShowServiceByNumber extends Command<TicketOffice> {
 
     _form.parse();
 
-    _display.addLine(""+getServiceById(_id).showService());
+    _display.addLine(""+_receiver.getServiceById(_id).showService());
 
     _display.display();
   }

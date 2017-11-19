@@ -30,6 +30,15 @@ public class Service {
 		return st;
 	}
 
+	public Station getDeparture() {
+		return _stops.get(0);
+	}
+
+	public Station getArrival() {
+		int last = _stop.length() - 1; //test dis
+		return _stops.get(last);
+	}
+
 
  	public String showService() {
  		String out = new String();
