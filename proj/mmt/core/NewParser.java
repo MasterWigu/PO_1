@@ -65,8 +65,9 @@ public class NewParser {
     int serviceId = Integer.parseInt(components[1]);
 
     _trainCompany.registerService(serviceId, cost);
+    Service serv;
     try {
-      Service serv = _trainCompany.getServiceById(serviceId);
+      serv = _trainCompany.getServiceById(serviceId);
     } catch (NoSuchServiceIdException nssi) {} //impossible to happen
     Station stat;
     TrainStop stop;

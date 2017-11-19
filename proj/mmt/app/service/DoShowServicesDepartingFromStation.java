@@ -33,8 +33,9 @@ public class DoShowServicesDepartingFromStation extends Command<TicketOffice> {
   public final void execute() throws DialogException {
     _form.parse();
 
+    List<Service> servList;
     try {
-      List<Service> servList =  _receiver.getServicesDeparting(_stationName.value());
+      servList =  _receiver.getServicesDeparting(_stationName.value());
     } catch (NoSuchStationNameException nssn) {
       throw new NoSuchStationException(nssn.getName());
     }
