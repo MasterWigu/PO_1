@@ -1,10 +1,9 @@
 package mmt.core;
 
-/*
+
 import java.util.List;
 import java.util.ArrayList;
 import java.time.LocalTime;
-*/
 
 public class Passenger implements java.io.Serializable{
 
