@@ -2,11 +2,12 @@
 package mmt.app.passenger;
 
 import mmt.core.TicketOffice;
+import mmt.core.Passenger;
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.Display;
 
 //import mmt.core.TrainCompany;
-//import mmt.core.Passenger;  ?????
+
 /*
 import java.util.Map;
 import java.util.TreeMap;
