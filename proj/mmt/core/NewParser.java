@@ -67,7 +67,7 @@ public class NewParser {
     _trainCompany.registerService(serviceId, cost);
     try {
       Service serv = _trainCompany.getServiceById(serviceId);
-    } catch (NoSuchServiceIdException nssi) //impossible to happen
+    } catch (NoSuchServiceIdException nssi) {} //impossible to happen
     Station stat;
     TrainStop stop;
 
