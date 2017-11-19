@@ -70,7 +70,7 @@ public class TicketOffice {
     _trainCompany.registerPassenger(name);
   }
 
-  public void changePassengerName(int id, String newName){
+  public void changePassengerName(int id, String newName) throws NoSuchPassengerIdException {
     _trainCompany.changePassengerName(id, newName);
   }
 
@@ -96,7 +96,7 @@ public class TicketOffice {
     return _trainCompany.getPassengers();
   }
 
-  public Passenger getPassengerById(int id) {
+  public Passenger getPassengerById(int id) throws NoSuchPassengerIdException {
     return _trainCompany.getPassengerById(id);
   }
 

@@ -10,7 +10,6 @@ import mmt.core.exceptions.NonUniquePassengerNameException;
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
-
 //FIXME import other classes if necessary
 
 /**
@@ -35,7 +34,11 @@ public class DoChangerPassengerName extends Command<TicketOffice> {
   @Override
   public final void execute() throws DialogException {
     _form.parse();
-
-    _receiver.changePassengerName(_id.value(), _newName.value());
+    try {
+      _receiver.changePassengerName(_id.value(), _newName.value());
+    } catch (NoSuchPassengerIdException nspi) {
+      //_display.popup(Message.noSuchPassengerId(nspi.getId()));
+      throw NoSuchPassengerException(nspi.getId());
+    }
   }
 }

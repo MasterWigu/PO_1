@@ -75,8 +75,11 @@ public class TrainCompany implements java.io.Serializable {
     _itin = new ArrayList<Itinerary>();
   }
 
-  public void changePassengerName(int id, String newName) {
+  public void changePassengerName(int id, String newName) throws NoSuchPassengerIdException {
     Passenger p = _passMap.get(id);
+    if (p == null) {
+      throw NoSuchPassengerIdException(id);
+    }
     p.setName(newName);
   }
 
@@ -111,8 +114,12 @@ public class TrainCompany implements java.io.Serializable {
   }
 */
 
-  public Passenger getPassengerById(int id) {
-    return _passMap.get(id);
+  public Passenger getPassengerById(int id) throws NoSuchPassengerIdException {
+    Passenger p = _passMap.get(id);
+    if (p==null) {
+      throw NoSuchPassengerIdException(id);
+    }
+    return p;
   }
 
   public Collection<Passenger> getPassengers() {
