@@ -123,12 +123,12 @@ public class TrainCompany implements java.io.Serializable {
   public Service getServiceById(int id) {
   	return _servMap.get(id);
   }
-
+/*
   public Service getService() {
     //Service s = _servMap.get(); //FIXME
     return NULL; //HELP
   }
-
+*/
 
 /*
   public Itinerary getItineraryById(int id) {
