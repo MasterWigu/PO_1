@@ -16,7 +16,7 @@ for x in tests/*.in; do
     fi
 done
 
-rm -f saved*
+#rm -f saved*
 
 echo "Done."
 

@@ -31,12 +31,17 @@ public class Service implements java.io.Serializable{
 		return st;
 	}
 
-	public Station getDeparture() {
+	public Station getDepartureStation() {
 		return _stops.get(0).getStation();
 	}
 
+	public TrainStop getDepartureStop() {
+		return _stops.get(0);
+	}
+	
+
 	public Station getArrival() {
-		int last = _stops.size() - 1; //test dis
+		int last = _stops.size() - 1;
 		return _stops.get(last).getStation();
 	}
 

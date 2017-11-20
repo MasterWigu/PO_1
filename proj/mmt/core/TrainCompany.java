@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-
+import java.util.Comparator;
 
 /**
  * A train company has schedules (services) for its trains and passengers that
@@ -174,28 +174,41 @@ public class TrainCompany implements java.io.Serializable {
   }
 
   /**
-  * Retorna uma collection com todos os serviços.
+  * Retorna uma collection com todos os serviços ordenados por id.
   *
   * @return Collection Collection com todos os serviços.
   */
   public Collection<Service> getServices() {
-    return Collections.unmodifiableCollection(_serv);
+    List<Service> servs = new ArrayList<Service>();
+    for (Integer id : _servMap.keySet()) {
+      servs.add(_servMap.get(id));
+    }
+    return Collections.unmodifiableCollection(servs);
   }
 
   /**
-  * Retorna uma collection com os serviços com uma dada estação.
+  * Retorna uma collection com os serviços com uma dada estação ordenados por hora de partida.
   *
   * @param station Estação do serviço desejado.
   *
   * @return Collection Collection com os serviços com a estação dada.
   */
   public Collection<Service> getServicesDeparting(Station station) {
+    Comparator<Service> comparator;
     List<Service> out = new ArrayList<Service>();
     for (Service s : _serv) {
-      if (s.getDeparture() == station) {
+      if (s.getDepartureStation() == station) {
         out.add(s);
       }
-    }
+    } //em out estao todos os servicos com partida na estacao
+    comparator = new Comparator<Service>() {
+      public int compare(Service s1, Service s2) {
+        return s1.getDepartureStop().getTime().compareTo(s2.getDepartureStop().getTime()); 
+      }
+    };
+
+    Collections.sort(out, comparator);
+
     return Collections.unmodifiableCollection(out);
   }
 
