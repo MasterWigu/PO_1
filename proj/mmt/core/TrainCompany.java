@@ -9,7 +9,6 @@ package mmt.core;
 * @version 1.0
 */
 
-
 import mmt.core.exceptions.BadDateSpecificationException;
 import mmt.core.exceptions.BadEntryException;
 import mmt.core.exceptions.BadTimeSpecificationException;
@@ -38,7 +37,10 @@ public class TrainCompany implements java.io.Serializable {
   /** Serial number for serialization. */
   private static final long serialVersionUID = 201708301010L;
 
+  /** Id de cada passageiro. */
   private int _nextPassId;
+
+  /** Id de cada itinerario. */
   private int _nextItinId;
 
 
@@ -81,6 +83,7 @@ public class TrainCompany implements java.io.Serializable {
   private Map<String, Station> _statMap = new TreeMap<String, Station>();
 
 
+  /** Apaga todos os passageiros e itinerarios registados. */
   public void reset() {
     _passMap = new TreeMap<Integer, Passenger>();
     _pass = new ArrayList<Passenger>();
@@ -88,9 +91,11 @@ public class TrainCompany implements java.io.Serializable {
     _itin = new ArrayList<Itinerary>();
   }
 
-
-
-
+  /**
+  * Permite registar um novo passageiro.
+  *
+  * @param name nome do passageiro.
+  */ 
   public void registerPassenger(String name) {
   	int id = _nextPassId++;
   	Passenger p = new Passenger(name, id);
@@ -98,6 +103,11 @@ public class TrainCompany implements java.io.Serializable {
     _pass.add(p);
   }
 
+  /**
+  * Permite alterar o nome de um passageiro.
+  *
+  * @param name nome do passageiro a alterar.
+  */ 
   public void changePassengerName(int id, String newName) throws NoSuchPassengerIdException {
     Passenger p = _passMap.get(id);
     if (p == null) {
@@ -106,6 +116,13 @@ public class TrainCompany implements java.io.Serializable {
     p.setName(newName);
   }
 
+  /**
+  * Retorna uma collection com os pasageiros com o id dado.
+  *
+  * @param id id do passageiro desejado.
+  *
+  * @return Collection Collection com os passageiros com o id dado.
+  */
   public Passenger getPassengerById(int id) throws NoSuchPassengerIdException {
     Passenger p = _passMap.get(id);
     if (p==null) {
@@ -114,19 +131,34 @@ public class TrainCompany implements java.io.Serializable {
     return p;
   }
 
+  /**
+  * Retorna uma collection com todos os passageiros.
+  *
+  * @return Collection Collection com todos os passageiros.
+  */
   public Collection<Passenger> getPassengers() {
     return Collections.unmodifiableCollection(_pass);
   }
 
-
-
-
+  /**
+  * Permite adicionar um serviço.
+  *
+  * @param id id do serviço.
+  * @param cost custo do serviço.
+  */
   public void registerService(int id, double cost) {
     Service s = new Service(id, cost);
     _servMap.put(id, s);
     _serv.add(s);
   }
 
+  /**
+  * Retorna uma collection com os serviços com o id dado.
+  *
+  * @param id id do serviço desejado.
+  *
+  * @return Collection Collection com os serviços com o id dado.
+  */ 
   public Service getServiceById(int id) throws NoSuchServiceIdException {
   	Service s = _servMap.get(id);
     if (s == null) {
@@ -135,10 +167,22 @@ public class TrainCompany implements java.io.Serializable {
     return s;
   }
 
+  /**
+  * Retorna uma collection com todos os serviços.
+  *
+  * @return Collection Collection com todos os serviços.
+  */
   public Collection<Service> getServices() {
     return Collections.unmodifiableCollection(_serv);
   }
 
+  /**
+  * Retorna uma collection com os serviços com uma dada estação.
+  *
+  * @param station Estação do serviço desejado.
+  *
+  * @return Collection Collection com os serviços com a estação dada.
+  */
   public Collection<Service> getServicesDeparting(Station station) {
     List<Service> out = new ArrayList<Service>();
     for (Service s : _serv) {
@@ -149,9 +193,11 @@ public class TrainCompany implements java.io.Serializable {
     return Collections.unmodifiableCollection(out);
   }
 
-
-  
-
+  /**
+  * Permite adicionar uma estação.
+  *
+  * @param name name da estação.
+  */
   public Station addStation(String name) {
     //checks if the station already exists, if true, returns the station, else, creates the station and returns it
     if (_statMap.containsKey(name))
@@ -161,6 +207,13 @@ public class TrainCompany implements java.io.Serializable {
     return st;
   }
 
+  /**
+  * Retorna uma certa estação.
+  *
+  * @param name nome da estação.
+  *
+  * @return st Estação retornada.
+  */
   public Station getStation(String name) throws NoSuchStationNameException {
     Station st = _statMap.get(name);
     if (st == null) {
@@ -168,29 +221,4 @@ public class TrainCompany implements java.io.Serializable {
     }
     return st;
   }
-
-/*
-  public void registerItinerary(String name) {
-    int id = ++_nextItinId;
-    Itinerary i = new Itinerary(name);
-    _itinMap.put(id, i);
-    _itin.add(i);
-  }
-
-  public Itinerary getItineraryById(int id) {
-  	Itinerary i = _itinMap.get(id);
-  }
-
-  public Itinerary getItinerary() {
-    Itinerary i = _itinMap.get();
-  }
-
-  public Itinerary searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate, String departureTime) { //FIXME define thrown exceptions 
-
-  }
-
-  public Itinerary commitItinerary(int passengerId, int itineraryNumber) { //FIXME define thrown exceptions 
-
-  }
-*/
 }

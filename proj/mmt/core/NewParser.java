@@ -81,7 +81,6 @@ public class NewParser {
       stat = _trainCompany.addStation(stationName);
       stop = serv.addStop(ltime, stat);
       stat.addStop(stop);
-      // adicionar TrainStop com ltime e Station com o nome stationName
     }
   }
 

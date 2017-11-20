@@ -9,7 +9,6 @@ package mmt.core;
 * @version 1.0
 */
 
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
@@ -97,52 +96,73 @@ public class TicketOffice {
     _saveFile = name;
   }
 
-/*****************ITINERARIOS****************/
-  /*
-  public Itinerary searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate, String departureTime) { //FIXME define thrown exceptions 
-    //FIXME implement method
-  }
-
-
-  public Itinerary commitItinerary(int passengerId, int itineraryNumber) { //FIXME define thrown exceptions 
-    //FIXME implement method
-  }
-*/
-
-/*****************PASSAGEIROS****************/
+  /**
+  * Permite registar um novo passageiro.
+  *
+  * @param name nome do passageiro.
+  */ 
   public void registerPassenger(String name){
     _trainCompany.registerPassenger(name);
   }
 
+  /**
+  * Permite alterar o nome de um passageiro.
+  *
+  * @param name nome do passageiro a alterar.
+  */ 
   public void changePassengerName(int id, String newName) throws NoSuchPassengerIdException {
     _trainCompany.changePassengerName(id, newName);
   }
 
+  /**
+  * Retorna uma collection com todos os passageiros.
+  *
+  * @return Collection Collection com todos os passageiros.
+  */ 
   public Collection<Passenger> getPassengers() {
     return _trainCompany.getPassengers();
   }
 
+  /**
+  * Retorna uma collection com os pasageiros com o id dado.
+  *
+  * @param id id do passageiro desejado.
+  *
+  * @return Collection Collection com os passageiros com o id dado.
+  */ 
   public Passenger getPassengerById(int id) throws NoSuchPassengerIdException {
     return _trainCompany.getPassengerById(id);
   }
 
-
-/*****************SERVIÇOS****************/
+  /**
+  * Retorna uma collection com todos os serviços.
+  *
+  * @return Collection Collection com todos os serviços.
+  */ 
   public Collection<Service> getServices() {
     return _trainCompany.getServices();
   }
 
+  /**
+  * Retorna uma collection com os serviços com o id dado.
+  *
+  * @param id id do serviço desejado.
+  *
+  * @return Collection Collection com os serviços com o id dado.
+  */ 
   public Service getServiceById(int id) throws NoSuchServiceIdException {
     return _trainCompany.getServiceById(id);
   }
 
+  /**
+  * Retorna uma collection com os serviços com uma dada estação.
+  *
+  * @param station Estação do serviço desejado.
+  *
+  * @return Collection Collection com os serviços com a estação dada.
+  */
   public Collection<Service> getServicesDeparting(String stationName) throws NoSuchStationNameException {
     Station s = _trainCompany.getStation(stationName);
     return _trainCompany.getServicesDeparting(s);
   }
-/*
-  public String getServicesArriving(Station station) {
-    return  _trainCompany.getServicesArriving(station);
-  }
-*/
 }

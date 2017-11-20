@@ -42,6 +42,5 @@ public class DoSave extends Command<TicketOffice> {
       // shouldn't happen in a controlled test setup
       e.printStackTrace();
     }
-    //FIXME implement command
   }
 }

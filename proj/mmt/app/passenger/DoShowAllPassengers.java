@@ -26,8 +26,7 @@ public class DoShowAllPassengers extends Command<TicketOffice> {
     for(Passenger p : _receiver.getPassengers()){
       _display.addLine(p.showPassenger());
     }
-
-
+    
     _display.display();
   }
 
