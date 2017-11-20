@@ -1,5 +1,15 @@
 package mmt.core;
 
+/**
+* Classe que controla o registo de passageiros, serviços e itinerarios.
+*
+* @author Henrique Fernandes 87662 
+* @author Miguel Oliveira    87689
+*
+* @version 1.0
+*/
+
+
 import mmt.core.exceptions.BadDateSpecificationException;
 import mmt.core.exceptions.BadEntryException;
 import mmt.core.exceptions.BadTimeSpecificationException;

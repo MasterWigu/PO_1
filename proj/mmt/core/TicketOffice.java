@@ -1,5 +1,15 @@
 package mmt.core;
 
+/**
+* Classe que controla a companhia de comboios.
+*
+* @author Henrique Fernandes 87662 
+* @author Miguel Oliveira    87689
+*
+* @version 1.0
+*/
+
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
@@ -28,13 +38,20 @@ public class TicketOffice {
 
   /** The object doing most of the actual work. */
   private TrainCompany _trainCompany=new TrainCompany();
-  private String _saveFile = "";
-  //FIXME define other fields
 
+  /** Nome que o ficheiro toma. */
+  private String _saveFile = "";
+
+  /** Apaga todos os passageiros e itinerarios registados. */
   public void reset() {
     _trainCompany.reset();
   }
 
+  /**
+  * Guarda o estado de todo o programa.
+  *
+  * @param filename nome do ficheiro.
+  */ 
   public void save(String filename) throws FileNotFoundException, IOException/*FIXME add thrown exceptions*/ {
  
     ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename));
@@ -42,20 +59,40 @@ public class TicketOffice {
     out.close();
   }
 
+  /**
+  * Permite recuperar o estado anterior de um programa a partir de serialização.
+  *
+  * @param filename nome do ficheiro.
+  */ 
   public void load(String filename) throws FileNotFoundException, IOException, ClassNotFoundException {
     ObjectInputStream inob = new ObjectInputStream(new FileInputStream(filename));
     _trainCompany = (TrainCompany)inob.readObject();
   }
 
+  /**
+  * Importa um ficheiro de dados de serviços, passageiros e itinerarios.
+  *
+  * @param filename nome do ficheiro.
+  */ 
   public void importFile(String datafile) throws ImportFileException {
     NewParser parse = new NewParser();
     _trainCompany = parse.parseFile(datafile);
   }
 
+  /**
+  * Retorna o nome do ficheiro de save utilizado.
+  *
+  * @return _saveFile nome do ficheiro de save.
+  */ 
   public String getSaveFile() {
     return _saveFile;
   }
 
+  /**
+  * Permite atribuir um nome ao ficheiro de save.
+  *
+  * @param name nome do ficheiro a atribuir.
+  */ 
   public void setSaveFile(String name) {
     _saveFile = name;
   }
