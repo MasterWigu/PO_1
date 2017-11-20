@@ -50,8 +50,10 @@ public class TicketOffice {
   * Guarda o estado de todo o programa.
   *
   * @param filename nome do ficheiro.
+  *
+  * @throws FileNotFoundException, IOException Ficheiro nao encontrado, Erro no output.
   */ 
-  public void save(String filename) throws FileNotFoundException, IOException/*FIXME add thrown exceptions*/ {
+  public void save(String filename) throws FileNotFoundException, IOException {
  
     ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename));
     out.writeObject(_trainCompany);
@@ -62,6 +64,8 @@ public class TicketOffice {
   * Permite recuperar o estado anterior de um programa a partir de serialização.
   *
   * @param filename nome do ficheiro.
+  *
+  * @throws FileNotFoundException, IOException, ClassNotFoundException Ficheiro nao encontrado, Erro no output, Classe não encontrada.
   */ 
   public void load(String filename) throws FileNotFoundException, IOException, ClassNotFoundException {
     ObjectInputStream inob = new ObjectInputStream(new FileInputStream(filename));
@@ -72,6 +76,8 @@ public class TicketOffice {
   * Importa um ficheiro de dados de serviços, passageiros e itinerarios.
   *
   * @param filename nome do ficheiro.
+  *
+  * @throws ImportFileException Ficheiro inválido para importar.
   */ 
   public void importFile(String datafile) throws ImportFileException {
     NewParser parse = new NewParser();
@@ -109,6 +115,8 @@ public class TicketOffice {
   * Permite alterar o nome de um passageiro.
   *
   * @param name nome do passageiro a alterar.
+  *
+  * @throws NoSuchPassengerIdException Id do passageiro inválido.
   */ 
   public void changePassengerName(int id, String newName) throws NoSuchPassengerIdException {
     _trainCompany.changePassengerName(id, newName);
@@ -129,6 +137,8 @@ public class TicketOffice {
   * @param id id do passageiro desejado.
   *
   * @return Collection Collection com os passageiros com o id dado.
+  *
+  * @throws NoSuchPassengerIdException Id do passageiro inválido.
   */ 
   public Passenger getPassengerById(int id) throws NoSuchPassengerIdException {
     return _trainCompany.getPassengerById(id);
@@ -149,6 +159,8 @@ public class TicketOffice {
   * @param id id do serviço desejado.
   *
   * @return Collection Collection com os serviços com o id dado.
+  *
+  * @throws NoSuchServiceIdException Id do serviço inválido.
   */ 
   public Service getServiceById(int id) throws NoSuchServiceIdException {
     return _trainCompany.getServiceById(id);
@@ -160,6 +172,8 @@ public class TicketOffice {
   * @param station Estação do serviço desejado.
   *
   * @return Collection Collection com os serviços com a estação dada.
+  *
+  * @throws NoSuchStationName Nome da estação inválida.
   */
   public Collection<Service> getServicesDeparting(String stationName) throws NoSuchStationNameException {
     Station s = _trainCompany.getStation(stationName);

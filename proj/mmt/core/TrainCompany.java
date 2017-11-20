@@ -107,6 +107,8 @@ public class TrainCompany implements java.io.Serializable {
   * Permite alterar o nome de um passageiro.
   *
   * @param name nome do passageiro a alterar.
+  *
+  * @throws NoSuchPassengerIdException Id do passageiro inválido.
   */ 
   public void changePassengerName(int id, String newName) throws NoSuchPassengerIdException {
     Passenger p = _passMap.get(id);
@@ -122,6 +124,8 @@ public class TrainCompany implements java.io.Serializable {
   * @param id id do passageiro desejado.
   *
   * @return Collection Collection com os passageiros com o id dado.
+  *
+  * @throws NoSuchPassengerIdException Id do passageiro inválido.
   */
   public Passenger getPassengerById(int id) throws NoSuchPassengerIdException {
     Passenger p = _passMap.get(id);
@@ -158,6 +162,8 @@ public class TrainCompany implements java.io.Serializable {
   * @param id id do serviço desejado.
   *
   * @return Collection Collection com os serviços com o id dado.
+  *
+  * @throws NoSuchServiceIdException Id do serviço inválido.
   */ 
   public Service getServiceById(int id) throws NoSuchServiceIdException {
   	Service s = _servMap.get(id);
@@ -213,6 +219,8 @@ public class TrainCompany implements java.io.Serializable {
   * @param name nome da estação.
   *
   * @return st Estação retornada.
+  *
+  * @throws NoSuchStationNameException Nome da estação inválida.
   */
   public Station getStation(String name) throws NoSuchStationNameException {
     Station st = _statMap.get(name);
