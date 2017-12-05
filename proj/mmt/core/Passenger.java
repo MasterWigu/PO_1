@@ -8,12 +8,12 @@ import java.time.LocalTime;
 public class Passenger implements java.io.Serializable{
 
 	private double _totalCost;
-	private int[] _costs;
+	private int[] _costs = new int[10];
 	private String _name;
 	private int _id;
-	private String _type;
 	private LocalTime _lTime;
  	private List<Itinerary> _itin = new ArrayList<Itinerary>();
+	private Category _category;
 
 	public int getTotalCost() {
 		int sum=0;
@@ -31,10 +31,6 @@ public class Passenger implements java.io.Serializable{
 		return _id;
 	}
 
-	public String getType() {
-		return _type;
-	}
-
 	public void setName(String name) {
 		_name = name;
 	}
@@ -42,13 +38,42 @@ public class Passenger implements java.io.Serializable{
 	public Passenger(String name, int id) {
 		_name = name;
 		_costs = new int[10];
-		_type = "NORMAL";
 		_id = id;
 		_lTime = LocalTime.parse("00:00:00.0");
+		Normal cat = new Normal();
+		this.setCategory(cat);
+	}
+
+	public void checkCategory() {
+		double sum = 0;
+		for (double i : _costs) {
+			sum+=i;
+		}
+		if (sum <= 250) {
+			Normal cat = new Normal();
+			this.setCategory(cat);
+		}
+		else if (sum <= 2500) {
+			Frequent cat = new Frequent();
+			this.setCategory(cat);
+		}
+		else {
+			Special cat = new Special();
+			this.setCategory(cat);
+		}
 	}
 
 
-  public String showPassenger() {
-    return "" + _id + "|" + _name + "|" + _type + "|" + _itin.size() + "|" + String.format("%.2f", _totalCost) + "|" + String.format("%02d", _lTime.getHour()) + ":" + String.format("%02d", _lTime.getMinute());
-  }
+    public void setCategory(Category category) {
+        _category = category;		
+    }
+
+    public double getDiscount() {
+        return _category.getDiscount();
+    }
+
+
+    public String showPassenger() {
+        return "" + _id + "|" + _name + "|" + _category.toString() + "|" + _itin.size() + "|" + String.format("%.2f", _totalCost) + "|" + String.format("%02d", _lTime.getHour()) + ":" + String.format("%02d", _lTime.getMinute());
+    }
 }

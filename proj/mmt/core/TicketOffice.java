@@ -167,7 +167,7 @@ public class TicketOffice {
   }
 
   /**
-  * Retorna uma collection com os serviços com uma dada estação.
+  * Retorna uma collection com os serviços com partida numa dada estação.
   *
   * @param station Estação do serviço desejado.
   *
@@ -178,5 +178,19 @@ public class TicketOffice {
   public Collection<Service> getServicesDeparting(String stationName) throws NoSuchStationNameException {
     Station s = _trainCompany.getStation(stationName);
     return _trainCompany.getServicesDeparting(s);
+  }
+
+    /**
+  * Retorna uma collection com os serviços com chegada a uma dada estação.
+  *
+  * @param station Estação do serviço desejado.
+  *
+  * @return Collection Collection com os serviços com a estação dada.
+  *
+  * @throws NoSuchStationName Nome da estação inválida.
+  */
+  public Collection<Service> getServicesArriving(String stationName) throws NoSuchStationNameException {
+    Station s = _trainCompany.getStation(stationName);
+    return _trainCompany.getServicesArriving(s);
   }
 }

@@ -1,6 +1,7 @@
 package mmt.app.service;
 
 import mmt.core.TicketOffice;
+import mmt.core.Service;
 import mmt.core.exceptions.NoSuchStationNameException;
 import mmt.app.exceptions.NoSuchStationException;
 import pt.tecnico.po.ui.Command;
@@ -15,21 +16,29 @@ import pt.tecnico.po.ui.Display;
  * 3.2.4 Show services arriving at station.
  */
 public class DoShowServicesArrivingAtStation extends Command<TicketOffice> {
-
-  //FIXME define input fields
+  private Input<String> _stationName;
 
   /**
    * @param receiver
    */
   public DoShowServicesArrivingAtStation(TicketOffice receiver) {
     super(Label.SHOW_SERVICES_ARRIVING_AT_STATION, receiver);
-    //FIXME initialize input fields
+    _stationName = _form.addStringInput(Message.requestStationName());
   }
 
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() throws DialogException {
-    //FIXME implement command
+    _form.parse();
+
+    try {
+      for (Service s :  _receiver.getServicesArriving(_stationName.value())) {
+        _display.addLine(""+s.showService());
+      }
+    } catch (NoSuchStationNameException nssn) {
+      throw new NoSuchStationException(nssn.getName());
+    }
+    _display.display();
   }
 
 }

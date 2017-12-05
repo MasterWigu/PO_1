@@ -1,13 +1,15 @@
 package mmt.core;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Itinerary implements java.io.Serializable{
 	private double _totalCost;
 	private int _orderNumber;
 	private LocalDate _date;
-	private Station _stationO;
-	private Station _stationD;
+	private Passenger _passenger;
+	private List<Segment> _segments = new ArrayList<Segment>();
 
 	public double getTotalCost() {
 		return _totalCost;
@@ -21,9 +23,17 @@ public class Itinerary implements java.io.Serializable{
 		return _date;
 	}
 
+	public Itinenary(LocalDate date, Passenger passenger) {
+		_date = date;
+		_passenger = passenger;
+	}
+
+	public void addSegment(Segment segment) {
+		_segments.add(segment);
+	}
+
 	public Itinerary(LocalDate date, Station stationO, Station stationD) {
 		_date = date;
-		_stationO = stationO;
-		_stationD= stationD;
+
 	}
 }

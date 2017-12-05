@@ -1,16 +1,13 @@
 package mmt.core;
 
-<<<<<<< Updated upstream
-public class Frequent extends Category{}*/
-=======
 public class Frequent extends Category {
 
+	public void doAction(Passenger passenger) {
+    System.out.println("Player is in start state");
+    passenger.setState(this);	
+  }	
 
-	protected int getCusto()
-
-
-
-
-	
+  public int getDiscount() {
+  	return 0.2;
+  }
 }
->>>>>>> Stashed changes

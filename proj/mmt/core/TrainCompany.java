@@ -212,6 +212,34 @@ public class TrainCompany implements java.io.Serializable {
     return Collections.unmodifiableCollection(out);
   }
 
+
+   /**
+  * Retorna uma collection com os serviços com uma dada estação ordenados por hora de chegada.
+  *
+  * @param station Estação do serviço desejado.
+  *
+  * @return Collection Collection com os serviços com a estação dada.
+  */
+  public Collection<Service> getServicesArriving(Station station) {
+    Comparator<Service> comparator;
+    List<Service> out = new ArrayList<Service>();
+    for (Service s : _serv) {
+      if (s.getArrivalStation() == station) {
+        out.add(s);
+      }
+    } //em out estao todos os servicos com partida na estacao
+    comparator = new Comparator<Service>() {
+      public int compare(Service s1, Service s2) {
+        return s1.getArrivalStop().getTime().compareTo(s2.getArrivalStop().getTime()); 
+      }
+    };
+
+    Collections.sort(out, comparator);
+
+    return Collections.unmodifiableCollection(out);
+  }
+
+
   /**
   * Permite adicionar uma estação.
   *
