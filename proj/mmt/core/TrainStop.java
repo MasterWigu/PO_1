@@ -19,6 +19,9 @@ public class TrainStop implements java.io.Serializable{
 		return _time;
 	}
 
+	public boolean isFirst(TrainStop stop) {
+		return this.getTime().isBefore(stop.getTime())
+	}
 
 	public String showStop() {
 		return String.format("%02d", _time.getHour()) + ":" +String.format("%02d", _time.getMinute())+ " " + _station.getName();

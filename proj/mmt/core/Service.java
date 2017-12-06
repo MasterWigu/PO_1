@@ -49,11 +49,36 @@ public class Service implements java.io.Serializable{
 		return _stops.get(last).getStation();
 	}
 
+	public TrainStop getTrainStop(Station stat) {
+		for (TrainStop s : _stops) {
+			if (s.getStation() == stat)
+				return s;
+		}
+	}
+
+	public boolean passesStation(Station stat) {
+		for (TrainStop i: _stops) {
+			if (i.getStation() == stat)
+				return true;
+		}
+		return false;
+	}
+
 
  	public String showService() {
  		String out = new String();
  		out = out + "Serviço #"+_id+" @ " + String.format("%.2f", _cost);
  		for (TrainStop st : _stops) {
+ 			out += ("\n" + st.showStop());
+ 		}
+ 		return out;
+ 	}
+
+  	public String showService(TrainStop origin, TrainStop destination) {
+ 		String out = new String();
+ 		out = out + "Serviço #"+_id+" @ " + String.format("%.2f", _cost);
+ 		for (TrainStop st : _stops) {
+ 			
  			out += ("\n" + st.showStop());
  		}
  		return out;

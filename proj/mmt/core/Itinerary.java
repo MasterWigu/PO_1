@@ -36,4 +36,10 @@ public class Itinerary implements java.io.Serializable{
 		_date = date;
 
 	}
+
+	public Itinerary(Itinerary itin, LocalDate date, Passenger pass) { //para se poder duplicar itinerarios
+		_date = date;
+		_passenger = pass;
+		
+	}
 }

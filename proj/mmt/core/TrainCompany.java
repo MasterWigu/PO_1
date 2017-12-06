@@ -240,6 +240,15 @@ public class TrainCompany implements java.io.Serializable {
   }
 
 
+  public Collection<Service> getServicesPassing(Station station) {
+    List<Service> services = new ArrayList<Service>();
+    for (Service i : _serv) {
+      if i.passesStation(station)
+        services.add(i);
+    }
+    return Collections.unmodifiableCollection(services);
+  }
+
   /**
   * Permite adicionar uma estação.
   *
@@ -270,4 +279,23 @@ public class TrainCompany implements java.io.Serializable {
     }
     return st;
   }
+
+  public Itinerary getDirectItinerary(Station origin, Station destination) {
+    Itinerary itin = new Itinerary()
+    List<Service> origins = getServicesPassing(origin) {
+    List<Service> s1 = new ArrayList<Service>();
+    List<Service> s2 = new ArrayList<Service>();
+    for (Service i : origins) {
+      if i.passesStation(destination) 
+        s1.add(i);
+    }
+
+    for (Service i : s1) {
+      if (i.getTrainStop(origin).isBefore(i.getTrainStop(destination)))
+        s2.add(i);
+    }
+
+    return Collections.unmodifiableCollection(s2);
+  }
 }
+
