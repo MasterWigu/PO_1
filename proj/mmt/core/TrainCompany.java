@@ -286,7 +286,7 @@ public class TrainCompany implements java.io.Serializable {
     List<Service> s1 = new ArrayList<Service>();
     List<Service> s2 = new ArrayList<Service>();
     for (Service i : origins) {
-      if i.passesStation(destination) 
+      if (i.passesStation(destination))
         s1.add(i);
     }
 

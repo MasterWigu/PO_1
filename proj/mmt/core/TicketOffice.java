@@ -197,7 +197,7 @@ public class TicketOffice {
    //FIXME complete and implement the itinerary search (and pre-commit store) method
   public Collection<Itinerary> searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
                                               String departureTime) /*FIXME define thrown exceptions */ {
-    
+    return _trainCompany.searchItineraries(/*put shit here*/);
   }
 
   //FIXME complete and implement the itinerary commit method
