@@ -280,8 +280,7 @@ public class TrainCompany implements java.io.Serializable {
     return st;
   }
 
-  public Itinerary getDirectItinerary(Station origin, Station destination) {
-    Itinerary itin = new Itinerary()
+  public Collection<Itinerary> getDirectItinerary(Station origin, Station destination) {
     List<Service> origins = getServicesPassing(origin) {
     List<Service> s1 = new ArrayList<Service>();
     List<Service> s2 = new ArrayList<Service>();
