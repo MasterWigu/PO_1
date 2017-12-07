@@ -20,4 +20,8 @@ public class Segment implements java.io.Serializable{
 		_origin = origin;
 		_destination = destination;
 	}
+
+	public double getCost(Segment s) {
+		
+	} 
 }

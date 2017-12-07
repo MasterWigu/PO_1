@@ -22,6 +22,10 @@ public class Service implements java.io.Serializable{
 		return _cost;
 	}
 
+	public double getFinalCost(TrainStop _origin, TrainStop _destination) {
+		/*TODO contas*/
+	}
+
 	public Service (int id, double cost) {
 		_id = id;
 		_cost = cost;

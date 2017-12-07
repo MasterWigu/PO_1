@@ -17,6 +17,14 @@ public class Itinerary implements java.io.Serializable{
 		return _totalCost;
 	}
 
+	public double getItinCost(Itinerary itin) {
+		double cost = 0;
+		for(Segment s : _segments){
+			cost += getCost(s);	//getCost a definir
+		}
+		return cost;
+	}
+
 	public int getOrderNumber() {
 		return _orderNumber;
 	}

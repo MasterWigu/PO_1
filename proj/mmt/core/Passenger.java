@@ -35,6 +35,11 @@ public class Passenger implements java.io.Serializable{
 		_name = name;
 	}
 
+    public void addItinerary(Itinerary itin) {
+    	_itin.add(itin);
+    	_costs[_itin.size()%10].add(getIntinCost(itin)); //getCostIntin a definir 
+    }
+
 	public Passenger(String name, int id) {
 		_name = name;
 		_costs = new int[10];
@@ -71,7 +76,6 @@ public class Passenger implements java.io.Serializable{
     public double getDiscount() {
         return _category.getDiscount();
     }
-
 
     public String showPassenger() {
     	long hours = _tripTimeMin / 60;
