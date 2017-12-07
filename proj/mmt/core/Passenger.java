@@ -3,7 +3,7 @@ package mmt.core;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.time.LocalTime;
+import java.time.Duration;
 
 public class Passenger implements java.io.Serializable{
 
@@ -11,7 +11,7 @@ public class Passenger implements java.io.Serializable{
 	private int[] _costs = new int[10];
 	private String _name;
 	private int _id;
-	private LocalTime _lTime;
+	private long _tripTimeMin; //total trip time in minutes since java.Duration doesnt offer any good options
  	private List<Itinerary> _itin = new ArrayList<Itinerary>();
 	private Category _category;
 
@@ -39,7 +39,7 @@ public class Passenger implements java.io.Serializable{
 		_name = name;
 		_costs = new int[10];
 		_id = id;
-		_lTime = LocalTime.parse("00:00:00.0");
+		_tripTimeMin = 0;
 		Normal cat = new Normal();
 		this.setCategory(cat);
 	}
@@ -74,6 +74,8 @@ public class Passenger implements java.io.Serializable{
 
 
     public String showPassenger() {
-        return "" + _id + "|" + _name + "|" + _category.toString() + "|" + _itin.size() + "|" + String.format("%.2f", _totalCost) + "|" + String.format("%02d", _lTime.getHour()) + ":" + String.format("%02d", _lTime.getMinute());
+    	long hours = _tripTimeMin / 60;
+    	long minutes = _tripTimeMin % 60;
+        return "" + _id + "|" + _name + "|" + _category.toString() + "|" + _itin.size() + "|" + String.format("%.2f", _totalCost) + "|" + String.format("%02d", hours) + ":" + String.format("%02d", minutes);
     }
 }

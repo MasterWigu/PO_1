@@ -3,6 +3,8 @@ package mmt.core;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Collection;
 
 public class Itinerary implements java.io.Serializable{
 	private double _totalCost;
@@ -23,23 +25,29 @@ public class Itinerary implements java.io.Serializable{
 		return _date;
 	}
 
-	public Itinenary(LocalDate date, Passenger passenger) {
-		_date = date;
-		_passenger = passenger;
+	public Collection<Segment> getSegmentList() {
+		return Collections.unmodifiableCollection(_segments);
 	}
 
 	public void addSegment(Segment segment) {
 		_segments.add(segment);
 	}
 
-	public Itinerary(LocalDate date, Station stationO, Station stationD) {
-		_date = date;
-
+	public void setOrderNumber(int order) {
+		_orderNumber = order;
 	}
 
-	public Itinerary(Itinerary itin, LocalDate date, Passenger pass) { //para se poder duplicar itinerarios
+	public Itinerary(LocalDate date, Passenger passenger, int orderNum) {
+		_date = date;
+		_passenger = passenger;
+	}
+
+
+	public Itinerary(Itinerary itin, LocalDate date, Passenger pass, int orderNum) { //para se poder duplicar itinerarios
 		_date = date;
 		_passenger = pass;
-		
+		for (Segment i : itin.getSegmentList())
+			_segments.add(i);
+		_orderNumber = orderNum;
 	}
 }

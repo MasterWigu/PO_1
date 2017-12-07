@@ -3,12 +3,14 @@ package mmt.core;
 import java.util.List;
 import java.util.ArrayList;
 import java.time.LocalTime;
-
+import java.util.Collections;
+import java.util.Collection;
 
 public class Service implements java.io.Serializable{
 
 	private int _id;
 	private double _cost;
+	private int _travelTime;
 	private List<TrainStop> _stops = new ArrayList<TrainStop>();
 
 
@@ -23,10 +25,14 @@ public class Service implements java.io.Serializable{
 	public Service (int id, double cost) {
 		_id = id;
 		_cost = cost;
+		_travelTime = 0;
 	}
 
-	public TrainStop addStop(LocalTime ltime, Station station) {
-		TrainStop st = new TrainStop(ltime, station);
+	public TrainStop addStop(LocalTime stopTime, Station station) {
+		TrainStop st = new TrainStop(stopTime, station);
+		LocalTime lastTime = _stops.get(_stop.size()-1).getTime();
+		int minutes = MINUTES.between(stopTime, lastTime);
+		_travelTime += minutes;
 		_stops.add(st);
 		return st;
 	}
@@ -74,13 +80,17 @@ public class Service implements java.io.Serializable{
  		return out;
  	}
 
-  	public String showService(TrainStop origin, TrainStop destination) {
- 		String out = new String();
- 		out = out + "Serviço #"+_id+" @ " + String.format("%.2f", _cost);
+ 	public Collection<TrainStop> getStopsBetween(TrainStop start, TrainStop end) {
+ 		List<TrainStop> tStops = new ArrayList<TrainStop>();
+ 		boolean found = false;
  		for (TrainStop st : _stops) {
- 			
- 			out += ("\n" + st.showStop());
+ 			if (st.equals(start))
+ 				found = true;
+ 			if (found)
+ 				tStops.add(st);
+ 			if (st.equals(end))
+ 				break;
  		}
- 		return out;
+ 		return Collections.unmodifiableCollection(tStops);
  	}
 }

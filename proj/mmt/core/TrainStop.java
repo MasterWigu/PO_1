@@ -6,6 +6,7 @@ public class TrainStop implements java.io.Serializable{
 	private Station _station;
 	private LocalTime _time;
 
+
 	public TrainStop (LocalTime time, Station station) {
 		_station = station;
 		_time = time;
@@ -20,7 +21,11 @@ public class TrainStop implements java.io.Serializable{
 	}
 
 	public boolean isFirst(TrainStop stop) {
-		return this.getTime().isBefore(stop.getTime())
+		return this.getTime().isBefore(stop.getTime());
+	}
+
+	public boolean equals(TrainStop stop) {
+		return _station.equals(stop.getStation()) && _time.equals(stop.getTime());
 	}
 
 	public String showStop() {

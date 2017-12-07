@@ -91,7 +91,7 @@ public class NewParser {
     int passengerId = Integer.parseInt(components[1]);
     LocalDate date = LocalDate.parse(components[2]);
 
-    Itinerary itin = new Itinerary(date, passengerId) //ID ou PASS?
+    Itinerary itin = new Itinerary(date, passengerId); //ID ou PASS?
 
     for (int i = 3; i < components.length; i++) {
       String segmentDescription[] = components[i].split("/");

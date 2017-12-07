@@ -1,19 +1,23 @@
 package mmt.core;
 
 public class Segment implements java.io.Serializable{
-	private TrainStop _trainStop1;
-	private TrainStop _trainStop2;
+	private TrainStop _origin;
+	private TrainStop _destination;
 
 	public TrainStop getTrainStop1() {
-		return _trainStop1;
+		return _origin;
 	}
 
 	public TrainStop getTrainStop2() {
-		return _trainStop2;
+		return _destination;
 	}
 
-	public Segment(TrainStop t1, TrainStop t2) {
-		_trainStop1 = t1;
-		_trainStop2 = t2;
+	/*public long getDuration() {
+		return 
+	}*/
+
+	public Segment(TrainStop origin, TrainStop destination) {
+		_origin = origin;
+		_destination = destination;
 	}
 }

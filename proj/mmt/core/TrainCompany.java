@@ -27,6 +27,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.time.LocalTime;
+import java.time.LocalDate;
 
 /**
  * A train company has schedules (services) for its trains and passengers that
@@ -82,6 +84,8 @@ public class TrainCompany implements java.io.Serializable {
    */
   private Map<String, Station> _statMap = new TreeMap<String, Station>();
 
+
+  private List<Itinerary> _tempItin = new ArrayList<Itinerary>();
 
   /** Apaga todos os passageiros e itinerarios registados. */
   public void reset() {
@@ -243,10 +247,19 @@ public class TrainCompany implements java.io.Serializable {
   public Collection<Service> getServicesPassing(Station station) {
     List<Service> services = new ArrayList<Service>();
     for (Service i : _serv) {
-      if i.passesStation(station)
+      if (i.passesStation(station))
         services.add(i);
     }
     return Collections.unmodifiableCollection(services);
+  }
+
+  public Collection<Service> getServicesIdPassing(Station station) {
+    List<Integer> ids = new ArrayList<Integer>();
+    for (Service i : _serv) {
+      if (i.passesStation(station))
+        ids.add(i.getId());
+    }
+    return Collections.unmodifiableCollection(ids);
   }
 
   /**
@@ -280,21 +293,33 @@ public class TrainCompany implements java.io.Serializable {
     return st;
   }
 
-  public Collection<Itinerary> getDirectItinerary(Station origin, Station destination) {
-    List<Service> origins = getServicesPassing(origin) {
-    List<Service> s1 = new ArrayList<Service>();
-    List<Service> s2 = new ArrayList<Service>();
-    for (Service i : origins) {
-      if (i.passesStation(destination))
-        s1.add(i);
+  public Collection<Itinerary> getDirectItinerary(Station origin, Station destination, LocalTime depTime, LocalDate date, Passenger pass) {
+    _tempItin = new ArrayList<Itinerary>(); //resets the list 
+    List<Integer> origins = this.getServicesIdPassing(origin);
+    List<Integer> destinations = this.getServicesIdPassing(destination);
+    origins.retainAll(destinations); //origins has the ids of the suitable services
+
+    List<Integer> suitables = new ArrayList<Integer>();
+    List<TrainStop> stops;
+    Segment seg;
+
+
+    for (int i : origins) {
+      if (this.getServiceById(i).getTrainStop(origin).getTime().isAfter(depTime))
+        suitables.add(i);
     }
 
-    for (Service i : s1) {
-      if (i.getTrainStop(origin).isBefore(i.getTrainStop(destination)))
-        s2.add(i);
+    for (int i =0; i< suitables.size(); i++) {
+      stops = this.getServiceById(suitables.get(i)).getStopsBetween(suitables.get(i).getTrainStop(origin), suitables.get(i).getTrainStop(destination));
+      _tempItin.add(new Itinerary(date, pass, i+1));
+      for (int nSt = 0; nSt< stops.size()-1; nSt++) {
+        seg = new Segment(stops.get(nSt), stops.get(nSt+1));
+        _tempItin.get(i).addSegment(seg);
+      }
     }
-
-    return Collections.unmodifiableCollection(s2);
+    return Collections.unmodifiableCollection(_tempItin);
   }
+
+  public Collection<Itinerary> getIndirectItinerary;
 }
 

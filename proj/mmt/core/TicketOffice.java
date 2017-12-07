@@ -193,15 +193,17 @@ public class TicketOffice {
     Station s = _trainCompany.getStation(stationName);
     return _trainCompany.getServicesArriving(s);
   }
-
+/*
    //FIXME complete and implement the itinerary search (and pre-commit store) method
   public Collection<Itinerary> searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
-                                              String departureTime) /*FIXME define thrown exceptions */ {
-    return _trainCompany.searchItineraries(/*put shit here*/);
+                                              String departureTime) throws NoSuchStationNameException, BadTimeSpecificationException {
+    
+    return _trainCompany.searchItineraries(put shit here);
   }
 
   //FIXME complete and implement the itinerary commit method
-  public /*FIXME choose return type */ commitItinerary(int passengerId, int itineraryNumber) /*FIXME define thrown exceptions */ {
+  public /*FIXME choose return type  commitItinerary(int passengerId, int itineraryNumber) /*FIXME define thrown exceptions  {
     //FIXME implement method
   }
+*/
 }

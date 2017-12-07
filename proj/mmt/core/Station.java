@@ -20,4 +20,8 @@ public class Station implements java.io.Serializable{
 	public String getName() {
 		return _name;
 	}
+
+	public boolean equals(Station stat) {
+		return _name.equals(stat.getName());
+	}
 }
