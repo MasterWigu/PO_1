@@ -36,6 +36,10 @@ public class Itinerary implements java.io.Serializable{
 		_segments.add(segment);
 	}
 
+	public long getTotalTimeItin(Itinerary itin) {
+		return itin.getDuration();
+	}
+
 	public void setOrderNumber(int order) {
 		_orderNumber = order;
 	}

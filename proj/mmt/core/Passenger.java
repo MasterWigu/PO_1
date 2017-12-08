@@ -35,6 +35,13 @@ public class Passenger implements java.io.Serializable{
 		_name = name;
 	}
 
+	public long getTotalTimePass() {
+		for(Itinerary i : _itin){
+			_tripTimeMin += getTotalTimeItin(i);
+		}
+		return _tripTimeMin;  
+	}
+
     public void addItinerary(Itinerary itin) {
     	_itin.add(itin);
     	_costs[_itin.size()%10].add(getIntinCost(itin)); //getCostIntin a definir 
