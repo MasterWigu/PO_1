@@ -89,15 +89,15 @@ public class Service implements java.io.Serializable{
  		return out;
  	}
 
- 	public String showService(TrainStop orgin, TrainStop dest) {
+ 	public String showService(TrainStop origin, TrainStop dest) {
  		String out = new String();
  		out = out + "Serviço #"+_id+" @ " + String.format("%.2f", this.getPartCost(origin, dest));
  		for (TrainStop st : _stops) {
- 			if (st.equals(start))
+ 			if (st.equals(origin))
  				found = true;
  			if (found)
  				out += ("\n" + st.showStop());
- 			if (st.equals(end))
+ 			if (st.equals(dest))
  				break;
  		}
  		return out;
