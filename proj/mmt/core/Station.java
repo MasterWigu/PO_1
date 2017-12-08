@@ -9,19 +9,19 @@ public class Station implements java.io.Serializable{
 	private String _name;
 	private List<TrainStop> _stops = new ArrayList<TrainStop>(); 
 
-	public Station(String name) {
+	protected Station(String name) {
 		_name = name;
 	}
 
-	public void addStop(TrainStop stop) {
+	protected void addStop(TrainStop stop) {
 		_stops.add(stop);
 	}
 
-	public String getName() {
+	protected String getName() {
 		return _name;
 	}
 
-	public boolean equals(Station stat) {
+	protected boolean equals(Station stat) {
 		return _name.equals(stat.getName());
 	}
 }

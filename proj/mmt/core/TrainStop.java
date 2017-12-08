@@ -7,24 +7,24 @@ public class TrainStop implements java.io.Serializable{
 	private LocalTime _time;
 
 
-	public TrainStop (LocalTime time, Station station) {
+	protected TrainStop (LocalTime time, Station station) {
 		_station = station;
 		_time = time;
 	}
 
-	public Station getStation() {
+	protected Station getStation() {
 		return _station;
 	}
 
-	public LocalTime getTime() {
+	protected LocalTime getTime() {
 		return _time;
 	}
 
-	public boolean isFirst(TrainStop stop) {
+	protected boolean isFirst(TrainStop stop) {
 		return this.getTime().isBefore(stop.getTime());
 	}
 
-	public boolean equals(TrainStop stop) {
+	protected boolean equals(TrainStop stop) {
 		return _station.equals(stop.getStation()) && _time.equals(stop.getTime());
 	}
 

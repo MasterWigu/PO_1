@@ -13,7 +13,7 @@ public class Itinerary implements java.io.Serializable{
 	private int _passengerId;
 	private List<Segment> _segments = new ArrayList<Segment>();
 
-	public double getCost() {
+	protected double getCost() {
 		double cost = 0;
 		for(Segment s : _segments){
 			cost += s.getCost();
@@ -21,35 +21,35 @@ public class Itinerary implements java.io.Serializable{
 		return cost;
 	}
 
-	public int getOrderNumber() {
+	protected int getOrderNumber() {
 		return _orderNumber;
 	}
 
-	public LocalDate getDate() {
+	protected LocalDate getDate() {
 		return _date;
 	}
 
-	public Collection<Segment> getSegmentList() {
+	protected Collection<Segment> getSegmentList() {
 		return Collections.unmodifiableCollection(_segments);
 	}
 
-	public void addSegment(Segment segment) {
+	protected void addSegment(Segment segment) {
 		_segments.add(segment);
 	}
 
-	public void addSegments(Collection<Segment> segs) {
+	protected void addSegments(Collection<Segment> segs) {
 		for (Segment i : segs) {
 			this.addSegment(i);
 		}
 	}
 
-	public long getDuration() {
+	protected long getDuration() {
 		TrainStop start = _segments.get(0).getOrigin();
 		TrainStop end = _segments.get(_segments.size()-1).getDest();
 		return ChronoUnit.MINUTES.between(start.getTime() , end.getTime());
 	}
 
-	public void setOrderNumber(int order) {
+	protected void setOrderNumber(int order) {
 		_orderNumber = order;
 	}
 
@@ -73,20 +73,20 @@ public class Itinerary implements java.io.Serializable{
 		return out;
 	}
 
-	public Itinerary(LocalDate date, int passengerId) {
+	protected Itinerary(LocalDate date, int passengerId) {
 		_date = date;
 		_passengerId = passengerId;
 		_orderNumber = 0; //to be redifined later
 	}
 
-	public Itinerary(LocalDate date, int passengerId, int orderNum) {
+	protected Itinerary(LocalDate date, int passengerId, int orderNum) {
 		_date = date;
 		_passengerId = passengerId;
 		_orderNumber = orderNum;
 	}
 
 
-	public Itinerary(Itinerary itin, LocalDate date, int passId, int orderNum) { //para se poder duplicar itinerarios
+	protected Itinerary(Itinerary itin, LocalDate date, int passId, int orderNum) { //para se poder duplicar itinerarios
 		_date = date;
 		_passengerId = passId;
 		for (Segment i : itin.getSegmentList())

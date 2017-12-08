@@ -15,30 +15,30 @@ public class Service implements java.io.Serializable{
 	private List<TrainStop> _stops = new ArrayList<TrainStop>();
 
 
-	public int getId(){
+	protected int getId(){
 		return _id;
 	}
 
-	public double getCost() {
+	protected double getCost() {
 		return _cost;
 	}
 
-	public double getPartCost(TrainStop origin, TrainStop destination) {
+	protected double getPartCost(TrainStop origin, TrainStop destination) {
 		long minutes = ChronoUnit.MINUTES.between(origin.getTime(), destination.getTime());
 		return 1.0 * _cost * minutes / _travelTime;
 	}
 
-	public Service (int id, double cost) {
+	protected Service (int id, double cost) {
 		_id = id;
 		_cost = cost;
 		_travelTime = 0;
 	}
 
-	public long getTravelTime() {
+	protected long getTravelTime() {
 		return _travelTime;
 	}
 
-	public TrainStop addStop(LocalTime stopTime, Station station) {
+	protected TrainStop addStop(LocalTime stopTime, Station station) {
 		TrainStop st = new TrainStop(stopTime, station);
 		int indice = _stops.size() - 1;
 		if (indice != -1) { //caso em que a lista ja nao esta vazia
@@ -50,25 +50,25 @@ public class Service implements java.io.Serializable{
 		return st;
 	}
 
-	public TrainStop getDepartureStop() {
+	protected TrainStop getDepartureStop() {
 		return _stops.get(0);
 	}
 
-	public Station getDepartureStation() {
+	protected Station getDepartureStation() {
 		return _stops.get(0).getStation();
 	}
 
-	public TrainStop getArrivalStop() {
+	protected TrainStop getArrivalStop() {
 		int last = _stops.size() - 1;
 		return _stops.get(last);
 	}
 
-	public Station getArrivalStation() {
+	protected Station getArrivalStation() {
 		int last = _stops.size() - 1;
 		return _stops.get(last).getStation();
 	}
 
-	public TrainStop getTrainStop(Station stat) {
+	protected TrainStop getTrainStop(Station stat) {
 		for (TrainStop s : _stops) {
 			if (s.getStation() == stat)
 				return s;
@@ -76,7 +76,7 @@ public class Service implements java.io.Serializable{
 		return null; //impossible to happen due to the implementation
 	}
 
-	public boolean passesStation(Station stat) {
+	protected boolean passesStation(Station stat) {
 		for (TrainStop i: _stops) {
 			if (i.getStation() == stat)
 				return true;
@@ -109,7 +109,7 @@ public class Service implements java.io.Serializable{
  		return out;
  	}
 
- 	public Collection<TrainStop> getStopsBetween(TrainStop start, TrainStop end) {
+ 	protected Collection<TrainStop> getStopsBetween(TrainStop start, TrainStop end) {
  		List<TrainStop> tStops = new ArrayList<TrainStop>();
  		boolean found = false;
  		for (TrainStop st : _stops) {

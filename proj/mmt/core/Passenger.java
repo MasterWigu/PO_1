@@ -15,7 +15,7 @@ public class Passenger implements java.io.Serializable{
  	private List<Itinerary> _itin = new ArrayList<Itinerary>();
 	private Category _category;
 
-	public int getTotalCost() {
+	protected int getTotalCost() {
 		int sum=0;
 		for(int i=0; i<10;i++){
 			sum +=_costs[i];
@@ -23,34 +23,34 @@ public class Passenger implements java.io.Serializable{
 		return sum;
 	}
 
-	public String getName() {
+	protected String getName() {
 		return _name;
 	}
 
-	public int getId() {
+	protected int getId() {
 		return _id;
 	}
 
-	public void setName(String name) {
+	protected void setName(String name) {
 		_name = name;
 	}
 
-	public int getNumItins() {
+	protected int getNumItins() {
 		return _itin.size();
 	}
 
-	public long getTotalTimePass() {
+	protected long getTotalTimePass() {
 		return _tripTimeMin;  
 	}
 
-    public void addItinerary(Itinerary itin) {
+    protected void addItinerary(Itinerary itin) {
     	itin.setOrderNumber(_itin.size()+1);
     	_itin.add(itin);
     	_costs[_itin.size()%10] = itin.getCost();
     	_tripTimeMin += itin.getDuration();
     }
 
-	public Passenger(String name, int id) {
+	protected Passenger(String name, int id) {
 		_name = name;
 		_costs = new double[10];
 		_id = id;
@@ -59,7 +59,7 @@ public class Passenger implements java.io.Serializable{
 		this.setCategory(cat);
 	}
 
-	public void checkCategory() {
+	protected void checkCategory() {
 		double sum = 0;
 		for (double i : _costs) {
 			sum+=i;
@@ -79,11 +79,11 @@ public class Passenger implements java.io.Serializable{
 	}
 
 
-    public void setCategory(Category category) {
+    protected void setCategory(Category category) {
         _category = category;		
     }
 
-    public double getDiscount() {
+    protected double getDiscount() {
         return _category.getDiscount();
     }
 
