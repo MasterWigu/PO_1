@@ -36,15 +36,13 @@ public class Passenger implements java.io.Serializable{
 	}
 
 	public long getTotalTimePass() {
-		for(Itinerary i : _itin){
-			_tripTimeMin += getTotalTimeItin(i);
-		}
 		return _tripTimeMin;  
 	}
 
     public void addItinerary(Itinerary itin) {
     	_itin.add(itin);
-    	_costs[_itin.size()%10].add(getIntinCost(itin)); //getCostIntin a definir 
+    	_costs[_itin.size()%10].add(itin.getCost());
+    	_tripTimeMin += itin.getDuration();
     }
 
 	public Passenger(String name, int id) {
