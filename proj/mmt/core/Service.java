@@ -40,9 +40,12 @@ public class Service implements java.io.Serializable{
 
 	public TrainStop addStop(LocalTime stopTime, Station station) {
 		TrainStop st = new TrainStop(stopTime, station);
-		LocalTime lastTime = _stops.get(_stops.size()-1).getTime();
-		long minutes = ChronoUnit.MINUTES.between(stopTime, lastTime);
-		_travelTime += minutes;
+		int indice = _stops.size() - 1;
+		if (indice != -1) { //caso em que a lista ja nao esta vazia
+			LocalTime lastTime = _stops.get(indice).getTime();
+			long minutes = ChronoUnit.MINUTES.between(stopTime, lastTime);
+			_travelTime += minutes;
+		}
 		_stops.add(st);
 		return st;
 	}

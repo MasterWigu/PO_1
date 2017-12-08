@@ -1,6 +1,6 @@
 package mmt.core;
 
-public class Special implements Category {
+public class Special implements Category,  java.io.Serializable {
 	
 	public void setCategory(Passenger passenger) {
     passenger.setCategory(this);	
