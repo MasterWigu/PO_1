@@ -35,11 +35,16 @@ public class Passenger implements java.io.Serializable{
 		_name = name;
 	}
 
+	public int getNumItins() {
+		return _itin.size()
+	}
+
 	public long getTotalTimePass() {
 		return _tripTimeMin;  
 	}
 
     public void addItinerary(Itinerary itin) {
+    	itin.setOrderNumber(_itin.size()+1)
     	_itin.add(itin);
     	_costs[_itin.size()%10].add(itin.getCost());
     	_tripTimeMin += itin.getDuration();

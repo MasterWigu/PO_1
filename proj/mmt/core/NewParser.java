@@ -91,7 +91,7 @@ public class NewParser {
     int passengerId = Integer.parseInt(components[1]);
     LocalDate date = LocalDate.parse(components[2]);
 
-    Itinerary itin = new Itinerary(date, passengerId); //ID ou PASS?
+    Itinerary itin = new Itinerary(date, passengerId); //itin number will be defined by the passenger
 
     for (int i = 3; i < components.length; i++) {
       String segmentDescription[] = components[i].split("/");
@@ -100,10 +100,14 @@ public class NewParser {
       String departureTrainStop = segmentDescription[1];
       String arrivalTrainStop = segmentDescription[2];
 
-      // criar segmento com paragem em departureTrainStop e arrivalTrainStop
-      // adicionar segmento ao itinerario 
+      Station start = _trainCompany.getStation(departureTrainStop);
+      Station end = _trainCompany.getStation(arrivalTrainStop);
+
+      List<Segments> segs = getSegmentsBetween(serviceId, start, end);
+
+      itin.addSegments(segs);
     }
 
-    // adicionar o itinerário ao passageiro
+    _trainCompany.getPassengerById(passengerId).addItinerary(itin);
   }
 }

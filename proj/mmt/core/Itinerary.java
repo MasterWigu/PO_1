@@ -36,6 +36,11 @@ public class Itinerary implements java.io.Serializable{
 		_segments.add(segment);
 	}
 
+	public void addSegments(Collection<Segment> segs) {
+		for (Segment i : segs) {
+			this.addSegment(i);
+		}
+	}
 
 	public long itin.getDuration() {
 		TrainStop start = _segments.get(0).getOrigin();
@@ -67,9 +72,16 @@ public class Itinerary implements java.io.Serializable{
 		return out;
 	}
 
+	public Itinerary(LocalDate date, int passengerId) {
+		_date = date;
+		_passengerId = passengerId;
+		_orderNumber = 0; //to be redifined later
+	}
+
 	public Itinerary(LocalDate date, int passengerId, int orderNum) {
 		_date = date;
 		_passengerId = passengerId;
+		_orderNumber = orderNum;
 	}
 
 
