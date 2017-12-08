@@ -67,11 +67,6 @@ public class TrainCompany implements java.io.Serializable {
    */
 
   private List<Service> _serv = new ArrayList<Service>();
-
-  /**
-   * The itineraries held by the trainCompany indexed by unique identifier.
-   */
-  private Map<Integer, Itinerary> _itinMap = new TreeMap<Integer, Itinerary>();
   
   /**
    * The itineraries held by the trainCompany ordered by insertion time.
@@ -91,7 +86,6 @@ public class TrainCompany implements java.io.Serializable {
   public void reset() {
     _passMap = new TreeMap<Integer, Passenger>();
     _pass = new ArrayList<Passenger>();
-    _itinMap = new TreeMap<Integer, Itinerary>();
     _itin = new ArrayList<Itinerary>();
   }
 
