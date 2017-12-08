@@ -1,5 +1,8 @@
 package mmt.core;
 
+import java.time.temporal.ChronoUnit;
+
+
 public class Segment implements java.io.Serializable{
 	private TrainStop _origin;
 	private TrainStop _destination;
@@ -14,7 +17,7 @@ public class Segment implements java.io.Serializable{
 	}
 
 	public long getDuration() {
-		return MINUTES.between(_origin.getTime(), _destination.getTime());
+		return ChronoUnit.MINUTES.between(_origin.getTime(), _destination.getTime());
 	}
 
 	public Service getService() {

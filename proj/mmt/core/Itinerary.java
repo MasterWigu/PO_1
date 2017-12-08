@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Collection;
+import java.time.temporal.ChronoUnit;
 
 public class Itinerary implements java.io.Serializable{
 	private int _orderNumber;
@@ -42,10 +43,10 @@ public class Itinerary implements java.io.Serializable{
 		}
 	}
 
-	public long itin.getDuration() {
+	public long getDuration() {
 		TrainStop start = _segments.get(0).getOrigin();
 		TrainStop end = _segments.get(_segments.size()-1).getDest();
-		return MINUTES.between(start.getTime() , end.getTime());
+		return ChronoUnit.MINUTES.between(start.getTime() , end.getTime());
 	}
 
 	public void setOrderNumber(int order) {
@@ -60,7 +61,7 @@ public class Itinerary implements java.io.Serializable{
 
 		for(int i = 0; i<_segments.size(); i++) {
 			if (!(_segments.get(i).getService().equals(serv))) {
-				t2 = _segments.get(i-1).getDest;
+				t2 = _segments.get(i-1).getDest();
 				out = out + serv.showService(t1, t2);
 				serv = _segments.get(i).getService();
 				t1 = _segments.get(i).getOrigin();

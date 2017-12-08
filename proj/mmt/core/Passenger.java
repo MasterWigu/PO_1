@@ -8,7 +8,7 @@ import java.time.Duration;
 public class Passenger implements java.io.Serializable{
 
 	private double _totalCost;
-	private int[] _costs = new int[10];
+	private double[] _costs;
 	private String _name;
 	private int _id;
 	private long _tripTimeMin; //total trip time in minutes since java.Duration doesnt offer any good options
@@ -36,7 +36,7 @@ public class Passenger implements java.io.Serializable{
 	}
 
 	public int getNumItins() {
-		return _itin.size()
+		return _itin.size();
 	}
 
 	public long getTotalTimePass() {
@@ -44,15 +44,15 @@ public class Passenger implements java.io.Serializable{
 	}
 
     public void addItinerary(Itinerary itin) {
-    	itin.setOrderNumber(_itin.size()+1)
+    	itin.setOrderNumber(_itin.size()+1);
     	_itin.add(itin);
-    	_costs[_itin.size()%10].add(itin.getCost());
+    	_costs[_itin.size()%10] = itin.getCost();
     	_tripTimeMin += itin.getDuration();
     }
 
 	public Passenger(String name, int id) {
 		_name = name;
-		_costs = new int[10];
+		_costs = new double[10];
 		_id = id;
 		_tripTimeMin = 0;
 		Normal cat = new Normal();

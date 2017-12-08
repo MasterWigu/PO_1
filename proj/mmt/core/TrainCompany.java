@@ -253,7 +253,7 @@ public class TrainCompany implements java.io.Serializable {
     return Collections.unmodifiableCollection(services);
   }
 
-  public Collection<Service> getServicesIdPassing(Station station) {
+  public Collection<Integer> getServicesIdPassing(Station station) {
     List<Integer> ids = new ArrayList<Integer>();
     for (Service i : _serv) {
       if (i.passesStation(station))
@@ -293,6 +293,7 @@ public class TrainCompany implements java.io.Serializable {
     return st;
   }
 
+/* ESTÁ MERDOSO PRA CRLH E NÃO FUNCEMINA
   public Collection<Itinerary> getDirectItinerary(Station origin, Station destination, LocalTime depTime, LocalDate date, Passenger pass) {
     _tempItin = new ArrayList<Itinerary>(); //resets the list 
     List<Integer> origins = this.getServicesIdPassing(origin);
@@ -320,16 +321,17 @@ public class TrainCompany implements java.io.Serializable {
     return Collections.unmodifiableCollection(_tempItin);
   }
 
-
+*/
   public Collection<Segment> getSegmentsBetween(int servId, Station origin, Station dest) {
     Service serv = _servMap.get(servId);
     TrainStop t1 = serv.getTrainStop(origin);
     TrainStop t2 = serv.getTrainStop(dest);
-    List<TrainStop> stops = serv.getStopsBetween(t1, t2);
     List<Segment> segs = new ArrayList<Segment>();
+    
+    List<TrainStop> stops = new ArrayList<TrainStop>(serv.getStopsBetween(t1, t2));
 
     for (int i = 0; i < stops.size()-1; i++) {
-      segs.add(new Segment(stops.get(i), stops.get(i+1), serv))
+      segs.add(new Segment(stops.get(i), stops.get(i+1), serv));
     }
     return Collections.unmodifiableCollection(segs);
   }

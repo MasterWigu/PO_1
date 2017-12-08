@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import java.time.LocalTime;
 import java.util.Collections;
 import java.util.Collection;
+import java.time.temporal.ChronoUnit;
 
 public class Service implements java.io.Serializable{
 
 	private int _id;
 	private double _cost;
-	private int _travelTime;
+	private long _travelTime;
 	private List<TrainStop> _stops = new ArrayList<TrainStop>();
 
 
@@ -23,7 +24,7 @@ public class Service implements java.io.Serializable{
 	}
 
 	public double getPartCost(TrainStop origin, TrainStop destination) {
-		int minutes = MINUTES.between(origin, destination);
+		long minutes = ChronoUnit.MINUTES.between(origin.getTime(), destination.getTime());
 		return 1.0 * _cost * minutes / _travelTime;
 	}
 
@@ -33,14 +34,14 @@ public class Service implements java.io.Serializable{
 		_travelTime = 0;
 	}
 
-	public int getTravelTime() {
+	public long getTravelTime() {
 		return _travelTime;
 	}
 
 	public TrainStop addStop(LocalTime stopTime, Station station) {
 		TrainStop st = new TrainStop(stopTime, station);
-		LocalTime lastTime = _stops.get(_stop.size()-1).getTime();
-		int minutes = MINUTES.between(stopTime, lastTime);
+		LocalTime lastTime = _stops.get(_stops.size()-1).getTime();
+		long minutes = ChronoUnit.MINUTES.between(stopTime, lastTime);
 		_travelTime += minutes;
 		_stops.add(st);
 		return st;
@@ -69,6 +70,7 @@ public class Service implements java.io.Serializable{
 			if (s.getStation() == stat)
 				return s;
 		}
+		return null; //impossible to happen due to the implementation
 	}
 
 	public boolean passesStation(Station stat) {
@@ -91,6 +93,7 @@ public class Service implements java.io.Serializable{
 
  	public String showService(TrainStop origin, TrainStop dest) {
  		String out = new String();
+ 		boolean found = false;
  		out = out + "Serviço #"+_id+" @ " + String.format("%.2f", this.getPartCost(origin, dest));
  		for (TrainStop st : _stops) {
  			if (st.equals(origin))

@@ -6,9 +6,13 @@ import java.io.IOException;
 
 import java.time.LocalTime;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.ArrayList;
 
 import mmt.core.exceptions.ImportFileException;
 import mmt.core.exceptions.NoSuchServiceIdException;
+import mmt.core.exceptions.NoSuchPassengerIdException;
+import mmt.core.exceptions.NoSuchStationNameException;
 
 public class NewParser {
 
@@ -47,7 +51,13 @@ public class NewParser {
         break;
 
       case "ITINERARY":
-        parseItinerary(components);
+        try {
+         parseItinerary(components);
+        } catch (NoSuchPassengerIdException nspi) {
+          //impossible to happen, ignored
+        } catch (NoSuchStationNameException nssn) {
+          //impossible to happen, ignored
+        }
         break;
 
      default:
@@ -84,7 +94,7 @@ public class NewParser {
     }
   }
 
-  private void parseItinerary(String[] components) throws ImportFileException {
+  private void parseItinerary(String[] components) throws ImportFileException, NoSuchStationNameException, NoSuchPassengerIdException {
     if (components.length < 4)
       throw new ImportFileException("Invalid number of elements in itinerary line: " + components.length);
 
@@ -103,7 +113,7 @@ public class NewParser {
       Station start = _trainCompany.getStation(departureTrainStop);
       Station end = _trainCompany.getStation(arrivalTrainStop);
 
-      List<Segments> segs = getSegmentsBetween(serviceId, start, end);
+      List<Segment> segs = new ArrayList<Segment>(_trainCompany.getSegmentsBetween(serviceId, start, end));
 
       itin.addSegments(segs);
     }
