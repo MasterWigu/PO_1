@@ -320,6 +320,20 @@ public class TrainCompany implements java.io.Serializable {
     return Collections.unmodifiableCollection(_tempItin);
   }
 
-  public Collection<Itinerary> getIndirectItinerary;
+
+  public Collection<Segment> getSegmentsBetween(int servId, Station origin, Station dest) {
+    Service serv = _servMap.get(servId);
+    TrainStop t1 = serv.getTrainStop(origin);
+    TrainStop t2 = serv.getTrainStop(dest);
+    List<TrainStop> stops = serv.getStopsBetween(t1, t2);
+    List<Segment> segs = new ArrayList<Segment>();
+
+    for (int i = 0; i < stops.size()-1; i++) {
+      segs.add(new Segment(stops.get(i), stops.get(i+1), serv))
+    }
+    return Collections.unmodifiableCollection(segs);
+  }
+
+
 }
 
