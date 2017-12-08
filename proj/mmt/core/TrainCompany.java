@@ -313,7 +313,7 @@ public class TrainCompany implements java.io.Serializable {
       stops = this.getServiceById(suitables.get(i)).getStopsBetween(suitables.get(i).getTrainStop(origin), suitables.get(i).getTrainStop(destination));
       _tempItin.add(new Itinerary(date, pass, i+1));
       for (int nSt = 0; nSt< stops.size()-1; nSt++) {
-        seg = new Segment(stops.get(nSt), stops.get(nSt+1));
+        seg = new Segment(stops.get(nSt), stops.get(nSt+1), getServiceById(suitables.get(i)));
         _tempItin.get(i).addSegment(seg);
       }
     }

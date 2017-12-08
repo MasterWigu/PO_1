@@ -7,20 +7,15 @@ import java.util.Collections;
 import java.util.Collection;
 
 public class Itinerary implements java.io.Serializable{
-	private double _totalCost;
 	private int _orderNumber;
 	private LocalDate _date;
-	private Passenger _passenger;
+	private int _passengerId;
 	private List<Segment> _segments = new ArrayList<Segment>();
 
-	public double getTotalCost() {
-		return _totalCost;
-	}
-
-	public double getItinCost(Itinerary itin) {
+	public double getCost() {
 		double cost = 0;
 		for(Segment s : _segments){
-			cost += getCost(s);	//getCost a definir
+			cost += s.getCost();
 		}
 		return cost;
 	}
@@ -45,15 +40,35 @@ public class Itinerary implements java.io.Serializable{
 		_orderNumber = order;
 	}
 
-	public Itinerary(LocalDate date, Passenger passenger, int orderNum) {
+	public String toString() {
+		String out = new String();
+		Service serv = _segments.get(0).getService();
+		TrainStop t1 = _segments.get(0).getOrigin();
+		TrainStop t2 = null;
+
+		for(int i = 0; i<_segments.size(); i++) {
+			if (!(_segments.get(i).getService().equals(serv))) {
+				t2 = _segments.get(i-1).getDest;
+				out = out + serv.showService(t1, t2);
+				serv = _segments.get(i).getService();
+				t1 = _segments.get(i).getOrigin();
+			}
+		}
+		t2 = _segments.get(_segments.size()-1).getDest();
+		out = out + serv.showService(t1, t2);
+
+		return out;
+	}
+
+	public Itinerary(LocalDate date, int passengerId, int orderNum) {
 		_date = date;
-		_passenger = passenger;
+		_passengerId = passengerId;
 	}
 
 
-	public Itinerary(Itinerary itin, LocalDate date, Passenger pass, int orderNum) { //para se poder duplicar itinerarios
+	public Itinerary(Itinerary itin, LocalDate date, int passId, int orderNum) { //para se poder duplicar itinerarios
 		_date = date;
-		_passenger = pass;
+		_passengerId = passId;
 		for (Segment i : itin.getSegmentList())
 			_segments.add(i);
 		_orderNumber = orderNum;

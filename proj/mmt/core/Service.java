@@ -22,14 +22,19 @@ public class Service implements java.io.Serializable{
 		return _cost;
 	}
 
-	public double getFinalCost(TrainStop _origin, TrainStop _destination) {
-		/*TODO contas*/
+	public double getPartCost(TrainStop origin, TrainStop destination) {
+		int minutes = MINUTES.between(origin, destination);
+		return 1.0 * _cost * minutes / _travelTime;
 	}
 
 	public Service (int id, double cost) {
 		_id = id;
 		_cost = cost;
 		_travelTime = 0;
+	}
+
+	public int getTravelTime() {
+		return _travelTime;
 	}
 
 	public TrainStop addStop(LocalTime stopTime, Station station) {
@@ -80,6 +85,20 @@ public class Service implements java.io.Serializable{
  		out = out + "Serviço #"+_id+" @ " + String.format("%.2f", _cost);
  		for (TrainStop st : _stops) {
  			out += ("\n" + st.showStop());
+ 		}
+ 		return out;
+ 	}
+
+ 	public String showService(TrainStop orgin, TrainStop dest) {
+ 		String out = new String();
+ 		out = out + "Serviço #"+_id+" @ " + String.format("%.2f", this.getPartCost(origin, dest));
+ 		for (TrainStop st : _stops) {
+ 			if (st.equals(start))
+ 				found = true;
+ 			if (found)
+ 				out += ("\n" + st.showStop());
+ 			if (st.equals(end))
+ 				break;
  		}
  		return out;
  	}
