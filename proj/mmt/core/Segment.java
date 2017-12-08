@@ -17,6 +17,10 @@ public class Segment implements java.io.Serializable{
 		return MINUTES.between(_origin.getTime(), _destination.getTime());
 	}
 
+	public Service getService() {
+		return _service;
+	}
+
 	public Segment(TrainStop origin, TrainStop destination, Service service) {
 		_origin = origin;
 		_destination = destination;
