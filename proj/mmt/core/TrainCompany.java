@@ -20,6 +20,8 @@ import mmt.core.exceptions.NoSuchStationNameException;
 import mmt.core.exceptions.NoSuchItineraryChoiceException;
 import mmt.core.exceptions.NonUniquePassengerNameException;
 
+import java.time.format.DateTimeParseException;
+
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.List;
@@ -83,7 +85,7 @@ public class TrainCompany implements java.io.Serializable {
   private List<Itinerary> _tempItin = new ArrayList<Itinerary>();
 
   /** Apaga todos os passageiros e itinerarios registados. */
-  public void reset() {
+  protected void reset() {
     _passMap = new TreeMap<Integer, Passenger>();
     _pass = new ArrayList<Passenger>();
     _itin = new ArrayList<Itinerary>();
@@ -94,7 +96,7 @@ public class TrainCompany implements java.io.Serializable {
   *
   * @param name nome do passageiro.
   */ 
-  public void registerPassenger(String name) {
+  protected void registerPassenger(String name) {
   	int id = _nextPassId++;
   	Passenger p = new Passenger(name, id);
     _passMap.put(id, p);
@@ -108,7 +110,7 @@ public class TrainCompany implements java.io.Serializable {
   *
   * @throws NoSuchPassengerIdException Id do passageiro inválido.
   */ 
-  public void changePassengerName(int id, String newName) throws NoSuchPassengerIdException {
+  protected void changePassengerName(int id, String newName) throws NoSuchPassengerIdException {
     Passenger p = _passMap.get(id);
     if (p == null) {
       throw new NoSuchPassengerIdException(id);
@@ -125,7 +127,7 @@ public class TrainCompany implements java.io.Serializable {
   *
   * @throws NoSuchPassengerIdException Id do passageiro inválido.
   */
-  public Passenger getPassengerById(int id) throws NoSuchPassengerIdException {
+  protected Passenger getPassengerById(int id) throws NoSuchPassengerIdException {
     Passenger p = _passMap.get(id);
     if (p==null) {
       throw new NoSuchPassengerIdException(id);
@@ -138,7 +140,7 @@ public class TrainCompany implements java.io.Serializable {
   *
   * @return Collection Collection com todos os passageiros.
   */
-  public Collection<Passenger> getPassengers() {
+  protected Collection<Passenger> getPassengers() {
     return Collections.unmodifiableCollection(_pass);
   }
 
@@ -148,7 +150,7 @@ public class TrainCompany implements java.io.Serializable {
   * @param id id do serviço.
   * @param cost custo do serviço.
   */
-  public void registerService(int id, double cost) {
+  protected void registerService(int id, double cost) {
     Service s = new Service(id, cost);
     _servMap.put(id, s);
     _serv.add(s);
@@ -163,7 +165,7 @@ public class TrainCompany implements java.io.Serializable {
   *
   * @throws NoSuchServiceIdException Id do serviço inválido.
   */ 
-  public Service getServiceById(int id) throws NoSuchServiceIdException {
+  protected Service getServiceById(int id) throws NoSuchServiceIdException {
   	Service s = _servMap.get(id);
     if (s == null) {
       throw new NoSuchServiceIdException(id);
@@ -176,7 +178,7 @@ public class TrainCompany implements java.io.Serializable {
   *
   * @return Collection Collection com todos os serviços.
   */
-  public Collection<Service> getServices() {
+  protected Collection<Service> getServices() {
     List<Service> servs = new ArrayList<Service>();
     for (Integer id : _servMap.keySet()) {
       servs.add(_servMap.get(id));
@@ -191,7 +193,7 @@ public class TrainCompany implements java.io.Serializable {
   *
   * @return Collection Collection com os serviços com a estação dada.
   */
-  public Collection<Service> getServicesDeparting(Station station) {
+  protected Collection<Service> getServicesDeparting(Station station) {
     Comparator<Service> comparator;
     List<Service> out = new ArrayList<Service>();
     for (Service s : _serv) {
@@ -218,7 +220,7 @@ public class TrainCompany implements java.io.Serializable {
   *
   * @return Collection Collection com os serviços com a estação dada.
   */
-  public Collection<Service> getServicesArriving(Station station) {
+  protected Collection<Service> getServicesArriving(Station station) {
     Comparator<Service> comparator;
     List<Service> out = new ArrayList<Service>();
     for (Service s : _serv) {
@@ -238,7 +240,7 @@ public class TrainCompany implements java.io.Serializable {
   }
 
 
-  public Collection<Service> getServicesPassing(Station station) {
+  protected Collection<Service> getServicesPassing(Station station) {
     List<Service> services = new ArrayList<Service>();
     for (Service i : _serv) {
       if (i.passesStation(station))
@@ -247,7 +249,7 @@ public class TrainCompany implements java.io.Serializable {
     return Collections.unmodifiableCollection(services);
   }
 
-  public Collection<Integer> getServicesIdPassing(Station station) {
+  protected Collection<Integer> getServicesIdPassing(Station station) {
     List<Integer> ids = new ArrayList<Integer>();
     for (Service i : _serv) {
       if (i.passesStation(station))
@@ -261,7 +263,7 @@ public class TrainCompany implements java.io.Serializable {
   *
   * @param name name da estação.
   */
-  public Station addStation(String name) {
+  protected Station addStation(String name) {
     //checks if the station already exists, if true, returns the station, else, creates the station and returns it
     if (_statMap.containsKey(name))
       return _statMap.get(name);
@@ -279,7 +281,7 @@ public class TrainCompany implements java.io.Serializable {
   *
   * @throws NoSuchStationNameException Nome da estação inválida.
   */
-  public Station getStation(String name) throws NoSuchStationNameException {
+  protected Station getStation(String name) throws NoSuchStationNameException {
     Station st = _statMap.get(name);
     if (st == null) {
       throw new NoSuchStationNameException(name);
@@ -288,7 +290,7 @@ public class TrainCompany implements java.io.Serializable {
   }
 
 /* ESTÁ MERDOSO PRA CRLH E NÃO FUNCEMINA
-  public Collection<Itinerary> getDirectItinerary(Station origin, Station destination, LocalTime depTime, LocalDate date, Passenger pass) {
+  protected Collection<Itinerary> getDirectItinerary(Station origin, Station destination, LocalTime depTime, LocalDate date, Passenger pass) {
     _tempItin = new ArrayList<Itinerary>(); //resets the list 
     List<Integer> origins = this.getServicesIdPassing(origin);
     List<Integer> destinations = this.getServicesIdPassing(destination);
@@ -316,7 +318,7 @@ public class TrainCompany implements java.io.Serializable {
   }
 
 */
-  public Collection<Segment> getSegmentsBetween(int servId, Station origin, Station dest) {
+  protected Collection<Segment> getSegmentsBetween(int servId, Station origin, Station dest) {
     Service serv = _servMap.get(servId);
     TrainStop t1 = serv.getTrainStop(origin);
     TrainStop t2 = serv.getTrainStop(dest);
@@ -329,7 +331,42 @@ public class TrainCompany implements java.io.Serializable {
     }
     return Collections.unmodifiableCollection(segs);
   }
+  
 
+  protected void commitItinerary(int passengerId, int itineraryNumber) throws NoSuchPassengerIdException, NoSuchItineraryChoiceException {
+    if (itineraryNumber == 0) { //discard the search
+      _tempItin = new ArrayList<Itinerary>();
+    } 
+    else {
+      try {
+        Itinerary i = _tempItin.get(itineraryNumber-1);
+        this.getPassengerById(passengerId).addItinerary(i);
+        _itin.add(i);
+      } catch (ArrayIndexOutOfBoundsException aiob) {
+        throw new NoSuchItineraryChoiceException(passengerId, itineraryNumber);
+      }
+    }
+  }
 
+  public Collection<Itinerary> searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
+                                              String departureTime) throws NoSuchStationNameException, NoSuchPassengerIdException, 
+                                              BadTimeSpecificationException, BadDateSpecificationException, BadTimeSpecificationException {
+
+    LocalTime depTime;
+    LocalDate depDate;                                          
+    try{
+      depTime = LocalTime.parse(departureTime);
+    } catch (DateTimeParseException btp) {
+      throw new BadTimeSpecificationException(btp.getParsedString());
+    }
+    try {
+      depDate = LocalDate.parse(departureDate);
+    }
+    catch (DateTimeParseException btp) {
+      throw new BadDateSpecificationException(btp.getParsedString());
+    }
+
+    return null; //TIRAR DAQUI
+  }
 }
 
