@@ -87,6 +87,15 @@ public class Passenger implements java.io.Serializable{
         return _category.getDiscount();
     }
 
+    protected String getItineraries() {
+    	String out = new String();
+    	for (Itinerary i : _itin) {
+    		out += "\n";
+    		out += i.toString();
+    	}
+    	return out;
+    }
+
     public String showPassenger() {
     	long hours = _tripTimeMin / 60;
     	long minutes = _tripTimeMin % 60;

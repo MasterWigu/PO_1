@@ -194,11 +194,11 @@ public class TicketOffice {
     return _trainCompany.getServicesArriving(s);
   }
 
-  public Collection<Itinerary> searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
+  public String searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
                                               String departureTime) throws NoSuchStationNameException, NoSuchPassengerIdException, 
                                               BadTimeSpecificationException, BadDateSpecificationException, BadTimeSpecificationException {
 
-    return searchItineraries(passengerId, departureStation, arrivalStation, departureDate, departureTime);
+    return _trainCompany.searchItineraries(passengerId, departureStation, arrivalStation, departureDate, departureTime);
   }
 
 
@@ -206,4 +206,11 @@ public class TicketOffice {
     _trainCompany.commitItinerary(passengerId, itineraryNumber);
   }
 
+  public String showItineraries() {
+    return _trainCompany.showItineraries();
+  }
+
+  public String showItinerary(int passengerId) throws NoSuchPassengerIdException {
+    return _trainCompany.showItinerary(passengerId);
+  }
 }

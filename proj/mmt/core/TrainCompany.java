@@ -342,13 +342,13 @@ public class TrainCompany implements java.io.Serializable {
         Itinerary i = _tempItin.get(itineraryNumber-1);
         this.getPassengerById(passengerId).addItinerary(i);
         _itin.add(i);
-      } catch (ArrayIndexOutOfBoundsException aiob) {
+      } catch (IndexOutOfBoundsException iob) {
         throw new NoSuchItineraryChoiceException(passengerId, itineraryNumber);
       }
     }
   }
 
-  public Collection<Itinerary> searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
+  public String searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
                                               String departureTime) throws NoSuchStationNameException, NoSuchPassengerIdException, 
                                               BadTimeSpecificationException, BadDateSpecificationException, BadTimeSpecificationException {
     
@@ -385,9 +385,50 @@ public class TrainCompany implements java.io.Serializable {
         }
       }
     }
-    //FALTA ORDENAR OS ITINERARIOS
 
-    return Collections.unmodifiableCollection(_tempItin);
+    //FALTA ORDENAR OS ITINERARIOS
+    boolean found = false;
+    String out = new String();
+    for (Itinerary i : _tempItin) {
+      out+=i.toString()+"\n";
+      found = true;
+    }
+
+    if (found)
+      return out.substring(0, out.length()-2); //to eliminate the ending \n
+    else
+      return "";
+  }
+
+
+  protected String showItineraries() {
+    String out = new String();
+    boolean found = false;
+    try {
+      for  (int pass = 0; pass < _pass.size(); pass++) {
+        if (_pass.get(pass).getNumItins() != 0) {
+          out += showItinerary(pass);
+          out += "\n\n";
+          found = true;
+        }
+      }
+    } catch (NoSuchPassengerIdException nspi) {
+    //Impossible to happen, ignored
+    }
+    if (found) 
+      return out.substring(0, out.length()-3); //to eliminate the two ending \n's
+    else
+      return "";
+  }
+
+  protected String showItinerary(int passengerId) throws NoSuchPassengerIdException {
+    Passenger pass = this.getPassengerById(passengerId);
+    String out = new String();
+    if (pass.getNumItins() != 0) {
+      out += "== Passageiro " + pass.getId() + ": " + pass.getName() + " ==\n";
+      out += pass.getItineraries();
+    }
+    return out;
   }
 }
 

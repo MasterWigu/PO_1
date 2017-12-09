@@ -13,20 +13,33 @@ import pt.tecnico.po.ui.Display;
  */
 public class DoShowPassengerItineraries extends Command<TicketOffice> {
 
-  //FIXME define input fields
+  private Input<Integer> _id;
 
   /**
    * @param receiver
    */
   public DoShowPassengerItineraries(TicketOffice receiver) {
     super(Label.SHOW_PASSENGER_ITINERARIES, receiver);
-    //FIXME initialize input fields
+    _id = _form.addIntegerInput(Message.requestPassengerId());
   }
 
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() throws DialogException {
-    //FIXME implement command
+    _form.parse();
+    String out = new String();
+    try {
+      out = _receiver.showItinerary(_id.value());
+      if (out.equals("")) {
+        _display.addLine(Message.noItineraries(_id.value()));
+      }
+      else
+        _display.addLine(out);
+    } catch (NoSuchPassengerIdException nspi) {
+      throw new NoSuchPassengerException(nspi.getId());
+    }
+    
+   _display.display();
   }
 
 }

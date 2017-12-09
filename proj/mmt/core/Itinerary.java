@@ -13,6 +13,7 @@ public class Itinerary implements java.io.Serializable{
 	private int _orderNumber;
 	private LocalDate _date;
 	private int _passengerId;
+	private double _cost;
 	private List<Segment> _segments = new ArrayList<Segment>();
 
 	protected double getCost() {
@@ -37,6 +38,7 @@ public class Itinerary implements java.io.Serializable{
 
 	protected void addSegment(Segment segment) {
 		_segments.add(segment);
+		_cost += segment.getCost();
 	}
 
 	protected void addSegments(Collection<Segment> segs) {
@@ -65,10 +67,12 @@ public class Itinerary implements java.io.Serializable{
 		TrainStop t1 = _segments.get(0).getOrigin();
 		TrainStop t2 = null;
 
+		out = out +  "Itinerário " + _orderNumber + " para " + _date.toString() + " @ " + String.format("%.2f", _cost) + "\n";
+
 		for(int i = 0; i<_segments.size(); i++) {
 			if (!(_segments.get(i).getService().equals(serv))) {
 				t2 = _segments.get(i-1).getDest();
-				out = out + serv.showService(t1, t2);
+				out = out + serv.showService(t1, t2) + "\n";
 				serv = _segments.get(i).getService();
 				t1 = _segments.get(i).getOrigin();
 			}
@@ -83,12 +87,14 @@ public class Itinerary implements java.io.Serializable{
 		_date = date;
 		_passengerId = passengerId;
 		_orderNumber = 0; //to be redifined later
+		_cost = 0.0;
 	}
 
 	protected Itinerary(LocalDate date, int passengerId, int orderNum) {
 		_date = date;
 		_passengerId = passengerId;
 		_orderNumber = orderNum;
+		_cost = 0.0;
 	}
 
 
@@ -97,5 +103,9 @@ public class Itinerary implements java.io.Serializable{
 		_passengerId = passId;
 		_segments = new ArrayList<Segment>(segs);
 		_orderNumber = orderNum;
+		_cost = 0.0;
+		for (Segment seg : segs) {
+			_cost += seg.getCost();
+		}
 	}
 }

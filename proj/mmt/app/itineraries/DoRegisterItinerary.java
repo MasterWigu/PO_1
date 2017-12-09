@@ -22,24 +22,42 @@ import pt.tecnico.po.ui.Display;
  * §3.4.3. Add new itinerary.
  */
 public class DoRegisterItinerary extends Command<TicketOffice> {
-
-  //FIXME define input fields
+  private Input<Integer> _id;
+  private Input<String> _depStation;
+  private Input<String> _arrStation;
+  private Input<String> _depDate;
+  private Input<String> _depTime;
+  private Input<Integer> _choice;
 
   /**
    * @param receiver
    */
   public DoRegisterItinerary(TicketOffice receiver) {
     super(Label.REGISTER_ITINERARY, receiver);
-    //FIXME initialize input fields
+    _id = _form.addIntegerInput(Message.requestPassengerId());
+    _depStation = _form.addStringInput(Message.requestDepartureStationName());
+    _arrStation = _form.addStringInput(Message.requestArrivalStationName());
+    _depDate = _form.addStringInput(Message.requestDepartureDate());
+    _depTime = _form.addStringInput(Message.requestDepartureTime());
   }
 
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() throws DialogException {
-    /*
+    _form.parse();
+    String out = new String();
     try {
-      //FIXME implement command
-      // must call (at least) _receiver.searchItineraries(...) and _receiver.commitItinerary(...)
+      out = _receiver.searchItineraries(_id.value(), _depStation.value(), _arrStation.value(), _depDate.value(), _depTime.value());
+
+      if (out.length() == 0)
+        return;
+
+      _display.addLine(out);
+      _choice = _form.addIntegerInput(Message.requestItineraryChoice());
+      _display.display();
+      _form.parse();
+      _receiver.commitItinerary(_id.value(), _choice.value());
+
     } catch (NoSuchPassengerIdException e) {
       throw new NoSuchPassengerException(e.getId());
     } catch (NoSuchStationNameException e) {
@@ -51,6 +69,5 @@ public class DoRegisterItinerary extends Command<TicketOffice> {
     } catch (BadTimeSpecificationException e) {
       throw new BadTimeException(e.getTime());
     }
-    */
   }
 }
