@@ -39,6 +39,7 @@ public class DoRegisterItinerary extends Command<TicketOffice> {
     _arrStation = _form.addStringInput(Message.requestArrivalStationName());
     _depDate = _form.addStringInput(Message.requestDepartureDate());
     _depTime = _form.addStringInput(Message.requestDepartureTime());
+    _choice = _form.addIntegerInput(Message.requestItineraryChoice());
   }
 
   /** @see pt.tecnico.po.ui.Command#execute() */
@@ -49,14 +50,15 @@ public class DoRegisterItinerary extends Command<TicketOffice> {
     try {
       out = _receiver.searchItineraries(_id.value(), _depStation.value(), _arrStation.value(), _depDate.value(), _depTime.value());
 
-      if (out.length() == 0)
-        return;
+      if (out != " "){
+        _display.addLine(out);
+        _display.display();
+        _form.parse();
+      }
 
-      _display.addLine(out);
-      _choice = _form.addIntegerInput(Message.requestItineraryChoice());
-      _display.display();
-      _form.parse();
-      _receiver.commitItinerary(_id.value(), _choice.value());
+      
+        _receiver.commitItinerary(_id.value(), _choice.value());
+      
 
     } catch (NoSuchPassengerIdException e) {
       throw new NoSuchPassengerException(e.getId());
