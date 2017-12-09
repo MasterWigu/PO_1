@@ -1,11 +1,13 @@
 package mmt.core;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Collection;
 import java.time.temporal.ChronoUnit;
+
 
 public class Itinerary implements java.io.Serializable{
 	private int _orderNumber;
@@ -41,6 +43,10 @@ public class Itinerary implements java.io.Serializable{
 		for (Segment i : segs) {
 			this.addSegment(i);
 		}
+	}
+
+	protected LocalTime getDepartureTime() {
+		return _segments.get(0).getOrigin().getTime();
 	}
 
 	protected long getDuration() {
@@ -86,11 +92,10 @@ public class Itinerary implements java.io.Serializable{
 	}
 
 
-	protected Itinerary(Itinerary itin, LocalDate date, int passId, int orderNum) { //para se poder duplicar itinerarios
+	protected Itinerary(Collection<Segment> segs, LocalDate date, int passId, int orderNum) { //para se poder duplicar itinerarios
 		_date = date;
 		_passengerId = passId;
-		for (Segment i : itin.getSegmentList())
-			_segments.add(i);
+		_segments = new ArrayList<Segment>(segs);
 		_orderNumber = orderNum;
 	}
 }

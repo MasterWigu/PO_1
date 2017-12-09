@@ -351,22 +351,43 @@ public class TrainCompany implements java.io.Serializable {
   public Collection<Itinerary> searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
                                               String departureTime) throws NoSuchStationNameException, NoSuchPassengerIdException, 
                                               BadTimeSpecificationException, BadDateSpecificationException, BadTimeSpecificationException {
-
+    
     LocalTime depTime;
-    LocalDate depDate;                                          
+    LocalDate depDate;
     try{
       depTime = LocalTime.parse(departureTime);
     } catch (DateTimeParseException btp) {
       throw new BadTimeSpecificationException(btp.getParsedString());
     }
+
     try {
       depDate = LocalDate.parse(departureDate);
-    }
-    catch (DateTimeParseException btp) {
+    } catch (DateTimeParseException btp) {
       throw new BadDateSpecificationException(btp.getParsedString());
     }
 
-    return null; //TIRAR DAQUI
+
+    Station dep = this.getStation(departureStation);
+    Station arr = this.getStation(arrivalStation);
+    this.getPassengerById(passengerId); //only to check if the passenger exists   
+
+    List<Service> depServs = new ArrayList<Service>(getServicesPassing(dep));
+    List<Service> arrServs = new ArrayList<Service>(getServicesPassing(arr));
+    depServs.retainAll(arrServs); //maintain in depServs only the services that are suitable for a direct itinerary
+
+
+    List<Segment> segs;
+    for (int i = 0; i < depServs.size(); i++) {
+      if (depServs.get(i).getTrainStop(dep).getTime().isBefore(depServs.get(i).getTrainStop(arr).getTime())) { //check the direction of the train
+        segs = new ArrayList<Segment>(this.getSegmentsBetween(depServs.get(i).getId(), dep, arr));
+        if (segs.get(0).getOrigin().getTime().isAfter(depTime)) { //consider only itineraries that depart after the departureTime 
+          _tempItin.add(new Itinerary(segs, depDate, passengerId, i + 1));
+        }
+      }
+    }
+    //FALTA ORDENAR OS ITINERARIOS
+
+    return Collections.unmodifiableCollection(_tempItin);
   }
 }
 
