@@ -390,6 +390,43 @@ public class TrainCompany implements java.io.Serializable {
       return "";
   }
 
+  public String getIndirectItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
+                                              String departureTime) {
+    //List<Station> stations = new ArrayList<Station>();
+    List<Itinerary> itins = new ArrayList<Itinerary>();
+
+    Station dep = this.getStation(departureStation);
+    Station arr = this.getStation(arrivalStation);
+    this.getPassengerById(passengerId);
+
+    LocalTime depTime;
+    LocalDate depDate;
+    try{
+      depTime = LocalTime.parse(departureTime);
+    } catch (DateTimeParseException btp) {
+      throw new BadTimeSpecificationException(btp.getParsedString());
+    }
+
+    try {
+      depDate = LocalDate.parse(departureDate);
+    } catch (DateTimeParseException btp) {
+      throw new BadDateSpecificationException(btp.getParsedString());
+    }
+
+//COISAS DA INES
+    /*for(Service s : _serv) {
+      if(!(getServicesPassing(departureStation))) {
+        _serv.add(s);
+      }
+    }*/
+
+    for() {
+      itins.add(searchItineraries(passengerId,dep,arr,depDate,));
+
+
+    return ;
+  }
+
 
   protected String showItineraries() {
     String out = new String();
