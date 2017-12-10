@@ -422,9 +422,43 @@ public class TrainCompany implements java.io.Serializable {
 
     for() {
       itins.add(searchItineraries(passengerId,dep,arr,depDate,));
-
+    }
 
     return ;
+  }
+
+
+  protected List<Itinerary> getItinerariesRecursive(List<Itinerary> itins, int passengerId, Station departureStation, Station arrivalStation, Station originalArr, LocalDate departureDate, LocalTime departureTime, List<Segment> segs, List<Station> stats) {
+    if (arrivalStation.equals(originalArr)) {
+      itins.add(new Itinerary(segs, departureDate, passengerId, 0));
+      return;
+    }
+    if (stats.size() == 0)
+      return;
+    for (Station s : stats) {
+      stats.remove(s);
+      for (Segment seg : this.getSegmentsFrom(s)) {
+        if (stats.contains(seg.getDest().getStation()) {
+          segs.add(seg);
+          getItinerariesRecursive(itins, passengerId, seg.getDest().getStation(), originalArr, departureDate, seg.getDest().getTime(), segs, stats);
+        }
+      }
+    }
+  }
+
+  
+  protected List<Segment> getSegmentsFrom(Station stat) {
+    List<Segment> segs = new ArrayList<Segment>();
+    List<Service> servs = new ArrayList<Service>(this.getServicesPassing(stat));
+    TrainStop t1;
+    TrainStop t2;
+    for (service serv : _serv) {
+      t1 = serv.getTrainStop(stat);
+      t2 = serv.getNextTrainStop(t1);
+      if (t2 != null)
+        segs.add(Segment(t1, t2, serv));
+    }
+    return segs;
   }
 
 
