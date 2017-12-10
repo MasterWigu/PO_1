@@ -44,6 +44,7 @@ public class Passenger implements java.io.Serializable{
     	_costs[_itin.size()%10] = itin.getCost();
     	_totalCost += itin.getCost() - this.getDiscount() * itin.getCost(); //soma aos gastos o valor ja com descontos
     	_tripTimeMin += itin.getDuration();
+    	this.checkCategory(); //faz novamente update ja com o itinerario adicionado
     }
 
 	protected Passenger(String name, int id) {
