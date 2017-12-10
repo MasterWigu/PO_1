@@ -391,7 +391,8 @@ public class TrainCompany implements java.io.Serializable {
   }
 
   public String getIndirectItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
-                                              String departureTime) {
+                                              String departureTime) throws NoSuchStationNameException, NoSuchPassengerIdException, 
+                                              BadTimeSpecificationException, BadDateSpecificationException, BadTimeSpecificationException{
     //List<Station> stations = new ArrayList<Station>();
     List<Itinerary> itins = new ArrayList<Itinerary>();
 
@@ -413,50 +414,69 @@ public class TrainCompany implements java.io.Serializable {
       throw new BadDateSpecificationException(btp.getParsedString());
     }
 
-//COISAS DA INES
-    /*for(Service s : _serv) {
-      if(!(getServicesPassing(departureStation))) {
-        _serv.add(s);
-      }
-    }*/
+    _tempItin = getItinerariesRecursive(new ArrayList<Itinerary>(), passengerId, dep, arr, arr, depDate, depTime, new ArrayList<Segment>(), new ArrayList<Station>());
+    
+     Comparator<Itinerary> comparator = new Comparator<Itinerary>() {
+      public int compare(Itinerary i1, Itinerary i2) {
+        int temp = 0;
 
-    for() {
-      itins.add(searchItineraries(passengerId,dep,arr,depDate,));
+        temp = i1.getDepartureTime().compareTo(i2.getDepartureTime());
+        if (temp != 0)
+          return temp;
+        temp = i1.getArrivalTime().compareTo(i2.getArrivalTime());
+        if (temp != 0)
+          return temp;
+        return Integer.compare(Long.valueOf(i1.getDuration()).intValue(), Long.valueOf(i2.getDuration()).intValue());
+      }
+    };
+
+    Collections.sort(_tempItin, comparator);
+
+    //FALTA ORDENAR OS ITINERARIOS
+    boolean found = false;
+    String out = new String();
+    for (Itinerary i : _tempItin) {
+      out+="\n" + i.toString() + "\n"; //DERRRRPRPPPP
+      found = true;
     }
 
-    return ;
+    if (found)
+      return out.substring(0, out.length()-1); //to eliminate the ending \n
+    else
+      return "";
   }
 
 
   protected List<Itinerary> getItinerariesRecursive(List<Itinerary> itins, int passengerId, Station departureStation, Station arrivalStation, Station originalArr, LocalDate departureDate, LocalTime departureTime, List<Segment> segs, List<Station> stats) {
     if (arrivalStation.equals(originalArr)) {
       itins.add(new Itinerary(segs, departureDate, passengerId, 0));
-      return;
+      return null;
     }
     if (stats.size() == 0)
-      return;
+      return null;
     for (Station s : stats) {
       stats.remove(s);
       for (Segment seg : this.getSegmentsFrom(s)) {
-        if (stats.contains(seg.getDest().getStation()) {
+        if (stats.contains(seg.getDest().getStation())) {
           segs.add(seg);
-          getItinerariesRecursive(itins, passengerId, seg.getDest().getStation(), originalArr, departureDate, seg.getDest().getTime(), segs, stats);
+          getItinerariesRecursive(itins, passengerId, departureStation, seg.getDest().getStation(), originalArr, departureDate, seg.getDest().getTime(), segs, stats);
         }
       }
     }
+    return itins;
   }
 
-  
+
   protected List<Segment> getSegmentsFrom(Station stat) {
     List<Segment> segs = new ArrayList<Segment>();
     List<Service> servs = new ArrayList<Service>(this.getServicesPassing(stat));
     TrainStop t1;
     TrainStop t2;
-    for (service serv : _serv) {
+    for (Service serv : _serv) {
       t1 = serv.getTrainStop(stat);
       t2 = serv.getNextTrainStop(t1);
       if (t2 != null)
-        segs.add(Segment(t1, t2, serv));
+        segs.add(new Segment(t1, t2, serv));
     }
     return segs;
   }

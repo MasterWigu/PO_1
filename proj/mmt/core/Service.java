@@ -88,6 +88,7 @@ public class Service implements java.io.Serializable{
 		for (int i = 0; i < _stops.size()-1; i++) {
 			if (_stops.get(i).equals(stop)) {
 				return _stops.get(i+1);
+			}
 		}
 		return null; //stop e a ultima stop do servico
 	}
