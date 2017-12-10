@@ -17,14 +17,6 @@ public class Passenger implements java.io.Serializable{
  	private List<Itinerary> _itin = new ArrayList<Itinerary>();
 	private Category _category;
 
-	protected int getTotalCost() {
-		int sum=0;
-		for(int i=0; i<10;i++){
-			sum +=_costs[i];
-		}
-		return sum;
-	}
-
 	protected String getName() {
 		return _name;
 	}
@@ -46,10 +38,11 @@ public class Passenger implements java.io.Serializable{
 	}
 
     protected void addItinerary(Itinerary itin) {
+    	this.checkCategory(); //sempre que se vai adicionar um novo itinerario faz-se update a categoria
     	itin.setOrderNumber(_itin.size()+1);
     	_itin.add(itin);
     	_costs[_itin.size()%10] = itin.getCost();
-    	_totalCost += itin.getCost();
+    	_totalCost += itin.getCost() - this.getDiscount() * itin.getCost(); //soma aos gastos o valor ja com descontos
     	_tripTimeMin += itin.getDuration();
     }
 

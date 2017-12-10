@@ -1,1 +1,31 @@
-state passenger
+//state passenger
+"
+Então,
+1- o nosso método vai ter uma partida e uma estação de chegada. E utilizamos a lista de serviços e uma lista de estações.
+2- vamos pensar como se tivéssemos uma lista de itenerarios vazios ao qual vamos adicionar depois.
+(caso base) 
+3- vamos ver se a lista de serviços já tem o serviço que tem a origem. Caso não tenha, vai adicionar à lista.
+4- vais criar um segmento com a origem e o destino. Se este segmento existir vais criar o teu iteneraro.
+(recursiva - é como se já estivesses a meio da viagem)
+(vamos ter que ter em atenção qual a ordem de apresentação ao cliente, portanto temos que ter em conta qual a mais rápida e depois desempatar caso necessário)
+5- enquanto não chegarmos ao fim da viagem. Se no caso da paragem em que estamos estiver dentro da lista de estações, então vamos percorrer todas as paragens que estão abrangidas por aquela estação.
+6- se a paragem não estiver na lista de serviços e o tempo de chegada seja superior a zero (ou seja é necessário comparar a hora de partida da origem com a paragem em que estamos) então vamos chamar recursivamente
+    o método passando lhe agora os mesmos argumentos excepto a origem, que vai ser substituído pela paragem corrente.
+7- depois da chamada recursiva temos que verificar se foram encontrados itenerarios, caso tenham sido encontrados e caso a recursiva não tenha dado null e a recursiva seja mais rápida que o itenerarios então 
+    vamos dizer que a mais rápida é a recursiva
+8- vamos então adicionar a paragem corrente à lista de estações
+9- vamos repetir o processo todo de novo. Já que a nossa corrente vai passar a ser a nossa paragem previa e vamos avaliar para o resto do percurso.
+10- se no final existirem itenerarios vamos criar um segmento para poder adicioná-lo ao itenerario.
+11- retornar os itenerarios
+"
+
+protected Collection<Itinerary> getItinerary(Station origin, Station destin, List<Service> servs, List<Itinerary> itins) {
+
+
+
+}
+
+
+
+
+
