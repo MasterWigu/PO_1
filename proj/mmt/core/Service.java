@@ -43,7 +43,7 @@ public class Service implements java.io.Serializable{
 		int indice = _stops.size() - 1;
 		if (indice != -1) { //caso em que a lista ja nao esta vazia
 			LocalTime lastTime = _stops.get(indice).getTime();
-			long minutes = ChronoUnit.MINUTES.between(stopTime, lastTime);
+			long minutes = ChronoUnit.MINUTES.between(lastTime, stopTime);
 			_travelTime += minutes;
 		}
 		_stops.add(st);

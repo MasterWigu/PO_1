@@ -15,8 +15,7 @@ import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 import pt.tecnico.po.ui.Display;
-
-//FIXME import other classes if necessary
+import pt.tecnico.po.ui.Form;
 
 /**
  * §3.4.3. Add new itinerary.
@@ -28,7 +27,7 @@ public class DoRegisterItinerary extends Command<TicketOffice> {
   private Input<String> _depDate;
   private Input<String> _depTime;
   private Input<Integer> _choice;
-
+  private Form _form2 = new Form();
   /**
    * @param receiver
    */
@@ -39,26 +38,25 @@ public class DoRegisterItinerary extends Command<TicketOffice> {
     _arrStation = _form.addStringInput(Message.requestArrivalStationName());
     _depDate = _form.addStringInput(Message.requestDepartureDate());
     _depTime = _form.addStringInput(Message.requestDepartureTime());
-    _choice = _form.addIntegerInput(Message.requestItineraryChoice());
+    _choice = _form2.addIntegerInput(Message.requestItineraryChoice());
   }
 
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() throws DialogException {
-    _form.parse();
     String out = new String();
+
+    _form.parse();
     try {
       out = _receiver.searchItineraries(_id.value(), _depStation.value(), _arrStation.value(), _depDate.value(), _depTime.value());
 
-      if (out != " "){
+      if (out != ""){
         _display.addLine(out);
         _display.display();
-        _form.parse();
-      }
 
-      
+        _form2.parse(false);
         _receiver.commitItinerary(_id.value(), _choice.value());
-      
+      }
 
     } catch (NoSuchPassengerIdException e) {
       throw new NoSuchPassengerException(e.getId());

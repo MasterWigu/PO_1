@@ -89,6 +89,8 @@ public class TrainCompany implements java.io.Serializable {
     _passMap = new TreeMap<Integer, Passenger>();
     _pass = new ArrayList<Passenger>();
     _itin = new ArrayList<Itinerary>();
+    _nextPassId = 0;
+    _nextItinId = 0;
   }
 
   /**
@@ -289,35 +291,6 @@ public class TrainCompany implements java.io.Serializable {
     return st;
   }
 
-/* ESTÁ MERDOSO PRA CRLH E NÃO FUNCEMINA
-  protected Collection<Itinerary> getDirectItinerary(Station origin, Station destination, LocalTime depTime, LocalDate date, Passenger pass) {
-    _tempItin = new ArrayList<Itinerary>(); //resets the list 
-    List<Integer> origins = this.getServicesIdPassing(origin);
-    List<Integer> destinations = this.getServicesIdPassing(destination);
-    origins.retainAll(destinations); //origins has the ids of the suitable services
-
-    List<Integer> suitables = new ArrayList<Integer>();
-    List<TrainStop> stops;
-    Segment seg;
-
-
-    for (int i : origins) {
-      if (this.getServiceById(i).getTrainStop(origin).getTime().isAfter(depTime))
-        suitables.add(i);
-    }
-
-    for (int i =0; i< suitables.size(); i++) {
-      stops = this.getServiceById(suitables.get(i)).getStopsBetween(suitables.get(i).getTrainStop(origin), suitables.get(i).getTrainStop(destination));
-      _tempItin.add(new Itinerary(date, pass, i+1));
-      for (int nSt = 0; nSt< stops.size()-1; nSt++) {
-        seg = new Segment(stops.get(nSt), stops.get(nSt+1), getServiceById(suitables.get(i)));
-        _tempItin.get(i).addSegment(seg);
-      }
-    }
-    return Collections.unmodifiableCollection(_tempItin);
-  }
-
-*/
   protected Collection<Segment> getSegmentsBetween(int servId, Station origin, Station dest) {
     Service serv = _servMap.get(servId);
     TrainStop t1 = serv.getTrainStop(origin);
@@ -351,7 +324,7 @@ public class TrainCompany implements java.io.Serializable {
   public String searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
                                               String departureTime) throws NoSuchStationNameException, NoSuchPassengerIdException, 
                                               BadTimeSpecificationException, BadDateSpecificationException, BadTimeSpecificationException {
-    
+    _tempItin = new ArrayList<Itinerary>(); //reset the temporary buffer
     LocalTime depTime;
     LocalDate depDate;
     try{
@@ -377,25 +350,42 @@ public class TrainCompany implements java.io.Serializable {
 
 
     List<Segment> segs;
-    for (int i = 0; i < depServs.size(); i++) {
-      if (depServs.get(i).getTrainStop(dep).getTime().isBefore(depServs.get(i).getTrainStop(arr).getTime())) { //check the direction of the train
-        segs = new ArrayList<Segment>(this.getSegmentsBetween(depServs.get(i).getId(), dep, arr));
+    int num = 1;
+    for (Service serv : depServs) {
+      if (serv.getTrainStop(dep).getTime().isBefore(serv.getTrainStop(arr).getTime())) { //check the direction of the train
+        segs = new ArrayList<Segment>(this.getSegmentsBetween(serv.getId(), dep, arr));
         if (segs.get(0).getOrigin().getTime().isAfter(depTime)) { //consider only itineraries that depart after the departureTime 
-          _tempItin.add(new Itinerary(segs, depDate, passengerId, i + 1));
+          _tempItin.add(new Itinerary(segs, depDate, passengerId, num++));
         }
       }
     }
+
+    Comparator<Itinerary> comparator = new Comparator<Itinerary>() {
+      public int compare(Itinerary i1, Itinerary i2) {
+        int temp = 0;
+
+        temp = i1.getDepartureTime().compareTo(i2.getDepartureTime());
+        if (temp != 0)
+          return temp;
+        temp = i1.getArrivalTime().compareTo(i2.getArrivalTime());
+        if (temp != 0)
+          return temp;
+        return Integer.compare(Long.valueOf(i1.getDuration()).intValue(), Long.valueOf(i2.getDuration()).intValue());
+      }
+    };
+
+    Collections.sort(_tempItin, comparator);
 
     //FALTA ORDENAR OS ITINERARIOS
     boolean found = false;
     String out = new String();
     for (Itinerary i : _tempItin) {
-      out+=i.toString()+"\n";
+      out+="\n" + i.toString() + "\n"; //DERRRRPRPPPP
       found = true;
     }
 
     if (found)
-      return out.substring(0, out.length()-2); //to eliminate the ending \n
+      return out.substring(0, out.length()-1); //to eliminate the ending \n
     else
       return "";
   }
@@ -416,7 +406,7 @@ public class TrainCompany implements java.io.Serializable {
     //Impossible to happen, ignored
     }
     if (found) 
-      return out.substring(0, out.length()-3); //to eliminate the two ending \n's
+      return out.substring(0, out.length()-2); //to eliminate the two ending \n's
     else
       return "";
   }
@@ -425,7 +415,7 @@ public class TrainCompany implements java.io.Serializable {
     Passenger pass = this.getPassengerById(passengerId);
     String out = new String();
     if (pass.getNumItins() != 0) {
-      out += "== Passageiro " + pass.getId() + ": " + pass.getName() + " ==\n";
+      out += "== Passageiro " + pass.getId() + ": " + pass.getName() + " ==";
       out += pass.getItineraries();
     }
     return out;

@@ -51,6 +51,10 @@ public class Itinerary implements java.io.Serializable{
 		return _segments.get(0).getOrigin().getTime();
 	}
 
+	protected LocalTime getArrivalTime() {
+		return _segments.get(_segments.size()-1).getDest().getTime();
+	}
+
 	protected long getDuration() {
 		TrainStop start = _segments.get(0).getOrigin();
 		TrainStop end = _segments.get(_segments.size()-1).getDest();
@@ -98,7 +102,7 @@ public class Itinerary implements java.io.Serializable{
 	}
 
 
-	protected Itinerary(Collection<Segment> segs, LocalDate date, int passId, int orderNum) { //para se poder duplicar itinerarios
+	protected Itinerary(Collection<Segment> segs, LocalDate date, int passId, int orderNum) {
 		_date = date;
 		_passengerId = passId;
 		_segments = new ArrayList<Segment>(segs);

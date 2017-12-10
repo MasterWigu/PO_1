@@ -4,6 +4,8 @@ package mmt.core;
 import java.util.List;
 import java.util.ArrayList;
 import java.time.Duration;
+import java.util.Comparator;
+import java.util.Collections;
 
 public class Passenger implements java.io.Serializable{
 
@@ -47,6 +49,7 @@ public class Passenger implements java.io.Serializable{
     	itin.setOrderNumber(_itin.size()+1);
     	_itin.add(itin);
     	_costs[_itin.size()%10] = itin.getCost();
+    	_totalCost += itin.getCost();
     	_tripTimeMin += itin.getDuration();
     }
 
@@ -89,8 +92,19 @@ public class Passenger implements java.io.Serializable{
 
     protected String getItineraries() {
     	String out = new String();
-    	for (Itinerary i : _itin) {
-    		out += "\n";
+    	List<Itinerary> tempItin = new ArrayList<Itinerary>(_itin);
+
+		Comparator<Itinerary> comparator = new Comparator<Itinerary>() {
+      		public int compare(Itinerary i1, Itinerary i2) {
+       			return i1.getDate().compareTo(i2.getDate());
+      		}
+    	};
+
+    	Collections.sort(tempItin, comparator);
+    	int num = 1;
+    	for (Itinerary i : tempItin) {
+    		out += "\n\n";
+    		i.setOrderNumber(num++);
     		out += i.toString();
     	}
     	return out;
