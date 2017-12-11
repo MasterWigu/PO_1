@@ -179,7 +179,7 @@ public class TicketOffice {
     return _trainCompany.getServicesDeparting(stationName);
   }
 
-    /**
+  /**
   * Retorna uma collection com os serviços com chegada a uma dada estação.
   *
   * @param station Estação do serviço desejado.
@@ -192,6 +192,22 @@ public class TicketOffice {
     return _trainCompany.getServicesArriving(stationName);
   }
 
+  /**
+  * Cria novos itinerários.
+  *
+  * @param passengerId Id de um passageiro.
+  * @param departureStation Estação de partida.
+  * @param arrivalStation Estação de chegada.
+  * @param departureDate Data de partida.
+  * @param departureTime Hora de partida.
+  *
+  * @return tempItinToString() Função que vai tratar de imprimir os itinerários.
+  *
+  * @throws NoSuchStationNameException Nome da estação inválida.
+  * @throws NoSuchPassengerIdException Id de passageiro inválido.
+  * @throws BadTimeSpecificationException Hora inválida.
+  * @throws BadDateSpecificationException Data inválida.
+  */
   public String searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
                                               String departureTime) throws NoSuchStationNameException, NoSuchPassengerIdException, 
                                               BadTimeSpecificationException, BadDateSpecificationException, BadTimeSpecificationException {
@@ -199,15 +215,37 @@ public class TicketOffice {
     return _trainCompany.searchItineraries(passengerId, departureStation, arrivalStation, departureDate, departureTime);
   }
 
-
+  /**
+  * Associa o itenerário dado a um passageiro.
+  *
+  * @param passengerId Id do passageiro.
+  * @param itineraryNumber Número do itinerário.
+  *
+  * @throws NoSuchPassengerIdException Id do passageiro inválido. 
+  * @throws NoSuchItineraryChoiceException Numero do itinerario inválido.
+  */
   public void commitItinerary(int passengerId, int itineraryNumber) throws NoSuchPassengerIdException, NoSuchItineraryChoiceException  {
     _trainCompany.commitItinerary(passengerId, itineraryNumber);
   }
 
+  /**
+  * Retorna todos os itinerarios existentes.
+  *
+  * @return out String com todos os itinerários existentes.
+  */
   public String showItineraries() {
     return _trainCompany.showItineraries();
   }
 
+  /**
+  * Retorna todos os itinerarios existentes com um dado id de um passageiro.
+  *
+  * @param passengerId Id de um passageiro.
+  *
+  * @return out String com todos os itinerários existentes de um passageiro.
+  *
+  * @throws NoSuchPassengerIdException Id de passaageiro inválido.
+  */
   public String showItinerary(int passengerId) throws NoSuchPassengerIdException {
     return _trainCompany.showItinerary(passengerId);
   }
