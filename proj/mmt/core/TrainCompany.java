@@ -146,6 +146,10 @@ public class TrainCompany implements java.io.Serializable {
     return Collections.unmodifiableCollection(_pass);
   }
 
+
+
+
+
   /**
   * Permite adicionar um serviço.
   *
@@ -195,7 +199,7 @@ public class TrainCompany implements java.io.Serializable {
   *
   * @return Collection Collection com os serviços com a estação dada.
   */
-  protected String getServicesDeparting(Station station) {
+  protected String getServicesDeparting(String station) throws NoSuchStationNameException {
     /*Comparator<Service> comparator;
     List<Service> out = new ArrayList<Service>();
     for (Service s : _serv) {
@@ -212,7 +216,7 @@ public class TrainCompany implements java.io.Serializable {
     Collections.sort(out, comparator);
 
     return Collections.unmodifiableCollection(out);*/
-    Process process = new ProcessBasedOnLastStation(this, station);
+    ProcessByStationName process = new ProcessBasedOnFirstStation(this, station);
     return process.selectServices();
   }
 
@@ -242,7 +246,7 @@ public class TrainCompany implements java.io.Serializable {
 
     return Collections.unmodifiableCollection(out);*/
 
-    Process process = new ProcessBasedOnLastStation(this, station);
+    ProcessByStationName process = new ProcessBasedOnLastStation(this, station);
     return process.selectServices();
   }
 
@@ -264,6 +268,12 @@ public class TrainCompany implements java.io.Serializable {
     }
     return Collections.unmodifiableCollection(ids);
   }
+
+  protected Map<Integer, Service> getServiceMap() {
+    return _servMap;
+  }
+
+
 
   /**
   * Permite adicionar uma estação.
@@ -296,25 +306,9 @@ public class TrainCompany implements java.io.Serializable {
     return st;
   }
 
-  protected Map getStationMap() {
+  protected Map<String, Station> getStationMap() {
     return _statMap;
   }
-
-
-
-protected String 
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -424,6 +418,9 @@ protected String
       return "";
   }
 
+
+
+
   protected String searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
                                               String departureTime) throws NoSuchStationNameException, NoSuchPassengerIdException, 
                                               BadTimeSpecificationException, BadDateSpecificationException, BadTimeSpecificationException {
@@ -447,6 +444,7 @@ protected String
     Station arr = this.getStation(arrivalStation);
     this.getPassengerById(passengerId); //only to check if the passenger exists 
 
+                                        //passaria a chamar getIndirectItineraries
     _tempItin = new ArrayList<Itinerary>(getDirectItineraries(passengerId, dep, arr, depDate, depTime));
 
     return tempItinToString(); 
@@ -477,7 +475,10 @@ protected String
    return Collections.unmodifiableCollection(tempItins);
   }
 
-  protected Collection<Itinerary> getIndirectItineraries(int passengerId, Station dep, Station arr, Collection<Service> servs, Collection<Service> usedServs, Collection<Station> stats, long time) {
+
+
+
+  protected Collection<Itinerary> getIndirectItineraries(int passengerId, Station dep, Station arr, LocalDate depDate, LocalTime depTime) {
     List<Service> filtServs = new ArrayList<Service>();
     for (Service serv : _servMap.values()) {
       if (serv.passesStation(dep)) 
@@ -488,35 +489,16 @@ protected String
     for (Service serv : filtServs) {
       getItineraryRec(serv, dep, arr, new ArrayList<Service>(), new ArrayList<Station>());
     }
-
-    protected Itinerary getItineraryRec(Service serv, Station dep, Station arr, servs, stats) {
-      itin = new Itinerary();
-      if (!(servs.contains(serv))) {
-        if (itin.getDestStation() == arr)
-          return itin;
-      }
-      for (TrainStop stop : _mapa.values() )
-
-    }
-
-
-
-
-
-
-
-
-
+    return null;
   }
 
- 
-
-
-
-
-
-
-
-
+  protected Itinerary getItineraryRec(Service serv, Station dep, Station arr, Collection<Service> servs, Collection<Station>stats) {
+    Itinerary itin = new Itinerary();
+    if (!(servs.contains(serv))) {
+      if (itin.getDestStation() == arr)
+        return itin;
+    }
+    return null;
+  }
 }
 

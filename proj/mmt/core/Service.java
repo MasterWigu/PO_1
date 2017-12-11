@@ -54,8 +54,8 @@ public class Service implements java.io.Serializable{
 		return _stops.get(0);
 	}
 
-	protected Station getFirstStation() {
-		return _stops.get(0).getStation();
+	protected String getFirstStationName() {
+		return _stops.get(0).getStation().getName();
 	}
 
 	protected LocalTime getFirstTime() {
@@ -67,9 +67,9 @@ public class Service implements java.io.Serializable{
 		return _stops.get(last);
 	}
 
-	protected Station getLastStation() {
+	protected String getLastStationName() {
 		int last = _stops.size() - 1;
-		return _stops.get(last).getStation();
+		return _stops.get(last).getStation().getName();
 	}
 
 	protected LocalTime getLastTime() {

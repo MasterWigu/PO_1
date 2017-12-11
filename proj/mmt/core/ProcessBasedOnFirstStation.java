@@ -5,20 +5,20 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Collections;
 
-public class ProcessBasedOnDepartingStation extends ProcessByStationName{ 
+public class ProcessBasedOnFirstStation extends ProcessByStationName{ 
 
-public ProcessBasedOnDepartingStation(TrainCompany trainCompany, String station){
+public ProcessBasedOnFirstStation(TrainCompany trainCompany, String station){
 super(trainCompany, station);
 }
 
 
 public void addService(String station, TrainCompany trainCompany){
 	for(Service s: trainCompany.getServiceMap().values())
-      if(s.getFirstStation().equals(station))
+      if(s.getFirstStationName().equals(station))
         _newServices.add(s);
 }
 
-public void doComparator(){
+public void doSort(){
     Comparator<Service> comparator;
 
     comparator = new Comparator<Service>() {

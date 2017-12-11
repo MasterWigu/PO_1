@@ -14,11 +14,11 @@ public class ProcessBasedOnLastStation extends ProcessByStationName{
 
 public void addService(String station, TrainCompany trainCompany){
     for(Service s: trainCompany.getServiceMap().values())
-      if(s.getLastStation().equals(station))
+      if(s.getLastStationName().equals(station))
         _newServices.add(s);
 }
 
-public void doComparator(){
+public void doSort(){
     Comparator<Service> comparator;
 
     comparator = new Comparator<Service>() {

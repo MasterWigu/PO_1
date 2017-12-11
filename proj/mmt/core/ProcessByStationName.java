@@ -20,7 +20,7 @@ public abstract class ProcessByStationName{
 	public String selectServices() throws NoSuchStationNameException{
 		check();
 		addService(_station, _trainCompany);
-		doComparator();
+		doSort();
 		addtoString();
 		return str;
 
@@ -33,11 +33,11 @@ public abstract class ProcessByStationName{
 
 	public abstract void addService(String station, TrainCompany trainCompany);
 
-	public abstract void doComparator();
+	public abstract void doSort();
 
 	public void addtoString(){
 		for(Service s: _newServices)
-      		str += s.toString();
+      		str += s.toString() + "\n";
 	}
 
 }
