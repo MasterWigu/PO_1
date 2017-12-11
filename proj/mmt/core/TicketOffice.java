@@ -127,7 +127,7 @@ public class TicketOffice {
   *
   * @return Collection Collection com todos os passageiros.
   */ 
-  public Collection<Passenger> getPassengers() {
+  public String getPassengers() {
     return _trainCompany.getPassengers();
   }
 
@@ -140,8 +140,8 @@ public class TicketOffice {
   *
   * @throws NoSuchPassengerIdException Id do passageiro inválido.
   */ 
-  public Passenger getPassengerById(int id) throws NoSuchPassengerIdException {
-    return _trainCompany.getPassengerById(id);
+  public String getPassengerById(int id) throws NoSuchPassengerIdException {
+    return _trainCompany.getPassengerStringById(id);
   }
 
   /**
@@ -149,7 +149,7 @@ public class TicketOffice {
   *
   * @return Collection Collection com todos os serviços.
   */ 
-  public Collection<Service> getServices() {
+  public String getAllServices() {
     return _trainCompany.getServices();
   }
 
@@ -162,8 +162,8 @@ public class TicketOffice {
   *
   * @throws NoSuchServiceIdException Id do serviço inválido.
   */ 
-  public Service getServiceById(int id) throws NoSuchServiceIdException {
-    return _trainCompany.getServiceById(id);
+  public String getServiceById(int id) throws NoSuchServiceIdException {
+    return _trainCompany.getServiceStringById(id);
   }
 
   /**

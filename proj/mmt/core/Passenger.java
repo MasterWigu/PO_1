@@ -100,7 +100,7 @@ public class Passenger implements java.io.Serializable{
     	return out;
     }
 
-    public String showPassenger() {
+    protected String showPassenger() {
     	long hours = _tripTimeMin / 60;
     	long minutes = _tripTimeMin % 60;
         return "" + _id + "|" + _name + "|" + _category.toString() + "|" + _itin.size() + "|" + String.format("%.2f", _totalCost) + "|" + String.format("%02d", hours) + ":" + String.format("%02d", minutes);

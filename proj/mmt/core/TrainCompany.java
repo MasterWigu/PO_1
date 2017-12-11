@@ -116,11 +116,11 @@ public class TrainCompany implements java.io.Serializable {
   }
 
   /**
-  * Retorna uma collection com os pasageiros com o id dado.
+  * Retorna o pasageiro com o id dado.
   *
   * @param id id do passageiro desejado.
   *
-  * @return Collection Collection com os passageiros com o id dado.
+  * @return Passenger Passenger com o id dado.
   *
   * @throws NoSuchPassengerIdException Id do passageiro inválido.
   */
@@ -133,12 +133,31 @@ public class TrainCompany implements java.io.Serializable {
   }
 
   /**
-  * Retorna uma collection com todos os passageiros.
+  * Retorna a string representando pasageiro com o id dado.
   *
-  * @return Collection Collection com todos os passageiros.
+  * @param id id do passageiro desejado.
+  *
+  * @return String String do passageiro com o id dado.
+  *
+  * @throws NoSuchPassengerIdException Id do passageiro inválido.
   */
-  protected Collection<Passenger> getPassengers() {
-    return Collections.unmodifiableCollection(_pass);
+  protected String getPassengerStringById(int id) throws NoSuchPassengerIdException {
+    return this.getPassengerById(id).showPassenger();
+  }
+
+  /**
+  * Retorna uma string com todos os passageiros.
+  *
+  * @return String String com todos os passageiros.
+  */
+  protected String getPassengers() {
+    String out = "";
+    for(Passenger p : _pass){
+      out += (p.showPassenger() + "\n");
+    }
+    if (out.length() > 1)
+      return out.substring(0, out.length()-1);
+    return "";
   }
 
   /**
@@ -154,11 +173,11 @@ public class TrainCompany implements java.io.Serializable {
   }
 
   /**
-  * Retorna uma collection com os serviços com o id dado.
+  * Retorna o serviço com o id dado.
   *
   * @param id id do serviço desejado.
   *
-  * @return Collection Collection com os serviços com o id dado.
+  * @return Service Serviço com o id dado.
   *
   * @throws NoSuchServiceIdException Id do serviço inválido.
   */ 
@@ -170,17 +189,38 @@ public class TrainCompany implements java.io.Serializable {
     return s;
   }
 
+
+ /**
+  * Retorna uma string com o serviço com o id dado.
+  *
+  * @param id id do serviço desejado.
+  *
+  * @return String Stringg com o serviço com o id dado.
+  *
+  * @throws NoSuchServiceIdException Id do serviço inválido.
+  */ 
+  protected String getServiceStringById(int id) throws NoSuchServiceIdException {
+    return getServiceById(id).toString();
+  }
+
   /**
   * Retorna uma collection com todos os serviços ordenados por id.
   *
-  * @return Collection Collection com todos os serviços.
+  * @return String String com todos os serviços.
   */
-  protected Collection<Service> getServices() {
+  protected String getServices() {
     List<Service> servs = new ArrayList<Service>();
+    String out = "";
     for (Integer id : _servMap.keySet()) {
       servs.add(_servMap.get(id));
     }
-    return Collections.unmodifiableCollection(servs);
+
+    for(Service s : servs)
+      out += (s.toString() + "\n");
+
+    if (out.length() > 1)
+      return out.substring(0, out.length()-1);
+    return "";
   }
 
   /**

@@ -32,7 +32,7 @@ public class DoShowServiceByNumber extends Command<TicketOffice> {
     _form.parse();
 
     try {
-      _display.addLine(""+_receiver.getServiceById(_id.value()).toString()); 
+      _display.addLine(_receiver.getServiceById(_id.value())); 
     } catch (NoSuchServiceIdException nssi) {
       throw new NoSuchServiceException(nssi.getId());
     }

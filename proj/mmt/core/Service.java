@@ -101,7 +101,7 @@ public class Service implements java.io.Serializable{
  		return out;
  	}
 
- 	public String showService(TrainStop origin, TrainStop dest) {
+ 	protected String showService(TrainStop origin, TrainStop dest) {
  		String out = new String();
  		boolean found = false;
  		out = out + "Serviço #"+_id+" @ " + String.format("%.2f", this.getPartCost(origin, dest));
