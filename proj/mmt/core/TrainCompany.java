@@ -321,163 +321,6 @@ public class TrainCompany implements java.io.Serializable {
     }
   }
 
-  public String getDirectItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
-                                              String departureTime) throws NoSuchStationNameException, NoSuchPassengerIdException, 
-                                              BadTimeSpecificationException, BadDateSpecificationException, BadTimeSpecificationException {
-    _tempItin = new ArrayList<Itinerary>(); //reset the temporary buffer
-    LocalTime depTime;
-    LocalDate depDate;
-    try{
-      depTime = LocalTime.parse(departureTime);
-    } catch (DateTimeParseException btp) {
-      throw new BadTimeSpecificationException(btp.getParsedString());
-    }
-
-    try {
-      depDate = LocalDate.parse(departureDate);
-    } catch (DateTimeParseException btp) {
-      throw new BadDateSpecificationException(btp.getParsedString());
-    }
-
-
-    Station dep = this.getStation(departureStation);
-    Station arr = this.getStation(arrivalStation);
-    this.getPassengerById(passengerId); //only to check if the passenger exists   
-
-    List<Service> depServs = new ArrayList<Service>(getServicesPassing(dep));
-    List<Service> arrServs = new ArrayList<Service>(getServicesPassing(arr));
-    depServs.retainAll(arrServs); //maintain in depServs only the services that are suitable for a direct itinerary
-
-
-    List<Segment> segs;
-    int num = 1;
-    for (Service serv : depServs) {
-      if (serv.getTrainStop(dep).getTime().isBefore(serv.getTrainStop(arr).getTime())) { //check the direction of the train
-        segs = new ArrayList<Segment>(this.getSegmentsBetween(serv.getId(), dep, arr));
-        if (segs.get(0).getOrigin().getTime().isAfter(depTime)) { //consider only itineraries that depart after the departureTime 
-          _tempItin.add(new Itinerary(segs, depDate, passengerId, num++));
-        }
-      }
-    }
-
-    Comparator<Itinerary> comparator = new Comparator<Itinerary>() {
-      public int compare(Itinerary i1, Itinerary i2) {
-        int temp = 0;
-
-        temp = i1.getDepartureTime().compareTo(i2.getDepartureTime());
-        if (temp != 0)
-          return temp;
-        temp = i1.getArrivalTime().compareTo(i2.getArrivalTime());
-        if (temp != 0)
-          return temp;
-        return Integer.compare(Long.valueOf(i1.getDuration()).intValue(), Long.valueOf(i2.getDuration()).intValue());
-      }
-    };
-
-    Collections.sort(_tempItin, comparator);
-
-    //FALTA ORDENAR OS ITINERARIOS
-    boolean found = false;
-    String out = new String();
-    for (Itinerary i : _tempItin) {
-      out+="\n" + i.toString() + "\n"; //DERRRRPRPPPP
-      found = true;
-    }
-
-    if (found)
-      return out.substring(0, out.length()-1); //to eliminate the ending \n
-    else
-      return "";
-  }
-
-  public String getIndirectItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
-                                              String departureTime) throws NoSuchStationNameException, NoSuchPassengerIdException, 
-                                              BadTimeSpecificationException, BadDateSpecificationException, BadTimeSpecificationException{
-    //List<Station> stations = new ArrayList<Station>();
-    List<Itinerary> itins = new ArrayList<Itinerary>();
-
-    Station dep = this.getStation(departureStation);
-    Station arr = this.getStation(arrivalStation);
-    this.getPassengerById(passengerId);
-
-    LocalTime depTime;
-    LocalDate depDate;
-    try{
-      depTime = LocalTime.parse(departureTime);
-    } catch (DateTimeParseException btp) {
-      throw new BadTimeSpecificationException(btp.getParsedString());
-    }
-
-    try {
-      depDate = LocalDate.parse(departureDate);
-    } catch (DateTimeParseException btp) {
-      throw new BadDateSpecificationException(btp.getParsedString());
-    }
-
-    _tempItin = getItineraries( passengerId, dep, arr, depDate, depTime);
-    
-     Comparator<Itinerary> comparator = new Comparator<Itinerary>() {
-      public int compare(Itinerary i1, Itinerary i2) {
-        int temp = 0;
-
-        temp = i1.getDepartureTime().compareTo(i2.getDepartureTime());
-        if (temp != 0)
-          return temp;
-        temp = i1.getArrivalTime().compareTo(i2.getArrivalTime());
-        if (temp != 0)
-          return temp;
-        return Integer.compare(Long.valueOf(i1.getDuration()).intValue(), Long.valueOf(i2.getDuration()).intValue());
-      }
-    };
-
-    Collections.sort(_tempItin, comparator);
-
-    //FALTA ORDENAR OS ITINERARIOS
-    boolean found = false;
-    String out = new String();
-    for (Itinerary i : _tempItin) {
-      out+="\n" + i.toString() + "\n"; //DERRRRPRPPPP
-      found = true;
-    }
-
-    if (found)
-      return out.substring(0, out.length()-1); //to eliminate the ending \n
-    else
-      return "";
-  }
-  
-  protected List<Itinerary> getItineraries(int passengerId, Station departureStation, Station arrivalStation, LocalDate departureDate, LocalTime departureTime) {
-    List<Itinerary> itins = new  ArrayList<Itinerary>();
-    for (Station s :_statMap.values()) {
-      List<Station> stats = new ArrayList<Station>(_statMap.values());
-      stats.remove(s);
-      Itinerary itin = getItinerariesRecursive(passengerId, departureStation, arrivalStation, arrivalStation, departureDate, departureTime, new ArrayList<Segment>(), stats);
-      if (itin != null)
-        itins.add(itin);
-    }
-    return itins;
-  }
-
-  protected Itinerary getItinerariesRecursive(int passengerId, Station departureStation, Station arrivalStation, Station originalArr, LocalDate departureDate, LocalTime departureTime, List<Segment> segs, List<Station> stats) {
-    if (arrivalStation.equals(originalArr)) {
-      return new Itinerary(segs, departureDate, passengerId, 0);
-    }
-    if (stats.size() == 0)
-      return null;
-    for (Station s : stats) {
-      stats.remove(s);
-      for (Segment seg : this.getSegmentsFrom(s)) {
-        if (stats.contains(seg.getDest().getStation())) {
-          segs.add(seg);
-          return getItinerariesRecursive(passengerId, departureStation, seg.getDest().getStation(), originalArr, departureDate, seg.getDest().getTime(), segs, stats);
-        }
-        return null;
-      }
-    }
-    return null;
-  }
-
-
   protected List<Segment> getSegmentsFrom(Station stat) {
     List<Segment> segs = new ArrayList<Segment>();
     List<Service> servs = new ArrayList<Service>(this.getServicesPassing(stat));
@@ -524,38 +367,111 @@ public class TrainCompany implements java.io.Serializable {
   }
 
 
-  protected List<Itinerary> searchItineraries2(int passId, Station depStat, Station arrStat, LocalDate date, Collection<Service> services) throws NoSuchStationNameException, NoSuchPassengerIdException, 
-                                              BadTimeSpecificationException, BadDateSpecificationException, BadTimeSpecificationException {
-    List<Itinerary> itins = new ArrayList<Itinerary>();
-    List<Service> servs = new ArrayList<Service>();
-    TrainStop st;
-    List<Itinerary> itins2 = getDirectItineraries(passId, depStat.getName(), arrStat.getName() , date, LocalTime.parse("00:00"));
-    if (itins2.size() != 0) {
-      itins.addAll(itins2);
+  public String tempItinToString() {
+    Comparator<Itinerary> comparator = new Comparator<Itinerary>() {
+      public int compare(Itinerary i1, Itinerary i2) {
+        int temp = 0;
+
+        temp = i1.getDepartureTime().compareTo(i2.getDepartureTime());
+        if (temp != 0)
+          return temp;
+        temp = i1.getArrivalTime().compareTo(i2.getArrivalTime());
+        if (temp != 0)
+          return temp;
+        return Integer.compare(Long.valueOf(i1.getDuration()).intValue(), Long.valueOf(i2.getDuration()).intValue());
+      }
+    };
+
+    Collections.sort(_tempItin, comparator);
+
+    boolean found = false;
+    String out = new String();
+    for (Itinerary i : _tempItin) {
+      out+="\n" + i.toString() + "\n";
+      found = true;
     }
-    for (Service services : servs) {
-      do {
-        st = serv.getNextTrainStop(serv.getTrainStop(depStat));
-        if (st!=null) {
-          servs.addAll(new ArrayList<Service>(getServicesPassing(st.getStation())));
-          itins.addAll(searchItineraries(passId, st.getStation(), arrStat, date, Collections.unmodifiableCollection(servs)));
+
+    if (found)
+      return out.substring(0, out.length()-1); //to eliminate the ending \n
+    else
+      return "";
+  }
+
+  protected String searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
+                                              String departureTime) throws NoSuchStationNameException, NoSuchPassengerIdException, 
+                                              BadTimeSpecificationException, BadDateSpecificationException, BadTimeSpecificationException {
+    _tempItin = new ArrayList<Itinerary>(); //reset the temporary buffer
+    LocalTime depTime;
+    LocalDate depDate;
+    try{
+      depTime = LocalTime.parse(departureTime);
+    } catch (DateTimeParseException btp) {
+      throw new BadTimeSpecificationException(btp.getParsedString());
+    }
+
+    try {
+      depDate = LocalDate.parse(departureDate);
+    } catch (DateTimeParseException btp) {
+      throw new BadDateSpecificationException(btp.getParsedString());
+    }
+
+
+    Station dep = this.getStation(departureStation);
+    Station arr = this.getStation(arrivalStation);
+    this.getPassengerById(passengerId); //only to check if the passenger exists 
+
+    _tempItin = new ArrayList<Itinerary>(getDirectItineraries(passengerId, dep, arr, depDate, depTime));
+
+    return tempItinToString(); 
+  }
+
+
+
+  public Collection<Itinerary> getDirectItineraries(int passengerId, Station dep, Station arr, LocalDate depDate,
+                                              LocalTime depTime)  {
+    List<Itinerary> tempItins = new ArrayList<Itinerary>(); //reset the temporary buffer
+
+    List<Service> depServs = new ArrayList<Service>(getServicesPassing(dep));
+    List<Service> arrServs = new ArrayList<Service>(getServicesPassing(arr));
+    depServs.retainAll(arrServs); //maintain in depServs only the services that are suitable for a direct itinerary
+
+
+    List<Segment> segs;
+    int num = 1;
+    for (Service serv : depServs) {
+      if (serv.getTrainStop(dep).getTime().isBefore(serv.getTrainStop(arr).getTime())) { //check the direction of the train
+        segs = new ArrayList<Segment>(this.getSegmentsBetween(serv.getId(), dep, arr));
+        if (segs.get(0).getOrigin().getTime().isAfter(depTime)) { //consider only itineraries that depart after the departureTime 
+          tempItins.add(new Itinerary(segs, depDate, passengerId, num++));
         }
-      } while (st != null);
+      }
     }
-    return itins;
+
+   return Collections.unmodifiableCollection(tempItins);
   }
 
-  protected List<Itinerary> searchItineraries(int passId, String depStat, String arrStat, String date, String time) throws NoSuchStationNameException, NoSuchPassengerIdException, 
-                                              BadTimeSpecificationException, BadDateSpecificationException, BadTimeSpecificationException {
+  protected Collection<Itinerary> getIndirectItineraries(int passengerId, Station dep, Station arr, Collection<Service> servs, Collection<Service> usedServs, Collection<Station> stats, long time) {
+    List<Service> filtServs = new ArrayList<Service>();
+    for (Service serv : _servMap.values()) {
+      if (serv.passesStation(dep)) 
+        filtServs.add(serv);
+    }
 
-    LocalTime lTime = LocalTime.parse(time);
-    LocalDate lDate = LocalDate.parse(date);
-    Station dep = getStation(depStat);
-    Station arr = getStation(arrStat);
-    return searchItineraries2(passId, dep, arr, lDate, getServicesPassing(dep));
+
+
+
+
+
+
+
+
+
+
+
+
   }
+
  
-
 
 
 
