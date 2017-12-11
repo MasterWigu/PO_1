@@ -321,7 +321,7 @@ public class TrainCompany implements java.io.Serializable {
     }
   }
 
-  public String searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
+  public String getDirectItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
                                               String departureTime) throws NoSuchStationNameException, NoSuchPassengerIdException, 
                                               BadTimeSpecificationException, BadDateSpecificationException, BadTimeSpecificationException {
     _tempItin = new ArrayList<Itinerary>(); //reset the temporary buffer
@@ -445,6 +445,7 @@ public class TrainCompany implements java.io.Serializable {
     else
       return "";
   }
+  
   protected List<Itinerary> getItineraries(int passengerId, Station departureStation, Station arrivalStation, LocalDate departureDate, LocalTime departureTime) {
     List<Itinerary> itins = new  ArrayList<Itinerary>();
     for (Station s :_statMap.values()) {
@@ -521,5 +522,47 @@ public class TrainCompany implements java.io.Serializable {
     }
     return out;
   }
+
+
+  protected List<Itinerary> searchItineraries2(int passId, Station depStat, Station arrStat, LocalDate date, Collection<Service> services) throws NoSuchStationNameException, NoSuchPassengerIdException, 
+                                              BadTimeSpecificationException, BadDateSpecificationException, BadTimeSpecificationException {
+    List<Itinerary> itins = new ArrayList<Itinerary>();
+    List<Service> servs = new ArrayList<Service>();
+    TrainStop st;
+    List<Itinerary> itins2 = getDirectItineraries(passId, depStat.getName(), arrStat.getName() , date, LocalTime.parse("00:00"));
+    if (itins2.size() != 0) {
+      itins.addAll(itins2);
+    }
+    for (Service services : servs) {
+      do {
+        st = serv.getNextTrainStop(serv.getTrainStop(depStat));
+        if (st!=null) {
+          servs.addAll(new ArrayList<Service>(getServicesPassing(st.getStation())));
+          itins.addAll(searchItineraries(passId, st.getStation(), arrStat, date, Collections.unmodifiableCollection(servs)));
+        }
+      } while (st != null);
+    }
+    return itins;
+  }
+
+  protected List<Itinerary> searchItineraries(int passId, String depStat, String arrStat, String date, String time) throws NoSuchStationNameException, NoSuchPassengerIdException, 
+                                              BadTimeSpecificationException, BadDateSpecificationException, BadTimeSpecificationException {
+
+    LocalTime lTime = LocalTime.parse(time);
+    LocalDate lDate = LocalDate.parse(date);
+    Station dep = getStation(depStat);
+    Station arr = getStation(arrStat);
+    return searchItineraries2(passId, dep, arr, lDate, getServicesPassing(dep));
+  }
+ 
+
+
+
+
+
+
+
+
+
 }
 
