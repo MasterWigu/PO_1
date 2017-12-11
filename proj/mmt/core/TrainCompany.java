@@ -195,11 +195,11 @@ public class TrainCompany implements java.io.Serializable {
   *
   * @return Collection Collection com os serviços com a estação dada.
   */
-  protected Collection<Service> getServicesDeparting(Station station) {
-    Comparator<Service> comparator;
+  protected String getServicesDeparting(Station station) {
+    /*Comparator<Service> comparator;
     List<Service> out = new ArrayList<Service>();
     for (Service s : _serv) {
-      if (s.getDepartureStation() == station) {
+      if (s.getFirstStation() == station) {
         out.add(s);
       }
     } //em out estao todos os servicos com partida na estacao
@@ -211,7 +211,9 @@ public class TrainCompany implements java.io.Serializable {
 
     Collections.sort(out, comparator);
 
-    return Collections.unmodifiableCollection(out);
+    return Collections.unmodifiableCollection(out);*/
+    Process process = new ProcessBasedOnLastStation(this, station);
+    return process.selectServices();
   }
 
 
@@ -222,11 +224,11 @@ public class TrainCompany implements java.io.Serializable {
   *
   * @return Collection Collection com os serviços com a estação dada.
   */
-  protected Collection<Service> getServicesArriving(Station station) {
-    Comparator<Service> comparator;
+  protected String getServicesArriving(String station) throws NoSuchStationNameException {
+    /*Comparator<Service> comparator;
     List<Service> out = new ArrayList<Service>();
     for (Service s : _serv) {
-      if (s.getArrivalStation() == station) {
+      if (s.getLastStation() == station) {
         out.add(s);
       }
     } //em out estao todos os servicos com partida na estacao
@@ -238,7 +240,10 @@ public class TrainCompany implements java.io.Serializable {
 
     Collections.sort(out, comparator);
 
-    return Collections.unmodifiableCollection(out);
+    return Collections.unmodifiableCollection(out);*/
+
+    Process process = new ProcessBasedOnLastStation(this, station);
+    return process.selectServices();
   }
 
 
@@ -290,6 +295,28 @@ public class TrainCompany implements java.io.Serializable {
     }
     return st;
   }
+
+  protected Map getStationMap() {
+    return _statMap;
+  }
+
+
+
+protected String 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   protected Collection<Segment> getSegmentsBetween(int servId, Station origin, Station dest) {
     Service serv = _servMap.get(servId);
@@ -456,10 +483,21 @@ public class TrainCompany implements java.io.Serializable {
       if (serv.passesStation(dep)) 
         filtServs.add(serv);
     }
+    //Em filtServs estao todos os servicos que passam na partida
 
+    for (Service serv : filtServs) {
+      getItineraryRec(serv, dep, arr, new ArrayList<Service>(), new ArrayList<Station>());
+    }
 
+    protected Itinerary getItineraryRec(Service serv, Station dep, Station arr, servs, stats) {
+      itin = new Itinerary();
+      if (!(servs.contains(serv))) {
+        if (itin.getDestStation() == arr)
+          return itin;
+      }
+      for (TrainStop stop : _mapa.values() )
 
-
+    }
 
 
 

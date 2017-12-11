@@ -23,7 +23,7 @@ public class DoShowAllServices extends Command<TicketOffice> {
   public final void execute() {
 
     for(Service s : _receiver.getServices())
-      _display.addLine(""+s.showService());
+      _display.addLine(""+s.toString());
 
 
     _display.display();

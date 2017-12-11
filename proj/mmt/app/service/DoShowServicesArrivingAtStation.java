@@ -32,8 +32,7 @@ public class DoShowServicesArrivingAtStation extends Command<TicketOffice> {
     _form.parse();
 
     try {
-      for (Service s :  _receiver.getServicesArriving(_stationName.value())) {
-        _display.addLine(""+s.showService());
+      _receiver.getServicesArriving(_stationName.value());
       }
     } catch (NoSuchStationNameException nssn) {
       throw new NoSuchStationException(nssn.getName());

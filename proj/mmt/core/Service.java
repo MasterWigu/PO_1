@@ -54,8 +54,12 @@ public class Service implements java.io.Serializable{
 		return _stops.get(0);
 	}
 
-	protected Station getDepartureStation() {
+	protected Station getFirstStation() {
 		return _stops.get(0).getStation();
+	}
+
+	protected LocalTime getFirstTime() {
+		return this.getArrivalStop().getTime();
 	}
 
 	protected TrainStop getArrivalStop() {
@@ -63,9 +67,13 @@ public class Service implements java.io.Serializable{
 		return _stops.get(last);
 	}
 
-	protected Station getArrivalStation() {
+	protected Station getLastStation() {
 		int last = _stops.size() - 1;
 		return _stops.get(last).getStation();
+	}
+
+	protected LocalTime getLastTime() {
+		return this.getArrivalStop().getTime();
 	}
 
 	protected TrainStop getTrainStop(Station stat) {
@@ -94,7 +102,7 @@ public class Service implements java.io.Serializable{
 	}
 
 
- 	public String showService() {
+ 	public String toString() {
  		String out = new String();
  		out = out + "Serviço #"+_id+" @ " + String.format("%.2f", _cost);
  		for (TrainStop st : _stops) {

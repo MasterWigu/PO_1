@@ -175,9 +175,8 @@ public class TicketOffice {
   *
   * @throws NoSuchStationName Nome da estação inválida.
   */
-  public Collection<Service> getServicesDeparting(String stationName) throws NoSuchStationNameException {
-    Station s = _trainCompany.getStation(stationName);
-    return _trainCompany.getServicesDeparting(s);
+  public String getServicesDeparting(String stationName) throws NoSuchStationNameException {
+    return _trainCompany.getServicesDeparting(stationName);
   }
 
     /**
@@ -189,9 +188,8 @@ public class TicketOffice {
   *
   * @throws NoSuchStationName Nome da estação inválida.
   */
-  public Collection<Service> getServicesArriving(String stationName) throws NoSuchStationNameException {
-    Station s = _trainCompany.getStation(stationName);
-    return _trainCompany.getServicesArriving(s);
+  public String getServicesArriving(String stationName) throws NoSuchStationNameException {
+    return _trainCompany.getServicesArriving(stationName);
   }
 
   public String searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
