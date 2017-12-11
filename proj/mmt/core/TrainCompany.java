@@ -414,7 +414,7 @@ public class TrainCompany implements java.io.Serializable {
       throw new BadDateSpecificationException(btp.getParsedString());
     }
 
-    _tempItin = getItinerariesRecursive(new ArrayList<Itinerary>(), passengerId, dep, arr, arr, depDate, depTime, new ArrayList<Segment>(), new ArrayList<Station>());
+    _tempItin = getItineraries( passengerId, dep, arr, depDate, depTime);
     
      Comparator<Itinerary> comparator = new Comparator<Itinerary>() {
       public int compare(Itinerary i1, Itinerary i2) {
@@ -445,12 +445,21 @@ public class TrainCompany implements java.io.Serializable {
     else
       return "";
   }
+  protected List<Itinerary> getItineraries(int passengerId, Station departureStation, Station arrivalStation, LocalDate departureDate, LocalTime departureTime) {
+    List<Itinerary> itins = new  ArrayList<Itinerary>();
+    for (Station s :_statMap.values()) {
+      List<Station> stats = new ArrayList<Station>(_statMap.values());
+      stats.remove(s);
+      Itinerary itin = getItinerariesRecursive(passengerId, departureStation, arrivalStation, arrivalStation, departureDate, departureTime, new ArrayList<Segment>(), stats);
+      if (itin != null)
+        itins.add(itin);
+    }
+    return itins;
+  }
 
-
-  protected List<Itinerary> getItinerariesRecursive(List<Itinerary> itins, int passengerId, Station departureStation, Station arrivalStation, Station originalArr, LocalDate departureDate, LocalTime departureTime, List<Segment> segs, List<Station> stats) {
+  protected Itinerary getItinerariesRecursive(int passengerId, Station departureStation, Station arrivalStation, Station originalArr, LocalDate departureDate, LocalTime departureTime, List<Segment> segs, List<Station> stats) {
     if (arrivalStation.equals(originalArr)) {
-      itins.add(new Itinerary(segs, departureDate, passengerId, 0));
-      return null;
+      return new Itinerary(segs, departureDate, passengerId, 0);
     }
     if (stats.size() == 0)
       return null;
@@ -459,11 +468,12 @@ public class TrainCompany implements java.io.Serializable {
       for (Segment seg : this.getSegmentsFrom(s)) {
         if (stats.contains(seg.getDest().getStation())) {
           segs.add(seg);
-          getItinerariesRecursive(itins, passengerId, departureStation, seg.getDest().getStation(), originalArr, departureDate, seg.getDest().getTime(), segs, stats);
+          return getItinerariesRecursive(passengerId, departureStation, seg.getDest().getStation(), originalArr, departureDate, seg.getDest().getTime(), segs, stats);
         }
+        return null;
       }
     }
-    return itins;
+    return null;
   }
 
 
