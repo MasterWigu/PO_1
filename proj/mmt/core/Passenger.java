@@ -33,10 +33,6 @@ public class Passenger implements java.io.Serializable{
 		return _itin.size();
 	}
 
-	protected long getTotalTimePass() {
-		return _tripTimeMin;  
-	}
-
     protected void addItinerary(Itinerary itin) {
     	this.checkCategory(); //sempre que se vai adicionar um novo itinerario faz-se update a categoria
     	itin.setOrderNumber(_itin.size()+1);

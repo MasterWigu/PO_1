@@ -32,10 +32,6 @@ public class Itinerary implements java.io.Serializable{
 		return _date;
 	}
 
-	protected Collection<Segment> getSegmentList() {
-		return Collections.unmodifiableCollection(_segments);
-	}
-
 	protected void addSegment(Segment segment) {
 		_segments.add(segment);
 		_cost += segment.getCost();
@@ -101,15 +97,7 @@ public class Itinerary implements java.io.Serializable{
 		_orderNumber = 0; //to be redifined later
 		_cost = 0.0;
 	}
-
-	protected Itinerary(LocalDate date, int passengerId, int orderNum) {
-		_date = date;
-		_passengerId = passengerId;
-		_orderNumber = orderNum;
-		_cost = 0.0;
-	}
-
-
+	
 	protected Itinerary(Collection<Segment> segs, LocalDate date, int passId, int orderNum) {
 		_date = date;
 		_passengerId = passId;

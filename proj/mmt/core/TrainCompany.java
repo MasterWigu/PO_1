@@ -69,12 +69,6 @@ public class TrainCompany implements java.io.Serializable {
    */
 
   private List<Service> _serv = new ArrayList<Service>();
-  
-  /**
-   * The itineraries held by the trainCompany ordered by insertion time.
-   */
-
-  private List<Itinerary> _itin = new ArrayList<Itinerary>();
 
   /**
    * The station held by the trainCompany indexed by unique identifier.
@@ -90,7 +84,6 @@ public class TrainCompany implements java.io.Serializable {
   protected void reset() {
     _passMap = new TreeMap<Integer, Passenger>();
     _pass = new ArrayList<Passenger>();
-    _itin = new ArrayList<Itinerary>();
     _nextPassId = 0;
     _nextItinId = 0;
   }
@@ -200,22 +193,6 @@ public class TrainCompany implements java.io.Serializable {
   * @throws NoSuchStationNameException Nome da estação inválida.
   */
   protected String getServicesDeparting(String station) throws NoSuchStationNameException {
-    /*Comparator<Service> comparator;
-    List<Service> out = new ArrayList<Service>();
-    for (Service s : _serv) {
-      if (s.getFirstStation() == station) {
-        out.add(s);
-      }
-    } //em out estao todos os servicos com partida na estacao
-    comparator = new Comparator<Service>() {
-      public int compare(Service s1, Service s2) {
-        return s1.getDepartureStop().getTime().compareTo(s2.getDepartureStop().getTime()); 
-      }
-    };
-
-    Collections.sort(out, comparator);
-
-    return Collections.unmodifiableCollection(out);*/
     ProcessByStationName process = new ProcessBasedOnFirstStation(this, station);
     return process.selectServices();
   }
@@ -231,23 +208,6 @@ public class TrainCompany implements java.io.Serializable {
   * @throws NoSuchStationNameException Nome da estação inválida.
   */
   protected String getServicesArriving(String station) throws NoSuchStationNameException {
-    /*Comparator<Service> comparator;
-    List<Service> out = new ArrayList<Service>();
-    for (Service s : _serv) {
-      if (s.getLastStation() == station) {
-        out.add(s);
-      }
-    } //em out estao todos os servicos com partida na estacao
-    comparator = new Comparator<Service>() {
-      public int compare(Service s1, Service s2) {
-        return s1.getArrivalStop().getTime().compareTo(s2.getArrivalStop().getTime()); 
-      }
-    };
-
-    Collections.sort(out, comparator);
-
-    return Collections.unmodifiableCollection(out);*/
-
     ProcessByStationName process = new ProcessBasedOnLastStation(this, station);
     return process.selectServices();
   }
@@ -277,8 +237,7 @@ public class TrainCompany implements java.io.Serializable {
   */
   protected Collection<Integer> getServicesIdPassing(Station station) {
     List<Integer> ids = new ArrayList<Integer>();
-    for (Service i : _serv) {
-      if (i.passesStation(station))
+    for (Service i : getServicesPassing(station)) {
         ids.add(i.getId());
     }
     return Collections.unmodifiableCollection(ids);
@@ -310,7 +269,7 @@ public class TrainCompany implements java.io.Serializable {
   }
 
   /**
-  * Retorna uma certa estação.
+  * Retorna a estação com dado nome.
   *
   * @param name nome da estação.
   *
@@ -358,50 +317,7 @@ public class TrainCompany implements java.io.Serializable {
     return Collections.unmodifiableCollection(segs);
   }
   
-  /**
-  * Associa o itenerário dado a um passageiro.
-  *
-  * @param passengerId Id do passageiro.
-  * @param itineraryNumber Número do itinerário.
-  *
-  * @throws NoSuchPassengerIdException Id do passageiro inválido. 
-  * @throws NoSuchItineraryChoiceException Numero do itinerario inválido.
-  */
-  protected void commitItinerary(int passengerId, int itineraryNumber) throws NoSuchPassengerIdException, NoSuchItineraryChoiceException {
-    if (itineraryNumber == 0) { //discard the search
-      _tempItin = new ArrayList<Itinerary>();
-    } 
-    else {
-      try {
-        Itinerary i = _tempItin.get(itineraryNumber-1);
-        this.getPassengerById(passengerId).addItinerary(i);
-        _itin.add(i);
-      } catch (IndexOutOfBoundsException iob) {
-        throw new NoSuchItineraryChoiceException(passengerId, itineraryNumber);
-      }
-    }
-  }
 
-  /**
-  * Retorna uma lista de segmentos a começar numa dada estação.
-  *
-  * @param stat Estação desejada.
-  *
-  * @return segs Lista de segmentos.
-  */
-  protected List<Segment> getSegmentsFrom(Station stat) {
-    List<Segment> segs = new ArrayList<Segment>();
-    List<Service> servs = new ArrayList<Service>(this.getServicesPassing(stat));
-    TrainStop t1;
-    TrainStop t2;
-    for (Service serv : _serv) {
-      t1 = serv.getTrainStop(stat);
-      t2 = serv.getNextTrainStop(t1);
-      if (t2 != null)
-        segs.add(new Segment(t1, t2, serv));
-    }
-    return segs;
-  }
 
   /**
   * Retorna todos os itinerarios existentes.
@@ -428,6 +344,8 @@ public class TrainCompany implements java.io.Serializable {
       return "";
   }
 
+
+
   /**
   * Retorna todos os itinerarios existentes com um dado id de um passageiro.
   *
@@ -449,9 +367,9 @@ public class TrainCompany implements java.io.Serializable {
 
 
   /**
-  * Retorna todos os itinerarios existentes ordenados por tempos.
+  * Retorna todos as propostas de itinerarios existentes ordenados por tempos.
   *
-  * @return out String com todos os itinerários existentes já ordenados.
+  * @return out String com todas as propostas de itinerários existentes já ordenadas.
   */
 
   public String tempItinToString() {
@@ -482,6 +400,28 @@ public class TrainCompany implements java.io.Serializable {
       return out.substring(0, out.length()-1); //to eliminate the ending \n
     else
       return "";
+  }
+
+
+  /**
+  * Associa uma proposta de itinerário dada a um passageiro.
+  *
+  * @param passengerId Id do passageiro.
+  * @param itineraryNumber Número da proposta de itinerário.
+  *
+  * @throws NoSuchPassengerIdException Id do passageiro inválido. 
+  * @throws NoSuchItineraryChoiceException Numero do itinerario inválido.
+  */
+  protected void commitItinerary(int passengerId, int itineraryNumber) throws NoSuchPassengerIdException, NoSuchItineraryChoiceException {
+    if (itineraryNumber != 0) { 
+      try {
+        Itinerary i = _tempItin.get(itineraryNumber-1);
+        this.getPassengerById(passengerId).addItinerary(i);
+      } catch (IndexOutOfBoundsException iob) {
+        throw new NoSuchItineraryChoiceException(passengerId, itineraryNumber);
+      }  
+    }
+    _tempItin = new ArrayList<Itinerary>(); //clean the temporary buffer
   }
 
   /**
@@ -537,7 +477,7 @@ public class TrainCompany implements java.io.Serializable {
   * @param depDate Data de partida.
   * @param depTime Hora de partida.
   *
-  * @return Collection Collection com o itinerário criado.
+  * @return Collection Collection com os itinerários criados.
   */
   public Collection<Itinerary> getDirectItineraries(int passengerId, Station dep, Station arr, LocalDate depDate,
                                               LocalTime depTime)  {
@@ -569,7 +509,7 @@ public class TrainCompany implements java.io.Serializable {
   * @param depDate Data de partida.
   * @param depTime Hora de partida.
   *
-  * @return Collection Collection com o itinerário criado.
+  * @return Collection Collection com os itinerário criados. (se funcionasse lel)
   */
   protected Collection<Itinerary> getIndirectItineraries(int passengerId, Station dep, Station arr, LocalDate depDate, LocalTime depTime) {
     List<Service> filtServs = new ArrayList<Service>();

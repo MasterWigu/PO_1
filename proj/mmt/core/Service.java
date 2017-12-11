@@ -59,7 +59,7 @@ public class Service implements java.io.Serializable{
 	}
 
 	protected LocalTime getFirstTime() {
-		return this.getArrivalStop().getTime();
+		return this.getDepartureStop().getTime();
 	}
 
 	protected TrainStop getArrivalStop() {
@@ -91,16 +91,6 @@ public class Service implements java.io.Serializable{
 		}
 		return false;
 	}
-
-	protected TrainStop getNextTrainStop(TrainStop stop) {
-		for (int i = 0; i < _stops.size()-1; i++) {
-			if (_stops.get(i).equals(stop)) {
-				return _stops.get(i+1);
-			}
-		}
-		return null; //stop e a ultima stop do servico
-	}
-
 
  	public String toString() {
  		String out = new String();
